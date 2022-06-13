@@ -16,6 +16,7 @@ set hidden
 set laststatus=2
 set statusline=%f "tail of the filename
 set scrolloff=10
+set showcmd
 
 " Show the matching pair of tagsii -----------
 " --------------------------------------------
@@ -114,19 +115,22 @@ inoremap <expr> <M-,> pumvisible() ? '<C-n>' :
 " ------------------------------------------------
 command -range Column :'<,'>s/,\ /\r/g
 
-" From a column of variable names create Python class self.variable assignments.--------------
+" From a column of variable names create Python class self.variable assignments.
 " ------------------------------------------------------------------------------
 command -range Pyself :'<,'>s/\%V\(.*\)\%V/        self.\1\ \=\ \1/g 
 
-" Open a terminals in split. Bterm to below and Vterm for vertical right.--------------
+" Open a terminals in split. Bterm to below and Vterm for vertical right.
 " -----------------------------------------------------------------------
 command Bterminal :below terminal
 command Vterminal set splitright|:vertical terminal
 
 " Comment and uncomment the selected rows in .py files.-----
 " ----------------------------------------------------------
-command -range Comment :'<,'>norm i# <Esc>
-command -range Uncomment :'<,'>s/^# //g
+au FileType python command -range Comment :'<,'>norm i# <Esc>
+au FileType javascript command -range Comment :'<,'>norm i// <Esc>
+
+au FileType python command -range Uncomment :'<,'>s/^# //g
+au FileType javascript command -range Uncomment :'<,'>s/^\/\/ //g
 
 " Collect(yank J for selected test), Empty(empty register j), Dump(put j)
 command -range Collect :'<,'>yank J
@@ -137,6 +141,7 @@ command Empty :let @j=""
 " Install A.L.E. linting plugin. Works way too well for python.----
 " mkdir -p ~/.vim/pack/git-plugins/start
 " git clone --depth 1 https://github.com/dense-analysis/ale.git ~/.vim/pack/git-plugins/start/ale
+
 
 " INDENTLINE PLUGIN -------------------------------------------------
 " Install 'indentLine' plugin. Works well for html,css and stuff.----
@@ -152,15 +157,22 @@ let g:indentLine_color_term = 239
 " Auto load templates -------------------------------------
 " ---------------------------------------------------------
 
+" Linters for Python
+ let g:ale_linters = { 'python': ['pyflakes', 'mypy', 'pyright', 'flake8']}
+ let g:ale_linters = { 'javascript': ['eslint']}
+
 " When open a new HTML file with vim, a basic HTML template will be loaded.
 autocmd BufNewFile *.html 0r ~/.vim/templates/html.skel 
 
 " Auto-saving certain file types as it's modified ------------------------------
-autocmd BufNewFile,BufRead *.md :autocmd TextChanged,TextChangedI <buffer> silent write
-autocmd BufNewFile,BufRead *.py :autocmd TextChanged,TextChangedI <buffer> silent write
-autocmd BufNewFile,BufRead *.sql :autocmd TextChanged,TextChangedI <buffer> silent write
-autocmd BufNewFile,BufRead *.c :autocmd TextChanged,TextChangedI <buffer> silent write
-autocmd BufNewFile,BufRead *.html :autocmd TextChanged,TextChangedI <buffer> silent write
-autocmd BufNewFile,BufRead *.css :autocmd TextChanged,TextChangedI <buffer> silent write
-autocmd BufNewFile,BufRead *.js :autocmd TextChanged,TextChangedI <buffer> silent write
+" autocmd BufNewFile,BufRead *.md :autocmd TextChanged,TextChangedI <buffer> silent write
+" autocmd BufNewFile,BufRead *.py :autocmd TextChanged,TextChangedI <buffer> silent write
+" autocmd BufNewFile,BufRead *.sql :autocmd TextChanged,TextChangedI <buffer> silent write
+" autocmd BufNewFile,BufRead *.c :autocmd TextChanged,TextChangedI <buffer> silent write
+" autocmd BufNewFile,BufRead *.html :autocmd TextChanged,TextChangedI <buffer> silent write
+" autocmd BufNewFile,BufRead *.css :autocmd TextChanged,TextChangedI <buffer> silent write
+" autocmd BufNewFile,BufRead *.js :autocmd TextChanged,TextChangedI <buffer> silent write
 
+nnoremap <F6> :lnext <CR>
+xnoremap <F7> :s/$/\\/g <CR> 
+nnoremap <F9> /cmd +=
