@@ -112,7 +112,7 @@ inoremap <expr> <M-,> pumvisible() ? '<C-n>' :
   \ '<C-x><C-o><C-n><C-p><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
 
 filetype plugin on
-set omnifunc=syntaxcomplete#Complete
+set omnifunc=ale#completion#OmniFunc
 
 " Convert line into a single column---------------
 " ------------------------------------------------
