@@ -26,3 +26,14 @@ mkdir -p ~/.vim/pack/tpope/start
 cd ~/.vim/pack/tpope/start
 git clone https://tpope.io/vim/fugitive.git
 vim -u NONE -c "helptags fugitive/doc" -c q
+
+# Install YouCompleteMe --------------------------------------------
+# ------------------------------------------------------------------
+mkdir -p ~/.vim/bundle
+cd ~/.vim/bundle
+git clone --depth=1 https://github.com/Valloric/YouCompleteMe.git
+cd YouCompleteMe
+git submodule update --init --recursive
+./install.py
+
+

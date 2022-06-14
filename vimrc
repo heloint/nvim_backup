@@ -111,6 +111,9 @@ inoremap <expr> <C-n> pumvisible() ? '<C-n>' :
 inoremap <expr> <M-,> pumvisible() ? '<C-n>' :
   \ '<C-x><C-o><C-n><C-p><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
 
+filetype plugin on
+set omnifunc=syntaxcomplete#Complete
+
 " Convert line into a single column---------------
 " ------------------------------------------------
 command -range Column :'<,'>s/,\ /\r/g
