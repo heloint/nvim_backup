@@ -14,7 +14,7 @@ set smartcase
 set nowrap
 set hidden
 set laststatus=2
-set statusline=%f "tail of the filename
+set statusline=%<\ %f\ %m%r%y%w%=%l\/%-6L\ %3c\
 set scrolloff=10
 set showcmd
 
