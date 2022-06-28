@@ -14,6 +14,7 @@ set smartcase
 set nowrap
 set hidden
 set laststatus=2
+" set statusline=%f "tail of the filename
 set statusline=%<\ %f\ %m%r%y%w%=%l\/%-6L\ %3c\
 set scrolloff=10
 set showcmd
@@ -106,7 +107,7 @@ autocmd BufNewFile,BufRead *.js set complete+=k~/.vim/dictionaries/javascript_di
 autocmd BufNewFile,BufRead *.css set complete+=k~/.vim/dictionaries/css_dict.txt
 
 inoremap <expr> <C-n> pumvisible() ? '<C-n>' :
-  \ '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
+ \ '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
 
 inoremap <expr> <M-,> pumvisible() ? '<C-n>' :
   \ '<C-x><C-o><C-n><C-p><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
@@ -176,6 +177,8 @@ autocmd BufNewFile *.html 0r ~/.vim/templates/html.skel
 " autocmd BufNewFile,BufRead *.css :autocmd TextChanged,TextChangedI <buffer> silent write
 " autocmd BufNewFile,BufRead *.js :autocmd TextChanged,TextChangedI <buffer> silent write
 
-nnoremap <F6> :lnext <CR>
-xnoremap <F7> :s/$/\\/g <CR> 
-nnoremap <F9> /cmd +=
+
+
+nnoremap <F7> :!cp -r % /home/user/Desktop/phylomizer/server/pipe/<CR>
+nnoremap <F8> :!cp -r % /home/user/Desktop/phylomizer/server/pipe/phylomizer_py3<CR>
+nnoremap <F9> :e!<CR>
