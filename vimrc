@@ -96,6 +96,7 @@ nnoremap <C-b> <Esc>:Lexplore<CR>
 let g:netrw_banner=0
 let g:netrw_liststyle=3
 let g:netrw_winsize=30
+let g:netrw_altv=1
 
 " Autocomplete menu -------------------------------------------------
 " -------------------------------------------------------------------
@@ -165,6 +166,9 @@ let g:indentLine_color_term = 239
  let g:ale_linters = { 'python': ['pyflakes', 'mypy', 'pyright', 'flake8']}
  let g:ale_linters = { 'javascript': ['eslint']}
 
+"VUE.js highlighting"
+let g:vue_pre_processors = ['pug', 'scss']
+
 " When open a new HTML file with vim, a basic HTML template will be loaded.
 autocmd BufNewFile *.html 0r ~/.vim/templates/html.skel 
 
@@ -177,8 +181,7 @@ autocmd BufNewFile *.html 0r ~/.vim/templates/html.skel
 " autocmd BufNewFile,BufRead *.css :autocmd TextChanged,TextChangedI <buffer> silent write
 " autocmd BufNewFile,BufRead *.js :autocmd TextChanged,TextChangedI <buffer> silent write
 
-
-
-nnoremap <F7> :!cp -r % /home/user/Desktop/phylomizer/server/pipe/<CR>
-nnoremap <F8> :!cp -r % /home/user/Desktop/phylomizer/server/pipe/phylomizer_py3<CR>
-nnoremap <F9> :e!<CR>
+" Automatically save the session when leaving Vim
+autocmd! VimLeave * mksession
+" Automatically load the session when entering vim
+autocmd! VimEnter * source ~/Session.vim
