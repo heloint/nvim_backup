@@ -180,8 +180,3 @@ autocmd BufNewFile *.html 0r ~/.vim/templates/html.skel
 " autocmd BufNewFile,BufRead *.html :autocmd TextChanged,TextChangedI <buffer> silent write
 " autocmd BufNewFile,BufRead *.css :autocmd TextChanged,TextChangedI <buffer> silent write
 " autocmd BufNewFile,BufRead *.js :autocmd TextChanged,TextChangedI <buffer> silent write
-
-" Automatically save the session when leaving Vim
-autocmd! VimLeave * mksession
-" Automatically load the session when entering vim
-autocmd! VimEnter * source ~/Session.vim
