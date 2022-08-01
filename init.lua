@@ -3,7 +3,7 @@ local o   = vim.o
 local opt = vim.opt
 local A   = vim.api
 
-o.clipboard = "unnamedplus"
+o.clipboard = 'unnamedplus'
 o.number = true
 o.mouse= "a"
 o.tabstop = 4 
@@ -47,15 +47,16 @@ map('c', '<C-h>', '<Left>')
 map('c', '<C-j>', '<Down>')
 map('c', '<C-k>', '<Up>')
 map('c', '<C-l>', '<Right>')
-
+map('i', '{<CR>', '{<CR>}<Esc><S-O>')
 map('i', '<S-Tab>', '<Esc><<i')
+map('x', '<Tab>', '>')
+map('x', '<S-Tab>', '<')
 map('x', '"', 'c""<Esc>P')
 map('x', "'", "c''<Esc>P")
 map('x', '(', 'c()<Esc>P')
 map('x', '{', 'c{}<Esc>P')
 map('x', '[', 'c[]<Esc>P')
 map('x', '*', 'c**<Esc>P')
-
 
 
 map('i', '<C-b>', '<Esc>:Lexplore<CR>')
@@ -69,7 +70,11 @@ g.netrw_altv = 1
 
 
 -- PLUGIN CONFIGS AND INITS
+require'lspconfig'.pyright.setup{}
+require'lspconfig'.eslint.setup{}
 
+g.tokynight_transparent_sidebar = true
+g.tokynight_transparent = true
 opt.background = "dark"
 vim.cmd("colorscheme tokyonight")
 
@@ -82,7 +87,7 @@ require('kommentary.config').use_extended_mappings()
 return require('packer').startup(function()
   -- Packer can manage itself
     use 'wbthomason/packer.nvim'
-    use 'dense-analysis/ale'
+    use 'neovim/nvim-lspconfig'
     use "lukas-reineke/indent-blankline.nvim"
     use 'folke/tokyonight.nvim'
     use {
@@ -90,6 +95,4 @@ return require('packer').startup(function()
       requires = { 'kyazdani42/nvim-web-devicons', opt = true }
     }
     use 'b3nj5m1n/kommentary'
-
 end)
-
