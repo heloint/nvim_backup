@@ -7,8 +7,12 @@ sudo apt install -y xclip
 
 sudo apt install nodejs npm
 sudo npm update npm -g
+sudo npm install -g npm@latest
+npm cache clean -f
+sudo npm install -g n
+sudo n stable
 sudo npm i -g pyright
-sudo npm i -g mypy-ls
+sudo npm i -g intelephense
 sudo npm i -g vscode-langservers-extracted
 
 

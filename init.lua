@@ -3,6 +3,7 @@ local o   = vim.o
 local opt = vim.opt
 local A   = vim.api
 
+opt.relativenumber = true
 o.clipboard = 'unnamedplus'
 o.number = true
 o.mouse= "a"
@@ -23,7 +24,7 @@ o.scrolloff = 10
 o.showcmd = true
 o.showmatch = true
 
-o.completeopt = 'longest,menuone,noinsert'
+o.completeopt = 'menu,menuone,noinsert'
 o.pumheight = 5
 o.cursorline = true
 vim.cmd(":hi Cursorline cterm=NONE ctermbg=236")
@@ -33,7 +34,6 @@ vim.cmd [[packadd packer.nvim]]
 local function map(m, k, v)
     vim.keymap.set(m, k, v, { silent = true })
 end
-
 
 -- KEY-REMAPS
 map('n', '<F5>', '<Esc>:!python %<CR>')
@@ -58,7 +58,6 @@ map('x', '{', 'c{}<Esc>P')
 map('x', '[', 'c[]<Esc>P')
 map('x', '*', 'c**<Esc>P')
 
-
 map('i', '<C-b>', '<Esc>:Lexplore<CR>')
 map('n', '<C-b>', '<Esc>:Lexplore<CR>')
 
@@ -68,20 +67,96 @@ g.netrw_liststyle = 3
 g.netrw_winsize = 30
 g.netrw_altv = 1
 
-
 -- PLUGIN CONFIGS AND INITS
-require'lspconfig'.pyright.setup{}
-require'lspconfig'.eslint.setup{}
-
+-- ====================================================================
+-- TOOOOKYYYOOO - "ThePrimeagen"
 g.tokynight_transparent_sidebar = true
 g.tokynight_transparent = true
 opt.background = "dark"
 vim.cmd("colorscheme tokyonight")
 
+-- Lua line, very nice - "Borat"
 require('lualine').setup()
 vim.cmd("set encoding=UTF-8")
 
+-- Block commenting
 require('kommentary.config').use_extended_mappings()
+
+-- LSP
+require'lspconfig'.pyright.setup{}
+require'lspconfig'.intelephense.setup{}
+-- ====================================================================
+
+-- SETUP CMP AUTOCOMPLETE
+-- ====================================================================
+local cmp = require'cmp'
+
+  cmp.setup({
+    snippet = {
+      -- REQUIRED - you must specify a snippet engine
+      expand = function(args)
+        vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
+        -- require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
+        -- require('snippy').expand_snippet(args.body) -- For `snippy` users.
+        -- vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
+      end,
+    },
+    window = {
+      -- completion = cmp.config.window.bordered(),
+      -- documentation = cmp.config.window.bordered(),
+    },
+    mapping = cmp.mapping.preset.insert({
+      ['<C-h>'] = cmp.mapping.scroll_docs(-4),
+      ['<C-k>'] = cmp.mapping.scroll_docs(4),
+      ['<C-Space>'] = cmp.mapping.complete(),
+      ['<Esc>'] = cmp.mapping.abort(),
+      ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+    }),
+    sources = cmp.config.sources({
+      { name = 'nvim_lsp' },
+      { name = 'vsnip' }, -- For vsnip users.
+      -- { name = 'luasnip' }, -- For luasnip users.
+      -- { name = 'ultisnips' }, -- For ultisnips users.
+      -- { name = 'snippy' }, -- For snippy users.
+    }, {
+      { name = 'buffer' },
+    })
+  })
+
+  -- Set configuration for specific filetype.
+  cmp.setup.filetype('gitcommit', {
+    sources = cmp.config.sources({
+      { name = 'cmp_git' }, -- You can specify the `cmp_git` source if you were installed it.
+    }, {
+      { name = 'buffer' },
+    })
+  })
+
+  -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
+  cmp.setup.cmdline('/', {
+    mapping = cmp.mapping.preset.cmdline(),
+    sources = {
+      { name = 'buffer' }
+    }
+  })
+
+  -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
+  cmp.setup.cmdline(':', {
+    mapping = cmp.mapping.preset.cmdline(),
+    sources = cmp.config.sources({
+      { name = 'path' }
+    }, {
+      { name = 'cmdline' }
+    })
+  })
+
+  -- Setup lspconfig.
+  local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+  -- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
+  require('lspconfig')['pyright'].setup {
+    capabilities = capabilities
+  }
+-- ====================================================================
 
 -- PLUGINS
 return require('packer').startup(function()
@@ -95,4 +170,11 @@ return require('packer').startup(function()
       requires = { 'kyazdani42/nvim-web-devicons', opt = true }
     }
     use 'b3nj5m1n/kommentary'
+    use 'hrsh7th/cmp-nvim-lsp'
+    use 'hrsh7th/cmp-buffer'
+    use 'hrsh7th/cmp-path'
+    use 'hrsh7th/cmp-cmdline'
+    use 'hrsh7th/nvim-cmp'
 end)
+
+
