@@ -1,6 +1,6 @@
 # Probable fix for freezes after login on intel machines
 
-*Change the following "GRUB_CMDLINE_LINUX_DEFAULT":*
+*Change the following "GRUB_CMDLINE_LINUX_DEFAULT" in /etc/default/grub:*
 - GRUB_CMDLINE_LINUX_DEFAULT="quiet splash intel_idle.max_cstate=1"
 *Restart GRUB*
 - sudo update-grub
@@ -26,4 +26,11 @@
 - xserver-xorg-input-mouse
 
 *Then reboot and hopefully these helped.*
+---
+
+* Fix broken virtualenv pip on ubuntu 22.04*
+
+curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+python get-pip.py --force-reinstall
+
 ---
