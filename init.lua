@@ -156,6 +156,21 @@ local cmp = require'cmp'
   require('lspconfig')['pyright'].setup {
     capabilities = capabilities
   }
+
+-- DON'T FORGET AFTER INSTALL :: TSInstall html/php/etc... + TSEnable autotag !!
+require('nvim-ts-autotag').setup()
+
+-- TELESCOPE FINDER AND IT'S KEY-MAPPING
+require('telescope').setup()
+-- nnoremap <leader>ff <cmd>lua require('telescope.builtin').find_files()<cr>
+-- nnoremap <leader>fg <cmd>lua require('telescope.builtin').live_grep()<cr>
+-- nnoremap <leader>fb <cmd>lua require('telescope.builtin').buffers()<cr>
+-- nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>
+
+map('n', '<C-f>f', '<Esc>:Telescope find_files <CR>')
+map('n', '<C-f>g', '<Esc>:Telescope live_grep <CR>')
+map('n', '<C-f>b', '<Esc>:Telescope buffers <CR>')
+map('n', '<C-f>h', '<Esc>:Telescope help_tags <CR>')
 -- ====================================================================
 
 -- PLUGINS
@@ -175,6 +190,15 @@ return require('packer').startup(function()
     use 'hrsh7th/cmp-path'
     use 'hrsh7th/cmp-cmdline'
     use 'hrsh7th/nvim-cmp'
+    use {
+        'nvim-treesitter/nvim-treesitter',
+        run = ':TSUpdate'
+    }
+    use 'windwp/nvim-ts-autotag'
+    use {
+      'nvim-telescope/telescope.nvim', tag = '0.1.0',
+    -- or                            , branch = '0.1.x',
+      requires = { {'nvim-lua/plenary.nvim'} }
+    }
+
 end)
-
-
