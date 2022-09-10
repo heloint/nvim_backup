@@ -14,6 +14,7 @@ sudo n stable
 sudo npm i -g pyright
 sudo npm i -g intelephense
 sudo npm i -g vscode-langservers-extracted
+sudo npm i -g typescript-language-server typescript
 
 
 git clone --depth 1 https://github.com/wbthomason/packer.nvim\
@@ -24,5 +25,3 @@ echo "alias vim='nvim'" >> ~/.bashrc
 
 mkdir -p ~/.config/nvim/
 cp ./init.lua ~/.config/nvim/
-
-

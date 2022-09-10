@@ -67,7 +67,7 @@ g.netrw_liststyle = 3
 g.netrw_winsize = 30
 g.netrw_altv = 1
 
--- PLUGIN CONFIGS AND INITS
+--[[ -- PLUGIN CONFIGS AND INITS
 -- ====================================================================
 -- TOOOOKYYYOOO - "ThePrimeagen"
 g.tokynight_transparent_sidebar = true
@@ -76,7 +76,7 @@ opt.background = "dark"
 vim.cmd("colorscheme tokyonight")
 
 -- Lua line, very nice - "Borat"
-require('lualine').setup()
+require('lualine').setup{ options = { theme = 'gruvbox' }}
 vim.cmd("set encoding=UTF-8")
 
 -- Block commenting
@@ -85,6 +85,8 @@ require('kommentary.config').use_extended_mappings()
 -- LSP
 require'lspconfig'.pyright.setup{}
 require'lspconfig'.intelephense.setup{}
+require'lspconfig'.eslint.setup{}
+require'lspconfig'.tsserver.setup{}
 -- ====================================================================
 
 -- SETUP CMP AUTOCOMPLETE
@@ -170,7 +172,7 @@ require('telescope').setup()
 map('n', '<C-f>f', '<Esc>:Telescope find_files <CR>')
 map('n', '<C-f>g', '<Esc>:Telescope live_grep <CR>')
 map('n', '<C-f>b', '<Esc>:Telescope buffers <CR>')
-map('n', '<C-f>h', '<Esc>:Telescope help_tags <CR>')
+map('n', '<C-f>h', '<Esc>:Telescope help_tags <CR>') ]]
 -- ====================================================================
 
 -- PLUGINS
