@@ -54,7 +54,7 @@ map('x', '<S-Tab>', '<')
 map('x', '"', 'c""<Esc>P')
 map('x', "'", "c''<Esc>P")
 map('x', '(', 'c()<Esc>P')
-map('x', '{', 'c{}<Esc>P')
+-- map('x', '{', 'c{}<Esc>P')
 map('x', '[', 'c[]<Esc>P')
 map('x', '*', 'c**<Esc>P')
 
@@ -76,7 +76,31 @@ opt.background = "dark"
 vim.cmd("colorscheme tokyonight")
 
 -- Lua line, very nice - "Borat"
-require('lualine').setup{ options = { theme = 'gruvbox' }}
+require('lualine').setup {
+  options = {
+    theme = 'gruvbox',
+    component_separators = '|',
+    section_separators = {},
+  },
+  sections = {
+    lualine_a = {{ 'mode', right_padding = 2 },},
+    lualine_b = {'filename', 'branch'},
+    lualine_c = {},
+    lualine_x = {},
+    lualine_y = {'filetype', 'progress'},
+    lualine_z = {{ 'location', left_padding = 2 }},
+  },
+  inactive_sections = {
+    lualine_a = { 'filename' },
+    lualine_b = {},
+    lualine_c = {},
+    lualine_x = {},
+    lualine_y = {},
+    lualine_z = { 'location' },
+  },
+  tabline = {},
+  extensions = {},
+}
 vim.cmd("set encoding=UTF-8")
 
 -- Block commenting
