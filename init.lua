@@ -51,7 +51,7 @@ vim.keymap.set('n', '<C-b>', '<Esc>:Lexplore<CR>', { silent = true})
 
 -- NETRW CONFIG
 g.netrw_banner = 0
-g.netrw_liststyle = 2
+g.netrw_liststyle = 3
 g.netrw_winsize = 30
 g.netrw_altv = 1
 
