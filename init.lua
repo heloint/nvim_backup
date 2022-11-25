@@ -143,7 +143,6 @@ return require('packer').startup(function()
   -- Packer can manage itself
     use 'wbthomason/packer.nvim'
     use 'neovim/nvim-lspconfig'
-    use "lukas-reineke/indent-blankline.nvim"
     use 'b3nj5m1n/kommentary'
     use 'hrsh7th/cmp-nvim-lsp'
     use 'hrsh7th/cmp-buffer'
