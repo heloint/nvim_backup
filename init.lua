@@ -10,6 +10,8 @@ vim.cmd("colorscheme desert")
 vim.cmd[[highlight LineNr ctermfg=grey]]
 vim.cmd[[hi Visual cterm=none ctermbg=darkgrey ctermfg=cyan]]
 vim.cmd(":hi Cursorline cterm=NONE ctermbg=236")
+vim.cmd(":highlight ExtraWhitespace ctermbg=196 guibg=red")
+vim.cmd(":match ExtraWhitespace /\\s\\+$/ ")
 
 -- DEFAULTS
 vim.cmd("set encoding=UTF-8")
@@ -17,7 +19,7 @@ opt.relativenumber = true
 o.clipboard = 'unnamedplus'
 o.number = true
 o.mouse= "a"
-o.tabstop = 4 
+o.tabstop = 4
 o.shiftwidth = 4
 o.expandtab = true
 o.swapfile = false
@@ -44,7 +46,7 @@ vim.keymap.set('x', '<Tab>', '>', { silent = true})
 vim.keymap.set('x', '<S-Tab>', '<', { silent = true})
 vim.keymap.set('x', '"', 'c""<Esc>P', { silent = true})
 vim.keymap.set('x', "'", "c''<Esc>P", { silent = true})
-vim.keymap.set('x', '(', 'c(, { silent = true})<Esc>P', { silent = true})
+vim.keymap.set('x', '(', 'c()<Esc>P', { silent = true})
 vim.keymap.set('x', '[', 'c[]<Esc>P', { silent = true})
 vim.keymap.set('i', '<C-b>', '<Esc>:Lexplore<CR>', { silent = true})
 vim.keymap.set('n', '<C-b>', '<Esc>:Lexplore<CR>', { silent = true})
@@ -66,6 +68,7 @@ require'lspconfig'.pyright.setup{}
 require'lspconfig'.intelephense.setup{}
 require'lspconfig'.eslint.setup{}
 require'lspconfig'.tsserver.setup{}
+require("scrollbar").setup()
 -- ====================================================================
 
 -- SETUP CMP AUTOCOMPLETE
@@ -149,7 +152,7 @@ return require('packer').startup(function()
     use 'hrsh7th/cmp-path'
     use 'hrsh7th/cmp-cmdline'
     use 'hrsh7th/nvim-cmp'
-
+    use 'petertriho/nvim-scrollbar'
     use {
         'nvim-treesitter/nvim-treesitter',
         run = ':TSUpdate'
