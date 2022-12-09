@@ -50,6 +50,8 @@ vim.keymap.set('x', '(', 'c()<Esc>P', { silent = true})
 vim.keymap.set('x', '[', 'c[]<Esc>P', { silent = true})
 vim.keymap.set('i', '<C-b>', '<Esc>:Lexplore<CR>', { silent = true})
 vim.keymap.set('n', '<C-b>', '<Esc>:Lexplore<CR>', { silent = true})
+vim.keymap.set('n', 'H', 'gT', { silent = true})
+vim.keymap.set('n', 'L', 'gt', { silent = true})
 
 -- NETRW CONFIG
 g.netrw_banner = 0
