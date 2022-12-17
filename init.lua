@@ -52,7 +52,7 @@ g.netrw_liststyle = 3
 g.netrw_winsize = 30
 g.netrw_altv = 1
 
---[[
+
 -- Block commenting
 -- ====================================================================
 require('kommentary.config').use_extended_mappings()
@@ -161,14 +161,14 @@ vim.keymap.set('n', '<C-f>h', builtin.help_tags, {})
 -- DON'T FORGET AFTER INSTALL :: TSInstall html/php/etc... + TSEnable autotag !!
 require('nvim-ts-autotag').setup()
 -- ====================================================================
- ]]
+
 
 -- COLORS
 -- ====================================================================
 vim.cmd("colorscheme desert")
-vim.cmd(": highlight LineNr ctermfg=grey")
+vim.cmd(": highlight LineNr ctermfg=white")
 vim.cmd(": hi Visual cterm=none ctermbg=darkgrey ctermfg=cyan")
-vim.cmd(":hi Cursorline cterm=NONE ctermbg=236")
+vim.cmd(":hi Cursorline cterm=NONE ctermbg=235")
 vim.cmd(":highlight ExtraWhitespace ctermbg=196 guibg=red")
 vim.cmd(":match ExtraWhitespace /\\s\\+$/ ")
 
