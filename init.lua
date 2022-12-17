@@ -3,17 +3,8 @@ local o   = vim.o
 local opt = vim.opt
 local A   = vim.api
 
--- COLORS
-vim.cmd("colorscheme desert")
--- vim.cmd[[hi Pmenu ctermfg=NONE ctermbg=236 cterm=NONE guifg=NONE guibg=#64666d gui=NONE]]
--- vim.cmd[[hi PmenuSel ctermfg=NONE ctermbg=24 cterm=NONE guifg=NONE guibg=#204a87 gui=NONE]]
-vim.cmd[[highlight LineNr ctermfg=grey]]
-vim.cmd[[hi Visual cterm=none ctermbg=darkgrey ctermfg=cyan]]
-vim.cmd(":hi Cursorline cterm=NONE ctermbg=236")
-vim.cmd(":highlight ExtraWhitespace ctermbg=196 guibg=red")
-vim.cmd(":match ExtraWhitespace /\\s\\+$/ ")
-
 -- DEFAULTS
+-- ====================================================================
 vim.cmd("set encoding=UTF-8")
 opt.relativenumber = true
 o.clipboard = 'unnamedplus'
@@ -39,6 +30,7 @@ o.pumheight = 5
 o.cursorline = true
 
 -- KEYBINDINGS / KEY-REMAPS
+-- ====================================================================
 vim.keymap.set('n', '<F5>', '<Esc>:!python %<CR>', { silent = true})
 vim.keymap.set('i', '{<CR>', '{<CR>}<Esc><S-O>', { silent = true})
 vim.keymap.set('i', '<S-Tab>', '<Esc><<i', { silent = true})
@@ -54,18 +46,19 @@ vim.keymap.set('n', 'H', 'gT', { silent = true})
 vim.keymap.set('n', 'L', 'gt', { silent = true})
 
 -- NETRW CONFIG
+-- ====================================================================
 g.netrw_banner = 0
 g.netrw_liststyle = 3
 g.netrw_winsize = 30
 g.netrw_altv = 1
 
---[[ -- ====================================================================
--- PLUGIN CONFIGS AND INITS
--- ====================================================================
+--[[
 -- Block commenting
+-- ====================================================================
 require('kommentary.config').use_extended_mappings()
 
 -- LSP
+-- ====================================================================
 require'lspconfig'.pyright.setup{}
 require'lspconfig'.intelephense.setup{}
 require'lspconfig'.eslint.setup{}
@@ -79,12 +72,8 @@ local cmp = require'cmp'
 
   cmp.setup({
     snippet = {
-      -- REQUIRED - you must specify a snippet engine
       expand = function(args)
-        vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
-        -- require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
-        -- require('snippy').expand_snippet(args.body) -- For `snippy` users.
-        -- vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
+        vim.fn["vsnip#anonymous"](args.body)
       end,
     },
     window = {
@@ -95,8 +84,6 @@ local cmp = require'cmp'
       ['<C-h>'] = cmp.mapping.scroll_docs(-4),
       ['<C-k>'] = cmp.mapping.scroll_docs(4),
       ['<C-Space>'] = cmp.mapping.complete(),
-      -- ['<Esc>'] = cmp.mapping.abort(),
-      ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
     }),
     sources = cmp.config.sources({
       { name = 'nvim_lsp' },
@@ -139,13 +126,56 @@ local cmp = require'cmp'
     capabilities = capabilities
   }
 
+-- TREE SITTER
+-- ====================================================================
+require'nvim-treesitter.configs'.setup {
+  -- A list of parser names, or "all"
+  ensure_installed = { "typescript", "javascript", "python", "php", "bash", "c", "lua", "rust" },
+
+  -- Install parsers synchronously (only applied to `ensure_installed`)
+  sync_install = false,
+
+  -- Automatically install missing parsers when entering buffer
+  -- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
+  auto_install = true,
+
+  highlight = {
+    enable = true,
+
+    -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
+    -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
+    -- Using this option may slow down your editor, and you may see some duplicate highlights.
+    -- Instead of true it can also be a list of languages
+    additional_vim_regex_highlighting = false,
+  },
+}
+
+-- TELESCOPE KEYBINDS
+-- ====================================================================
+local builtin = require('telescope.builtin')
+vim.keymap.set('n', '<C-f>f', builtin.find_files, {})
+vim.keymap.set('n', '<C-f>g', builtin.live_grep, {})
+vim.keymap.set('n', '<C-f>b', builtin.buffers, {})
+vim.keymap.set('n', '<C-f>h', builtin.help_tags, {})
+
 -- DON'T FORGET AFTER INSTALL :: TSInstall html/php/etc... + TSEnable autotag !!
 require('nvim-ts-autotag').setup()
--- ==================================================================== ]]
+-- ====================================================================
+ ]]
+
+-- COLORS
+-- ====================================================================
+vim.cmd("colorscheme desert")
+vim.cmd(": highlight LineNr ctermfg=grey")
+vim.cmd(": hi Visual cterm=none ctermbg=darkgrey ctermfg=cyan")
+vim.cmd(":hi Cursorline cterm=NONE ctermbg=236")
+vim.cmd(":highlight ExtraWhitespace ctermbg=196 guibg=red")
+vim.cmd(":match ExtraWhitespace /\\s\\+$/ ")
+
 
 -- PLUGINS
+-- ====================================================================
 return require('packer').startup(function()
-  -- Packer can manage itself
     use 'wbthomason/packer.nvim'
     use 'neovim/nvim-lspconfig'
     use 'b3nj5m1n/kommentary'
@@ -159,7 +189,9 @@ return require('packer').startup(function()
         'nvim-treesitter/nvim-treesitter',
         run = ':TSUpdate'
     }
-
     use 'windwp/nvim-ts-autotag'
-
+    use {
+        'nvim-telescope/telescope.nvim', tag = '0.1.0',
+        requires = { {'nvim-lua/plenary.nvim'} }
+    }
 end)
