@@ -60,6 +60,15 @@ g.netrw_altv = 1
 -- -- LSP
 -- -- ====================================================================
 -- require("mason").setup()
+-- require("mason-lspconfig").setup({
+--     ensure_installed = { "pyright",
+--                          "intelephense",
+--                          "eslint",
+--                          "tsserver",
+--                          "angularls",
+--                          "rust_analyzer",
+--                      }
+-- })
 -- require'lspconfig'.pyright.setup{}
 -- require'lspconfig'.intelephense.setup{}
 -- require'lspconfig'.eslint.setup{}
@@ -120,8 +129,8 @@ g.netrw_altv = 1
 --     }, {
 --       { name = 'cmdline' }
 --     })
--- --   })
--- -- 
+--   })
+--  
 --   -- Setup lspconfig.
 --   local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 --   require('lspconfig')['pyright'].setup {
@@ -188,8 +197,11 @@ return require('packer').startup(function()
         'nvim-telescope/telescope.nvim', tag = '0.1.0',
         requires = { {'nvim-lua/plenary.nvim'} }
     }
-    use 'neovim/nvim-lspconfig'
-    use 'williamboman/mason.nvim'
+    use {
+        'williamboman/mason.nvim',
+        'williamboman/mason-lspconfig.nvim',
+        'neovim/nvim-lspconfig',
+    }
     use 'b3nj5m1n/kommentary'
     use 'hrsh7th/cmp-nvim-lsp'
     use 'hrsh7th/cmp-buffer'
