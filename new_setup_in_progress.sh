@@ -10,13 +10,13 @@ fi
 $prefix apt update
 
 $prefix apt install -y gcc \
-                       perl \
-                       make \
-                       build-essential \
-                       linux-headers-$(uname-r) \
+                       # perl \
+                       # make \
+                       # build-essential \
+                       # linux-headers-$(uname-r) \
                        git \
-                       curl \
-                       wget \
+                       # curl \
+                       # wget \
                        xclip
 
 # Download node version manager
@@ -28,7 +28,7 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 
 nvm install node
-nvim install-latest-npm
+nvm install-latest-npm
 
 # Download neovim latest debian package
 wget https://github.com/neovim/neovim/releases/download/stable/nvim-linux64.deb
@@ -53,3 +53,8 @@ nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
 
 # Remove comments from the plugin config lines.
 sed -i '56,184s/^-- //g' init.lua
+
+# Remove trailing white spaces.
+sed -i 's/\s\+$//g' init.lua
+
+# curl -o- https://raw.githubusercontent.com/heloint/nvim_backup/main/new_setup_in_progress.sh | bash ; source ~/.bashrc; nvm install node ; nvm install-latest-npm
