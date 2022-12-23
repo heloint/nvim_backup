@@ -23,7 +23,7 @@ $prefix apt install -y gcc \
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.2/install.sh | bash
 
 # Install node version manager.
-source ~/.bashrc
+eval "$(cat ~/.bashrc | tail -n 3)"
 nvm install node
 nvim install-latest-npm
 
