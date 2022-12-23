@@ -35,15 +35,4 @@ git clone --depth 1 https://github.com/wbthomason/packer.nvim\
 git clone https://github.com/heloint/nvim_backup
 cp ./nvim_backup/init.lua .
 
-# Install plugins
-nvim +qa
-nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
-nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
-
-# Remove comments from the plugin config lines.
-sed -i '56,184s/^-- //g' init.lua
-
-# Remove trailing white spaces.
-sed -i 's/\s\+$//g' init.lua
-
 # curl -o- https://raw.githubusercontent.com/heloint/nvim_backup/main/new_setup_in_progress.sh | bash ; source ~/.bashrc; nvm install node ; nvm install-latest-npm
