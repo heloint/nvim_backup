@@ -1,6 +1,21 @@
-sudo apt update
+prefix=""
 
-sudo apt install -y gcc perl make build-essential linux-headers-$(uname-r) git curl wget xclip
+if (( $EUID != 0))
+    then
+        prefix="sudo"
+fi
+
+$prefix apt update
+
+$prefix apt install -y gcc
+                       perl \
+                       make \
+                       build-essential \
+                       linux-headers-$(uname-r) \
+                       git \
+                       curl \
+                       wget \
+                       xclip
 
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.2/install.sh | bash
 
@@ -12,7 +27,7 @@ nvim install-latest-npm
 
 wget https://github.com/neovim/neovim/releases/download/stable/nvim-linux64.deb
 
-sudo apt install -y ./nvim-linux64.deb
+$prefix apt install -y ./nvim-linux64.deb
 
 mkdir -p ~/.config/nvim ; cd !$
 
@@ -27,4 +42,3 @@ nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
 nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
 
 sed -i '56,184s/^-- //g' init.lua
-
