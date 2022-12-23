@@ -29,7 +29,7 @@ wget https://github.com/neovim/neovim/releases/download/stable/nvim-linux64.deb
 
 $prefix apt install -y ./nvim-linux64.deb
 
-mkdir -p ~/.config/nvim ; cd !$
+mkdir -p ~/.config/nvim ; cd ~/.config/nvim
 
 git clone --depth 1 https://github.com/wbthomason/packer.nvim\
  ~/.local/share/nvim/site/pack/packer/start/packer.nvim
@@ -41,4 +41,4 @@ cp ./nvim_backup/init.lua .
 nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
 nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
 
-sed -i '56,184s/^-- //g' init.lua
+# sed -i '56,184s/^-- //g' init.lua
