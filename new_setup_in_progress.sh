@@ -9,7 +9,8 @@ fi
 
 $prefix apt update
 
-$prefix apt install -y gcc \
+$prefix apt install -y build-essential \
+                       gcc \
                        git \
                        wget \
                        xclip
@@ -35,6 +36,7 @@ git clone https://github.com/heloint/nvim_backup
 cp ./nvim_backup/init.lua .
 
 # Install plugins
+nvim +qa
 nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
 nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
 
