@@ -15,8 +15,7 @@ $prefix apt install -y gcc \
                        # build-essential \
                        # linux-headers-$(uname-r) \
                        git \
-                       # curl \
-                       # wget \
+                       wget \
                        xclip
 
 # Download node version manager
