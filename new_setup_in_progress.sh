@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 prefix=""
 
 if (( $EUID != 0))
@@ -20,6 +22,11 @@ $prefix apt install -y gcc \
 # Download node version manager
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.2/install.sh | bash
 
+# Install node version manager.
+source ~/.bashrc
+nvm install node
+nvim install-latest-npm
+
 # Download neovim latest debian package
 wget https://github.com/neovim/neovim/releases/download/stable/nvim-linux64.deb
 
@@ -32,11 +39,6 @@ mkdir -p ~/.config/nvim ; cd ~/.config/nvim
 # Download and install packer plugin manager.
 git clone --depth 1 https://github.com/wbthomason/packer.nvim\
  ~/.local/share/nvim/site/pack/packer/start/packer.nvim
-
-# Install node version manager.
-source ~/.bashrc
-nvm install node
-nvim install-latest-npm
 
 # Get my configs.
 git clone https://github.com/heloint/nvim_backup
