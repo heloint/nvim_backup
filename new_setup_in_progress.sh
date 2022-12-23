@@ -7,7 +7,7 @@ fi
 
 $prefix apt update
 
-$prefix apt install -y gcc
+$prefix apt install -y gcc \
                        perl \
                        make \
                        build-essential \
