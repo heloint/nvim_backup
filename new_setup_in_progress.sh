@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 prefix=""
 
@@ -10,10 +10,6 @@ fi
 $prefix apt update
 
 $prefix apt install -y gcc \
-                       # perl \
-                       # make \
-                       # build-essential \
-                       # linux-headers-$(uname-r) \
                        git \
                        wget \
                        xclip
