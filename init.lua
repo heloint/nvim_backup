@@ -75,6 +75,9 @@ g.netrw_altv = 1
 -- require'lspconfig'.tsserver.setup{}
 -- require'lspconfig'.angularls.setup{}
 -- require("scrollbar").setup()
+--
+-- -- Jump to definition shortcut. Using C-Left click can be cumbersome
+-- vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
 -- -- ====================================================================
 -- 
 -- -- SETUP CMP AUTOCOMPLETE
