@@ -179,10 +179,11 @@ g.netrw_altv = 1
 -- 
 -- -- COLORS
 -- -- ====================================================================
--- vim.cmd("colorscheme desert")
+-- vim.cmd("colorscheme slate")
 -- vim.cmd(": highlight LineNr ctermfg=white")
 -- vim.cmd(": hi Visual cterm=none ctermbg=darkgrey ctermfg=cyan")
--- vim.cmd(":hi Cursorline cterm=NONE ctermbg=235")
+-- -- vim.cmd(":hi Cursorline cterm=NONE ctermbg=235")
+-- vim.cmd(":hi MatchParen cterm=bold ctermfg=yellow ctermbg=darkgrey")
 -- vim.cmd(":highlight ExtraWhitespace ctermbg=196 guibg=red")
 -- vim.cmd(":match ExtraWhitespace /\\s\\+$/ ")
 
