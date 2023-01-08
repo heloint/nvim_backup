@@ -164,8 +164,31 @@ g.netrw_altv = 1
 --   },
 -- }
 -- 
--- -- TELESCOPE KEYBINDS
+-- -- TELESCOPE SETUP AND KEYBINDS
 -- -- ====================================================================
+-- require('telescope').setup{
+--   defaults = {
+--     -- ...
+--   },
+--   pickers = {
+--     find_files = {
+--       theme = "dropdown",
+--     },
+--     live_grep = {
+--       theme = "dropdown",
+--     },
+--     buffers = {
+--       theme = "dropdown",
+--     },
+--     help_tags= {
+--       theme = "dropdown",
+--     }
+--   },
+--   extensions = {
+--     -- ...
+--   }
+-- }
+
 -- local builtin = require('telescope.builtin')
 -- vim.keymap.set('n', '<C-f>f', builtin.find_files, {})
 -- vim.keymap.set('n', '<C-f>g', builtin.live_grep, {})
