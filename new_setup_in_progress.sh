@@ -35,4 +35,5 @@ git clone --depth 1 https://github.com/wbthomason/packer.nvim\
 git clone https://github.com/heloint/nvim_backup
 cp ./nvim_backup/init.lua .
 
+# The command to fetch the script from Github and execute it.
 # curl -o- https://raw.githubusercontent.com/heloint/nvim_backup/main/new_setup_in_progress.sh | bash ; source ~/.bashrc; nvm install node ; nvm install-latest-npm
