@@ -194,6 +194,7 @@ g.netrw_altv = 1
 -- vim.keymap.set('n', '<C-f>g', builtin.live_grep, {})
 -- vim.keymap.set('n', '<C-f>b', builtin.buffers, {})
 -- vim.keymap.set('n', '<C-f>h', builtin.help_tags, {})
+-- vim.keymap.set('n', '<C-f>q', builtin.resume, {})
 -- 
 -- -- DON'T FORGET AFTER INSTALL :: TSInstall html/php/etc... + TSEnable autotag !!
 -- require('nvim-ts-autotag').setup()
