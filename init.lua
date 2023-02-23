@@ -196,8 +196,36 @@ g.netrw_altv = 1
 -- -- DON'T FORGET AFTER INSTALL :: TSInstall html/php/etc... + TSEnable autotag !!
 -- require('nvim-ts-autotag').setup()
 -- -- ====================================================================
--- 
--- 
+
+-- NVIM TREE
+-- ====================================================================
+-- disable netrw at the very start of your init.lua (strongly advised)
+-- vim.g.loaded_netrw = 1
+-- vim.g.loaded_netrwPlugin = 1
+--
+--
+-- -- empty setup using defaults
+-- require("nvim-tree").setup()
+--
+-- -- OR setup with some options
+-- require("nvim-tree").setup({
+--   sort_by = "case_sensitive",
+--   view = {
+--     width = 30,
+--     mappings = {
+--       list = {
+--         { key = "u", action = "dir_up" },
+--       },
+--     },
+--   },
+--   renderer = {
+--     group_empty = true,
+--   },
+--   filters = {
+--     dotfiles = true,
+--   },
+-- })
+
 -- -- COLORS
 -- -- ====================================================================
 -- vim.cmd("colorscheme slate")
@@ -226,6 +254,13 @@ return require('packer').startup(function()
         'williamboman/mason.nvim',
         'williamboman/mason-lspconfig.nvim',
         'neovim/nvim-lspconfig',
+    }
+    use {
+      'nvim-tree/nvim-tree.lua',
+      requires = {
+        'nvim-tree/nvim-web-devicons', -- optional, for file icons
+      },
+      tag = 'nightly' -- optional, updated every week. (see issue #1193)
     }
     use 'b3nj5m1n/kommentary'
     use 'hrsh7th/cmp-nvim-lsp'
