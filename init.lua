@@ -192,7 +192,7 @@ g.netrw_altv = 1
 -- vim.keymap.set('n', '<C-f>b', builtin.buffers, {})
 -- vim.keymap.set('n', '<C-f>h', builtin.help_tags, {})
 -- vim.keymap.set('n', '<C-f>q', builtin.resume, {})
--- 
+--
 -- -- DON'T FORGET AFTER INSTALL :: TSInstall html/php/etc... + TSEnable autotag !!
 -- require('nvim-ts-autotag').setup()
 -- -- ====================================================================
@@ -203,11 +203,14 @@ g.netrw_altv = 1
 -- vim.g.loaded_netrw = 1
 -- vim.g.loaded_netrwPlugin = 1
 --
+-- local function open_nvim_tree()
 --
--- -- empty setup using defaults
--- require("nvim-tree").setup()
+--   -- open the tree
+--   require("nvim-tree.api").tree.open()
+-- end
+
+-- vim.api.nvim_create_autocmd({"VimEnter"}, {callback = open_nvim_tree })
 --
--- -- OR setup with some options
 -- require("nvim-tree").setup({
 --   sort_by = "case_sensitive",
 --   view = {
