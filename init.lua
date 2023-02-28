@@ -56,34 +56,15 @@ g.netrw_altv = 1
 -- -- Block commenting
 -- -- ====================================================================
 -- require('kommentary.config').use_extended_mappings()
--- 
--- -- LSP
+--
+-- -- Scrollbar
 -- -- ====================================================================
--- require("mason").setup()
--- require("mason-lspconfig").setup({
---     ensure_installed = { "pyright",
---                          "intelephense",
---                          "eslint",
---                          "tsserver",
---                          "angularls",
---                          "rust_analyzer",
---                      }
--- })
--- require'lspconfig'.pyright.setup{}
--- require'lspconfig'.intelephense.setup{}
--- require'lspconfig'.eslint.setup{}
--- require'lspconfig'.tsserver.setup{}
--- require'lspconfig'.angularls.setup{}
 -- require("scrollbar").setup()
 --
--- -- Jump to definition shortcut. Using C-Left click can be cumbersome
--- vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
--- -- ====================================================================
--- 
 -- -- SETUP CMP AUTOCOMPLETE
 -- -- ====================================================================
 -- local cmp = require'cmp'
--- 
+--
 --   cmp.setup({
 --     snippet = {
 --       expand = function(args)
@@ -106,7 +87,7 @@ g.netrw_altv = 1
 --       { name = 'buffer' },
 --     })
 --   })
--- 
+--
 --   -- Set configuration for specific filetype.
 --   cmp.setup.filetype('gitcommit', {
 --     sources = cmp.config.sources({
@@ -115,7 +96,7 @@ g.netrw_altv = 1
 --       { name = 'buffer' },
 --     })
 --   })
--- 
+--
 --   -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
 --   cmp.setup.cmdline('/', {
 --     mapping = cmp.mapping.preset.cmdline(),
@@ -123,7 +104,7 @@ g.netrw_altv = 1
 --       { name = 'buffer' }
 --     }
 --   })
--- 
+--
 --   -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
 --   cmp.setup.cmdline(':', {
 --     mapping = cmp.mapping.preset.cmdline(),
@@ -133,22 +114,62 @@ g.netrw_altv = 1
 --       { name = 'cmdline' }
 --     })
 --   })
---  
+--
+-- -- LSP
+-- -- ====================================================================
+-- require("mason").setup()
+-- require("mason-lspconfig").setup({
+--     ensure_installed = { "pyright",
+--                          "html",
+--                          "cssls",
+--                          "intelephense",
+--                          "eslint",
+--                          "tsserver",
+--                          "angularls",
+--                          "rust_analyzer",
+--                      }
+-- })
+--
+-- -- Jump to definition shortcut. Using C-Left click can be cumbersome
+-- vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
+--
 --   -- Setup lspconfig.
 --   local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 --   require('lspconfig')['pyright'].setup {
 --     capabilities = capabilities
 --   }
--- 
+--   require('lspconfig')['intelephense'].setup {
+--     capabilities = capabilities
+--   }
+--   require('lspconfig')['eslint'].setup {
+--     capabilities = capabilities
+--   }
+--   require('lspconfig')['tsserver'].setup {
+--     capabilities = capabilities
+--   }
+--   require('lspconfig')['angularls'].setup {
+--     capabilities = capabilities
+--   }
+--   require('lspconfig')['cssls'].setup {
+--     capabilities = capabilities
+--   }
+--   require('lspconfig')['html'].setup {
+--     capabilities = capabilities
+--   }
+--
+-- -- DON'T FORGET AFTER INSTALL :: TSInstall html/php/etc... + TSEnable autotag !!
+-- require('nvim-ts-autotag').setup()
+--
+-- -- ====================================================================
 -- -- TREE SITTER
 -- -- ====================================================================
 -- require'nvim-treesitter.configs'.setup {
 --   -- A list of parser names, or "all"
---   ensure_installed = { "vim", "typescript", "javascript", "python", "php", "bash", "c", "lua", "rust" },
--- 
+--   ensure_installed = { "vim", "typescript", "javascript", "python", "php", "bash", "c", "lua", "rust", "html", "css" },
+--
 --   -- Install parsers synchronously (only applied to `ensure_installed`)
 --   sync_install = false,
--- 
+--
 --   -- Automatically install missing parsers when entering buffer
 --   -- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
 --   auto_install = true,
@@ -162,6 +183,9 @@ g.netrw_altv = 1
 --     -- Instead of true it can also be a list of languages
 --     additional_vim_regex_highlighting = false,
 --   },
+--   autotag = {
+--     enable = true,
+--   }
 -- }
 --
 -- -- TELESCOPE SETUP AND KEYBINDS
@@ -185,7 +209,7 @@ g.netrw_altv = 1
 --     -- ...
 --   }
 -- }
-
+--
 -- local builtin = require('telescope.builtin')
 -- vim.keymap.set('n', '<C-f>f', builtin.find_files, {})
 -- vim.keymap.set('n', '<C-f>g', builtin.live_grep, {})
@@ -193,13 +217,11 @@ g.netrw_altv = 1
 -- vim.keymap.set('n', '<C-f>h', builtin.help_tags, {})
 -- vim.keymap.set('n', '<C-f>q', builtin.resume, {})
 --
--- -- DON'T FORGET AFTER INSTALL :: TSInstall html/php/etc... + TSEnable autotag !!
--- require('nvim-ts-autotag').setup()
 -- -- ====================================================================
-
--- NVIM TREE
--- ====================================================================
--- disable netrw at the very start of your init.lua (strongly advised)
+--
+-- -- NVIM TREE
+-- -- ====================================================================
+-- -- disable netrw at the very start of your init.lua (strongly advised)
 -- vim.g.loaded_netrw = 1
 -- vim.g.loaded_netrwPlugin = 1
 --
@@ -208,7 +230,7 @@ g.netrw_altv = 1
 --   -- open the tree
 --   require("nvim-tree.api").tree.open()
 -- end
-
+--
 -- vim.api.nvim_create_autocmd({"VimEnter"}, {callback = open_nvim_tree })
 --
 -- require("nvim-tree").setup({
@@ -228,7 +250,7 @@ g.netrw_altv = 1
 --     dotfiles = true,
 --   },
 -- })
-
+--
 -- -- COLORS
 -- -- ====================================================================
 -- vim.cmd("colorscheme slate")
@@ -261,9 +283,9 @@ return require('packer').startup(function()
     use {
       'nvim-tree/nvim-tree.lua',
       requires = {
-        'nvim-tree/nvim-web-devicons', -- optional, for file icons
+        'nvim-tree/nvim-web-devicons',
       },
-      tag = 'nightly' -- optional, updated every week. (see issue #1193)
+      tag = 'nightly'
     }
     use 'b3nj5m1n/kommentary'
     use 'hrsh7th/cmp-nvim-lsp'
