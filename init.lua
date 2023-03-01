@@ -40,8 +40,8 @@ vim.keymap.set('x', '"', 'c""<Esc>P', { silent = true})
 vim.keymap.set('x', "'", "c''<Esc>P", { silent = true})
 vim.keymap.set('x', '(', 'c()<Esc>P', { silent = true})
 vim.keymap.set('x', '[', 'c[]<Esc>P', { silent = true})
-vim.keymap.set('i', '<C-b>', '<Esc>:Lexplore<CR>', { silent = true})
-vim.keymap.set('n', '<C-b>', '<Esc>:Lexplore<CR>', { silent = true})
+vim.keymap.set('i', '<C-b>', '<Esc>:NvimTreeToggle<CR>', { silent = true})
+vim.keymap.set('n', '<C-b>', '<Esc>:NvimTreeToggle<CR>', { silent = true})
 vim.keymap.set('n', 'H', 'gT', { silent = true})
 vim.keymap.set('n', 'L', 'gt', { silent = true})
 
@@ -49,7 +49,7 @@ vim.keymap.set('n', 'L', 'gt', { silent = true})
 -- ====================================================================
 g.netrw_banner = 0
 g.netrw_liststyle = 3
-g.netrw_winsize = 30
+g.netrw_winsize = 40
 g.netrw_altv = 1
 
 
@@ -165,7 +165,19 @@ g.netrw_altv = 1
 -- -- ====================================================================
 -- require'nvim-treesitter.configs'.setup {
 --   -- A list of parser names, or "all"
---   ensure_installed = { "vim", "typescript", "javascript", "python", "php", "bash", "c", "lua", "rust", "html", "css" },
+--   ensure_installed = {
+--         "vim",
+--         "typescript",
+--         "javascript",
+--         "python",
+--         "php",
+--         "bash",
+--         "c",
+--         "lua",
+--         "rust",
+--         "html",
+--         "css"
+--   },
 --
 --   -- Install parsers synchronously (only applied to `ensure_installed`)
 --   sync_install = false,
@@ -253,14 +265,14 @@ g.netrw_altv = 1
 --
 -- -- COLORS
 -- -- ====================================================================
--- vim.cmd("colorscheme slate")
--- vim.cmd(": highlight LineNr ctermfg=white")
--- vim.cmd(": hi Visual cterm=none ctermbg=darkgrey ctermfg=cyan")
--- -- vim.cmd(":hi Cursorline cterm=NONE ctermbg=235")
+-- vim.cmd("colorscheme nightfox")
 -- vim.cmd(":hi MatchParen cterm=bold ctermfg=yellow ctermbg=darkgrey")
 -- vim.cmd(":highlight ExtraWhitespace ctermbg=196 guibg=red")
 -- vim.cmd(":match ExtraWhitespace /\\s\\+$/ ")
-
+--
+-- -- LUALINE
+-- -- ====================================================================
+-- require('lualine').setup()
 
 -- PLUGINS
 -- ====================================================================
@@ -287,6 +299,10 @@ return require('packer').startup(function()
       },
       tag = 'nightly'
     }
+    use {
+      'nvim-lualine/lualine.nvim',
+      requires = { 'kyazdani42/nvim-web-devicons', opt = true }
+    }
     use 'b3nj5m1n/kommentary'
     use 'hrsh7th/cmp-nvim-lsp'
     use 'hrsh7th/cmp-buffer'
@@ -294,4 +310,5 @@ return require('packer').startup(function()
     use 'hrsh7th/cmp-cmdline'
     use 'hrsh7th/nvim-cmp'
     use 'petertriho/nvim-scrollbar'
+    use "EdenEast/nightfox.nvim"
 end)
