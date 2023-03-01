@@ -269,10 +269,26 @@ g.netrw_altv = 1
 -- vim.cmd(":hi MatchParen cterm=bold ctermfg=yellow ctermbg=darkgrey")
 -- vim.cmd(":highlight ExtraWhitespace ctermbg=196 guibg=red")
 -- vim.cmd(":match ExtraWhitespace /\\s\\+$/ ")
+-- vim.cmd('set fillchars=vert:\\┃,fold:\\┄')
+-- vim.cmd('highlight VertSplit guifg=#ff8800 guibg=NONE')
+-- vim.cmd('highlight Visual guibg=#4e5a6d guifg=NONE')
 --
 -- -- LUALINE
 -- -- ====================================================================
--- require('lualine').setup()
+-- require('lualine').setup {
+--     options = {
+--         theme = 'dracula'
+--     },
+--     sections = {
+--         lualine_a = {
+--             {
+--               'filename',
+--               file_status = true, -- displays file status (readonly status, modified status)
+--               path = 2 -- 0 = just filename, 1 = relative path, 2 = absolute path
+--             }
+--         }
+--     }
+-- }
 
 -- PLUGINS
 -- ====================================================================
