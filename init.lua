@@ -79,6 +79,7 @@ g.netrw_altv = 1
 --       ['<C-h>'] = cmp.mapping.scroll_docs(-4),
 --       ['<C-k>'] = cmp.mapping.scroll_docs(4),
 --       ['<C-Space>'] = cmp.mapping.complete(),
+--       ['<CR>'] = cmp.mapping.confirm({ select = true }),
 --     }),
 --     sources = cmp.config.sources({
 --       { name = 'nvim_lsp' },
@@ -272,6 +273,7 @@ g.netrw_altv = 1
 -- vim.cmd('set fillchars=vert:\\┃,fold:\\┄')
 -- vim.cmd('highlight VertSplit guifg=#ff8800 guibg=NONE')
 -- vim.cmd('highlight Visual guibg=#4e5a6d guifg=NONE')
+-- vim.cmd('highlight MatchParen ctermbg=yellow guibg=yellow')
 --
 -- -- LUALINE
 -- -- ====================================================================
