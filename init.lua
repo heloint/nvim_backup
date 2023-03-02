@@ -49,22 +49,22 @@ vim.keymap.set('n', 'L', 'gt', { silent = true})
 -- ====================================================================
 g.netrw_banner = 0
 g.netrw_liststyle = 3
-g.netrw_winsize = 40
+g.netrw_winsize = 30
 g.netrw_altv = 1
 
 
 -- -- Block commenting
 -- -- ====================================================================
 -- require('kommentary.config').use_extended_mappings()
---
+-- 
 -- -- Scrollbar
 -- -- ====================================================================
 -- require("scrollbar").setup()
---
+-- 
 -- -- SETUP CMP AUTOCOMPLETE
 -- -- ====================================================================
 -- local cmp = require'cmp'
---
+-- 
 --   cmp.setup({
 --     snippet = {
 --       expand = function(args)
@@ -80,6 +80,7 @@ g.netrw_altv = 1
 --       ['<C-k>'] = cmp.mapping.scroll_docs(4),
 --       ['<C-Space>'] = cmp.mapping.complete(),
 --       ['<CR>'] = cmp.mapping.confirm({ select = true }),
+-- 
 --     }),
 --     sources = cmp.config.sources({
 --       { name = 'nvim_lsp' },
@@ -88,7 +89,7 @@ g.netrw_altv = 1
 --       { name = 'buffer' },
 --     })
 --   })
---
+-- 
 --   -- Set configuration for specific filetype.
 --   cmp.setup.filetype('gitcommit', {
 --     sources = cmp.config.sources({
@@ -97,7 +98,7 @@ g.netrw_altv = 1
 --       { name = 'buffer' },
 --     })
 --   })
---
+-- 
 --   -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
 --   cmp.setup.cmdline('/', {
 --     mapping = cmp.mapping.preset.cmdline(),
@@ -105,7 +106,7 @@ g.netrw_altv = 1
 --       { name = 'buffer' }
 --     }
 --   })
---
+-- 
 --   -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
 --   cmp.setup.cmdline(':', {
 --     mapping = cmp.mapping.preset.cmdline(),
@@ -115,7 +116,7 @@ g.netrw_altv = 1
 --       { name = 'cmdline' }
 --     })
 --   })
---
+-- 
 -- -- LSP
 -- -- ====================================================================
 -- require("mason").setup()
@@ -130,10 +131,10 @@ g.netrw_altv = 1
 --                          "rust_analyzer",
 --                      }
 -- })
---
+-- 
 -- -- Jump to definition shortcut. Using C-Left click can be cumbersome
 -- vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
---
+-- 
 --   -- Setup lspconfig.
 --   local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 --   require('lspconfig')['pyright'].setup {
@@ -157,10 +158,10 @@ g.netrw_altv = 1
 --   require('lspconfig')['html'].setup {
 --     capabilities = capabilities
 --   }
---
+-- 
 -- -- DON'T FORGET AFTER INSTALL :: TSInstall html/php/etc... + TSEnable autotag !!
 -- require('nvim-ts-autotag').setup()
---
+-- 
 -- -- ====================================================================
 -- -- TREE SITTER
 -- -- ====================================================================
@@ -179,17 +180,17 @@ g.netrw_altv = 1
 --         "html",
 --         "css"
 --   },
---
+-- 
 --   -- Install parsers synchronously (only applied to `ensure_installed`)
 --   sync_install = false,
---
+-- 
 --   -- Automatically install missing parsers when entering buffer
 --   -- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
 --   auto_install = true,
---
+-- 
 --   highlight = {
 --     enable = true,
---
+-- 
 --     -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
 --     -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
 --     -- Using this option may slow down your editor, and you may see some duplicate highlights.
@@ -200,7 +201,7 @@ g.netrw_altv = 1
 --     enable = true,
 --   }
 -- }
---
+-- 
 -- -- TELESCOPE SETUP AND KEYBINDS
 -- -- ====================================================================
 -- require('telescope').setup{
@@ -222,30 +223,30 @@ g.netrw_altv = 1
 --     -- ...
 --   }
 -- }
---
+-- 
 -- local builtin = require('telescope.builtin')
 -- vim.keymap.set('n', '<C-f>f', builtin.find_files, {})
 -- vim.keymap.set('n', '<C-f>g', builtin.live_grep, {})
 -- vim.keymap.set('n', '<C-f>b', builtin.buffers, {})
 -- vim.keymap.set('n', '<C-f>h', builtin.help_tags, {})
 -- vim.keymap.set('n', '<C-f>q', builtin.resume, {})
---
+-- 
 -- -- ====================================================================
---
+-- 
 -- -- NVIM TREE
 -- -- ====================================================================
 -- -- disable netrw at the very start of your init.lua (strongly advised)
 -- vim.g.loaded_netrw = 1
 -- vim.g.loaded_netrwPlugin = 1
---
+-- 
 -- local function open_nvim_tree()
---
+-- 
 --   -- open the tree
 --   require("nvim-tree.api").tree.open()
 -- end
---
+-- 
 -- vim.api.nvim_create_autocmd({"VimEnter"}, {callback = open_nvim_tree })
---
+-- 
 -- require("nvim-tree").setup({
 --   sort_by = "case_sensitive",
 --   view = {
@@ -263,18 +264,16 @@ g.netrw_altv = 1
 --     dotfiles = true,
 --   },
 -- })
---
+-- 
 -- -- COLORS
 -- -- ====================================================================
 -- vim.cmd("colorscheme nightfox")
 -- vim.cmd(":hi MatchParen cterm=bold ctermfg=yellow ctermbg=darkgrey")
--- vim.cmd(":highlight ExtraWhitespace ctermbg=196 guibg=red")
--- vim.cmd(":match ExtraWhitespace /\\s\\+$/ ")
 -- vim.cmd('set fillchars=vert:\\┃,fold:\\┄')
 -- vim.cmd('highlight VertSplit guifg=#ff8800 guibg=NONE')
 -- vim.cmd('highlight Visual guibg=#4e5a6d guifg=NONE')
 -- vim.cmd('highlight MatchParen ctermbg=yellow guibg=yellow')
---
+-- 
 -- -- LUALINE
 -- -- ====================================================================
 -- require('lualine').setup {
@@ -291,6 +290,18 @@ g.netrw_altv = 1
 --         }
 --     }
 -- }
+-- 
+-- -- INDENT INDENT-BLANKLINE
+-- -- ===============================================================
+-- vim.opt.list = true
+-- vim.opt.listchars:append "space:⋅"
+-- 
+-- require("indent_blankline").setup {
+--     space_char_blankline = " ",
+--     show_current_context = true,
+--     show_current_context_start = true,
+-- }
+
 
 -- PLUGINS
 -- ====================================================================
@@ -329,4 +340,5 @@ return require('packer').startup(function()
     use 'hrsh7th/nvim-cmp'
     use 'petertriho/nvim-scrollbar'
     use "EdenEast/nightfox.nvim"
+    use "lukas-reineke/indent-blankline.nvim"
 end)
