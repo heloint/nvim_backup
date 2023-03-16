@@ -122,7 +122,6 @@ g.netrw_altv = 1
 -- require("mason").setup()
 -- require("mason-lspconfig").setup({
 --     ensure_installed = { "pyright",
---                          "html",
 --                          "cssls",
 --                          "intelephense",
 --                          "eslint",
@@ -155,10 +154,7 @@ g.netrw_altv = 1
 --   require('lspconfig')['cssls'].setup {
 --     capabilities = capabilities
 --   }
---   require('lspconfig')['html'].setup {
---     capabilities = capabilities
---   }
--- 
+--
 -- -- DON'T FORGET AFTER INSTALL :: TSInstall html/php/etc... + TSEnable autotag !!
 -- require('nvim-ts-autotag').setup()
 -- 
