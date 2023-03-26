@@ -76,9 +76,8 @@ g.netrw_altv = 1
 --       -- documentation = cmp.config.window.bordered(),
 --     },
 --     mapping = cmp.mapping.preset.insert({
---       ['<C-h>'] = cmp.mapping.scroll_docs(-4),
---       ['<C-k>'] = cmp.mapping.scroll_docs(4),
---       ['<C-Space>'] = cmp.mapping.complete(),
+--       ['<C-k>'] = cmp.mapping.scroll_docs(-4),
+--       ['<C-j>'] = cmp.mapping.scroll_docs(4),
 --       ['<CR>'] = cmp.mapping.confirm({ select = true }),
 -- 
 --     }),
@@ -133,6 +132,11 @@ g.netrw_altv = 1
 -- 
 -- -- Jump to definition shortcut. Using C-Left click can be cumbersome
 -- vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
+-- -- Open up a list of references in a quickfix window.
+-- vim.keymap.set('n', 'gf', '<Esc>:lua vim.lsp.buf.references()<CR>', { silent = true})
+-- -- Show info on hover and ctrl-space.
+-- vim.keymap.set('n', '<C-Space>', '<Esc>:lua vim.lsp.buf.hover()<CR>', { silent = true})
+-- 
 -- 
 --   -- Setup lspconfig.
 --   local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
@@ -154,7 +158,10 @@ g.netrw_altv = 1
 --   require('lspconfig')['cssls'].setup {
 --     capabilities = capabilities
 --   }
---
+--   require('lspconfig')['gopls'].setup {
+--     capabilities = capabilities
+--   }
+-- 
 -- -- DON'T FORGET AFTER INSTALL :: TSInstall html/php/etc... + TSEnable autotag !!
 -- require('nvim-ts-autotag').setup()
 -- 
