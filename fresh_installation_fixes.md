@@ -5,6 +5,8 @@
 *Restart GRUB*
 - sudo update-grub
 *Then reboot*
+*NOTE: Pop-OS doesn't have GRUB. The following command will have the same effect as the one above:*
+- sudo kernelstub -v -a intel_idle.max_cstate=1
 ---
 
 # Probable fix for touchpad recognization issues on ubuntu/pop_os laptop installation
