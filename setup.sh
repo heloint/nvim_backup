@@ -34,7 +34,7 @@ git clone --depth 1 https://github.com/wbthomason/packer.nvim\
 # Get my configs.
 git clone https://github.com/heloint/nvim_backup
 cp ./nvim_backup/init.lua .
-cp -r ./nvim_backup/heloint .
+cp -r ./nvim_backup/lua .
 
 # Install Fura Nerdfont
 cp ./nvim_backup/fonts/fura-mono-regular-nerd-font-complete.otf ~/.local/share/fonts/
