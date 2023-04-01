@@ -27,13 +27,19 @@ $prefix apt install -y ./nvim-linux64.deb
 # Create config dir for neovim
 mkdir -p ~/.config/nvim ; cd ~/.config/nvim
 
-# Download and install packer plugin manager.
+# Download and install Packer plugin manager.
 git clone --depth 1 https://github.com/wbthomason/packer.nvim\
  ~/.local/share/nvim/site/pack/packer/start/packer.nvim
 
 # Get my configs.
 git clone https://github.com/heloint/nvim_backup
 cp ./nvim_backup/init.lua .
+cp -r ./nvim_backup/heloint .
+
+# Install Fura Nerdfont
+cp ./nvim_backup/fonts/fura-mono-regular-nerd-font-complete.otf ~/.local/share/fonts/
+fc-cache -fv
+setfont fura-mono-regular-nerd-font-complete.otf
 
 # The command to fetch the script from Github and execute it.
 # curl -o- https://raw.githubusercontent.com/heloint/nvim_backup/main/new_setup_in_progress.sh | bash ; source ~/.bashrc; nvm install node ; nvm install-latest-npm
