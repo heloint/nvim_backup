@@ -20,7 +20,9 @@ vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
 -- Open up a list of references in a quickfix window.
 vim.keymap.set('n', 'gf', '<Esc>:lua vim.lsp.buf.references()<CR>', { silent = true})
 -- Show info on hover and ctrl-space.
-vim.keymap.set('n', '<C-Space>', '<Esc>:lua vim.lsp.buf.hover()<CR>', { silent = true})
+vim.keymap.set('n', '<C-space>', '<Esc>:lua vim.lsp.buf.hover()<CR>', { silent = true})
+-- Selects a code action available at the current cursor position.
+vim.keymap.set('n', '<Space>q', '<Esc>:lua vim.lsp.buf.code_action()<CR>', { silent = true})
 
 
 local builtin = require('telescope.builtin')
