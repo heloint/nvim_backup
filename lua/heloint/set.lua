@@ -10,8 +10,10 @@ opt.relativenumber = true
 o.clipboard = 'unnamedplus'
 o.number = true
 o.mouse= "a"
+
 o.tabstop = 4
 o.shiftwidth = 4
+
 o.expandtab = true
 o.swapfile = false
 o.backup = false
