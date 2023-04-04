@@ -20,6 +20,7 @@ vim.keymap.set('n', '<C-f>f', builtin.find_files, {})
 vim.keymap.set('n', '<C-f>g', builtin.live_grep, {})
 vim.keymap.set('n', '<C-f>b', builtin.buffers, {})
 vim.keymap.set('n', '<C-f>h', builtin.help_tags, {})
+vim.keymap.set('n', '<C-f>r', builtin.lsp_references, {})
 vim.keymap.set('n', '<C-f>q', builtin.resume, {})
 
 -- Block commenting
