@@ -12,7 +12,6 @@ vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
 local function open_nvim_tree()
-
   -- open the tree
   require("nvim-tree.api").tree.open(update_root)
 end
@@ -20,6 +19,15 @@ end
 vim.api.nvim_create_autocmd({"VimEnter"}, {callback = open_nvim_tree })
 
 require("nvim-tree").setup({
+  hijack_directories = {
+    enable = true,
+    auto_open = true,
+  },
+  update_focused_file = {
+    enable = true,
+    update_cwd = true,
+  },
+  respect_buf_cwd = true,
   sort_by = "case_sensitive",
   view = {
     width = 30,
@@ -33,6 +41,6 @@ require("nvim-tree").setup({
     group_empty = true,
   },
   filters = {
-    dotfiles = true,
+    dotfiles = false,
   },
 })
