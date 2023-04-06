@@ -33,3 +33,6 @@ o.hidden = true
 o.laststatus = 2
 o.showcmd = true
 o.showmatch = true
+
+o.pumheight = 10
+o.cursorline = true
