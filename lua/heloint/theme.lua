@@ -35,6 +35,8 @@ require('lualine').setup {
     }
 }
 
--- Scrollbar
+-- SCROLLBAR
 -- ====================================================================
 require("scrollbar").setup()
+
+

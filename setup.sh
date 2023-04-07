@@ -38,6 +38,7 @@ cp ./nvim_backup/init.lua .
 cp -r ./nvim_backup/lua .
 
 # Install Fura Nerdfont
+mkdir -p ~/.local/share/fonts/
 cp ./nvim_backup/fonts/fura-mono-regular-nerd-font-complete.otf ~/.local/share/fonts/
 fc-cache -fv
 setfont fura-mono-regular-nerd-font-complete.otf
