@@ -20,10 +20,12 @@ $prefix apt install -y build-essential \
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.2/install.sh | bash
 
 # Download neovim latest debian package
-wget https://github.com/neovim/neovim/releases/download/stable/nvim-linux64.deb
+wget https://github.com/neovim/neovim/releases/download/stable/nvim.appimage
 
 # Install neovim
-$prefix apt install -y ./nvim-linux64.deb
+mkdir -p ~/.local/bin/
+mv nvim.appimage ~/.local/bin/; cd ~/.local/bin/
+$prefix ln -s $PWD/nvim.appimage /usr/bin/nvim
 
 # Create config dir for neovim
 mkdir -p ~/.config/nvim ; cd ~/.config/nvim
@@ -44,4 +46,4 @@ fc-cache -fv
 setfont fura-mono-regular-nerd-font-complete.otf
 
 # The command to fetch the script from Github and execute it.
-# curl -o- https://raw.githubusercontent.com/heloint/nvim_backup/main/new_setup_in_progress.sh | bash ; source ~/.bashrc; nvm install node ; nvm install-latest-npm
+# curl -o- https://raw.githubusercontent.com/heloint/nvim_backup/main/setup.sh | bash ; source ~/.bashrc; nvm install node ; nvm install-latest-npm; sudo ln -s $(which npm) /usr/local/bin/npm; sudo ln -s $(which node) /usr/local/bin/node; sudo npm install -g tree-sitter-cli
