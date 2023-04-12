@@ -24,6 +24,7 @@ wget https://github.com/neovim/neovim/releases/download/stable/nvim.appimage
 
 # Install neovim
 mkdir -p ~/.local/bin/
+chmod +x nvim.appimage
 mv nvim.appimage ~/.local/bin/; cd ~/.local/bin/
 $prefix ln -s $PWD/nvim.appimage /usr/bin/nvim
 
