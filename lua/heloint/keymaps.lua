@@ -38,6 +38,8 @@ vim.keymap.set('x', '[', 'c[]<Esc>P', { silent = true})
 vim.keymap.set('i', '<C-b>', '<Esc>:NvimTreeToggle<CR>', { silent = true})
 vim.keymap.set('n', '<C-b>', '<Esc>:NvimTreeToggle<CR>', { silent = true})
 
+vim.keymap.set('n', '<C-q>', '<Esc>:copen<CR>', { silent = true})
+
 -- RETURN TO NORMAL MODE IN THE INTEGRATED TERMINAL
 -- ================================================
 vim.keymap.set('t', '<Esc>', '<C-\\><C-N>', { silent = true})
@@ -46,6 +48,7 @@ vim.keymap.set('t', '<Esc>', '<C-\\><C-N>', { silent = true})
 -- TELESCOPE MAPPING
 -- =================
 local builtin = require('telescope.builtin')
+
 vim.keymap.set('n', '<C-f>f', builtin.find_files, {})
 vim.keymap.set('n', '<C-f>g', builtin.live_grep, {})
 vim.keymap.set('n', '<C-f>b', builtin.buffers, {})
@@ -93,3 +96,9 @@ vim.api.nvim_create_autocmd('LspAttach', {
 -- TOGGLE MY TERMINAL
 local my_terminal = require('heloint.my_terminal')
 vim.keymap.set('n', '<space>t', my_terminal.toggle_terminal,{})
+
+local my_quickfixlist = require('heloint.my_quickfixlist')
+vim.keymap.set('n', '<C-q>', my_quickfixlist.toggle_qf,{})
+
+
+

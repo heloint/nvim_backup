@@ -23,7 +23,6 @@ require("nvim-tree").setup({
   respect_buf_cwd = true,
   sort_by = "case_sensitive",
   view = {
-    width = {min = 40},
     mappings = {
       list = {
         { key = "u", action = "dir_up" },

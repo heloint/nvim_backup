@@ -37,15 +37,14 @@ require'nvim-treesitter.configs'.setup {
   }
 }
 
-local parser_mapping = require("nvim-treesitter.parsers").filetype_to_parsername
-parser_mapping.xml = "html"
-parser_mapping.jsp = "html"
+vim.treesitter.language.register("html", {"xml", "jsp"})
+-- vim.treesitter.language.register.("html", "jsp")
 
 require('nvim-ts-autotag').setup({
   filetypes = { 
     'html', 'javascript', 'typescript', 'javascriptreact', 'typescriptreact',
     'svelte', 'vue', 'tsx', 'jsx', 'rescript', 'xml', 'php', 'markdown',
-    'glimmer','handlebars','hbs', 'jsp'
+    'markdown_inline', 'glimmer','handlebars','hbs', 'jsp'
   },
 })
 

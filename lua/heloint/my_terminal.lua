@@ -25,6 +25,7 @@ function toggle_terminal()
 
 end
 
+
 return {
-    toggle_terminal = toggle_terminal
+    toggle_terminal = toggle_terminal,
 }
