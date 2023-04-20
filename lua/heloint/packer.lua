@@ -47,7 +47,7 @@ return require('packer').startup(function()
 
     -- THEME AND STUFF
     use 'petertriho/nvim-scrollbar'
-    use "EdenEast/nightfox.nvim"
+    use "rebelot/kanagawa.nvim"
     use "lukas-reineke/indent-blankline.nvim"
     use {
       'nvim-lualine/lualine.nvim',

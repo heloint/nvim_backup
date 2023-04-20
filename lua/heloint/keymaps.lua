@@ -44,12 +44,11 @@ vim.keymap.set('n', '<C-q>', '<Esc>:copen<CR>', { silent = true})
 -- ================================================
 vim.keymap.set('t', '<Esc>', '<C-\\><C-N>', { silent = true})
 
-
 -- TELESCOPE MAPPING
 -- =================
 local builtin = require('telescope.builtin')
 
-vim.keymap.set('n', '<C-f>f', builtin.find_files, {})
+vim.keymap.set('n', '<C-f>f', '<Esc>:Telescope find_files hidden=true<CR>', {})
 vim.keymap.set('n', '<C-f>g', builtin.live_grep, {})
 vim.keymap.set('n', '<C-f>b', builtin.buffers, {})
 vim.keymap.set('n', '<C-f>h', builtin.help_tags, {})
@@ -90,6 +89,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
     vim.keymap.set('n', '<space>f', function()
       vim.lsp.buf.format { async = true }
     end, opts)
+    vim.keymap.set("v", "<space>f", vim.lsp.buf.format, { remap = false })
   end,
 })
 

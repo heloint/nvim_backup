@@ -9,7 +9,7 @@ require('telescope').setup{
     layout_config = { height = 0.95 },
     mappings = {
         i = {
-           ['<C-q>'] = actions.smart_add_to_qflist + actions.open_qflist,
+           ['<C-q>'] = actions.smart_send_to_qflist + actions.open_qflist,
         },
     },
   },

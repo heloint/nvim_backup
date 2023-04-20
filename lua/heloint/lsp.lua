@@ -25,7 +25,9 @@ capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 require('lspconfig')['intelephense'].setup { capabilities = capabilities }
 require('lspconfig')['eslint'].setup { capabilities = capabilities }
-require('lspconfig')['tsserver'].setup { capabilities = capabilities }
+require('lspconfig')['tsserver'].setup { 
+    capabilities = capabilities,
+}
 require('lspconfig')['angularls'].setup { capabilities = capabilities }
 require('lspconfig')['cssls'].setup { capabilities = capabilities }
 require('lspconfig')['emmet_ls'].setup { 
