@@ -15,13 +15,6 @@ return require('packer').startup(function()
         requires = { {'nvim-lua/plenary.nvim'} }
     }
 
-    -- MANAGE LSP AND STUFF
-    use {
-        'williamboman/mason.nvim',
-        'williamboman/mason-lspconfig.nvim',
-        'neovim/nvim-lspconfig',
-    }
-
     -- FILE EXPLORER
     use {
       'nvim-tree/nvim-tree.lua',
@@ -32,14 +25,6 @@ return require('packer').startup(function()
     }
 
     -- AUTOCOMPLETE
-    use 'hrsh7th/cmp-nvim-lsp'
-    use 'hrsh7th/cmp-buffer'
-    use 'hrsh7th/cmp-path'
-    use 'hrsh7th/cmp-cmdline'
-    use 'hrsh7th/nvim-cmp'
-    use 'hrsh7th/vim-vsnip'
-    use 'hrsh7th/vim-vsnip-integ'
-
 
     -- OTHER USEFUL JUNKS
     use 'b3nj5m1n/kommentary'
@@ -53,4 +38,34 @@ return require('packer').startup(function()
       'nvim-lualine/lualine.nvim',
       requires = { 'kyazdani42/nvim-web-devicons', opt = true }
     }
+
+    -- MANAGE LSP AND STUFF
+    use {
+      'VonHeikemen/lsp-zero.nvim',
+      branch = 'v2.x',
+      requires = {
+        -- LSP Support
+        {'neovim/nvim-lspconfig'},
+        -- Some Mason job
+        {
+          'williamboman/mason.nvim',
+          run = function()
+            pcall(vim.cmd, 'MasonUpdate')
+          end,
+        },
+        {'williamboman/mason-lspconfig.nvim'},
+
+        -- Autocompletion
+        {'hrsh7th/nvim-cmp'},
+        {'hrsh7th/cmp-nvim-lsp'},
+        {'hrsh7th/cmp-buffer'},
+        {'hrsh7th/cmp-path'},
+        {'hrsh7th/cmp-cmdline'},
+        {'hrsh7th/vim-vsnip'},
+        {'hrsh7th/vim-vsnip-integ'},
+        {'L3MON4D3/LuaSnip'},
+      }
+    }
+
+
 end)

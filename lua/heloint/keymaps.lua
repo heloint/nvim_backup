@@ -1,13 +1,6 @@
 -- KEYBINDINGS / KEY-REMAPS
 -- ========================
 
--- RESIZE WINDOWS
--- ========================
-vim.keymap.set('n', '<C-Left>', ':vertical resize -2<CR>', {silent = true})
-vim.keymap.set('n', '<C-Right>', ':vertical resize +2<CR>', {silent = true})
-vim.keymap.set('n', '<C-Up>', ':resize +2<CR>', {silent = true})
-vim.keymap.set('n', '<C-Down>', ':resize -2<CR>', {silent = true})
-
 -- SWITCH BETWEEN TABS
 -- ===================
 for i = 1, 9 do
@@ -16,6 +9,13 @@ end
 
 vim.keymap.set('n', 'H', 'gT', { silent = true})
 vim.keymap.set('n', 'L', 'gt', { silent = true})
+
+-- RESIZE WINDOWS
+-- ========================
+vim.keymap.set('n', '<C-Left>', ':vertical resize -2<CR>', {silent = true})
+vim.keymap.set('n', '<C-Right>', ':vertical resize +2<CR>', {silent = true})
+vim.keymap.set('n', '<C-Up>', ':resize +2<CR>', {silent = true})
+vim.keymap.set('n', '<C-Down>', ':resize -2<CR>', {silent = true})
 
 -- RUN CURRENT PYTHON SCRIPT
 -- =========================
@@ -31,14 +31,17 @@ vim.keymap.set('i', '<S-Tab>', '<Esc><<i', { silent = true})
 vim.keymap.set('x', '<Tab>', '>gv', { silent = true})
 vim.keymap.set('x', '<S-Tab>', '<gv', { silent = true})
 
+-- CLOSE SELECTED TEXT BETWEEN SYMBOLS
+-- ===================================
 vim.keymap.set('x', '"', 'c""<Esc>P', { silent = true})
 vim.keymap.set('x', "'", "c''<Esc>P", { silent = true})
 vim.keymap.set('x', '(', 'c()<Esc>P', { silent = true})
 vim.keymap.set('x', '[', 'c[]<Esc>P', { silent = true})
+
 vim.keymap.set('i', '<C-b>', '<Esc>:NvimTreeToggle<CR>', { silent = true})
 vim.keymap.set('n', '<C-b>', '<Esc>:NvimTreeToggle<CR>', { silent = true})
 
-vim.keymap.set('n', '<C-q>', '<Esc>:copen<CR>', { silent = true})
+-- vim.keymap.set('n', '<C-q>', '<Esc>:copen<CR>', { silent = true})
 
 -- RETURN TO NORMAL MODE IN THE INTEGRATED TERMINAL
 -- ================================================
@@ -99,6 +102,3 @@ vim.keymap.set('n', '<space>t', my_terminal.toggle_terminal,{})
 
 local my_quickfixlist = require('heloint.my_quickfixlist')
 vim.keymap.set('n', '<C-q>', my_quickfixlist.toggle_qf,{})
-
-
-

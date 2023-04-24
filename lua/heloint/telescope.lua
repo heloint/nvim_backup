@@ -6,7 +6,7 @@ local actions = require('telescope.actions')
 require('telescope').setup{
   defaults = {
     layout_strategy = 'vertical',
-    layout_config = { height = 0.95 },
+    layout_config = { height = 0.99 },
     mappings = {
         i = {
            ['<C-q>'] = actions.smart_send_to_qflist + actions.open_qflist,
@@ -24,6 +24,5 @@ require('telescope').setup{
     }
   },
   extensions = {
-    -- ...
   }
 }

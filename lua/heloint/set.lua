@@ -1,38 +1,33 @@
-local g   = vim.g
-local o   = vim.o
-local opt = vim.opt
-local A   = vim.api
-
 -- DEFAULTS
 -- ====================================================================
 vim.cmd("set encoding=UTF-8")
-opt.relativenumber = true
+vim.opt.relativenumber = true
 
-o.clipboard = 'unnamedplus'
-o.number = true
-o.mouse= "a"
+vim.o.clipboard = 'unnamedplus'
+vim.o.number = true
+vim.o.mouse= "a"
 
-o.tabstop = 4
-o.shiftwidth = 4
-o.expandtab = true
-o.smartindent  = true
-o.autoindent = true
+vim.o.tabstop = 4
+vim.o.shiftwidth = 4
+vim.o.expandtab = true
+vim.o.autoindent = true
+vim.o.smartindent  = true
 
-o.swapfile = false
-o.backup = false
-o.undodir = os.getenv("HOME") .. "/.vim/undodir"
-o.undofile = true
+vim.o.backup = false
+vim.o.undofile = true
+vim.o.swapfile = false
+vim.o.undodir = os.getenv("HOME") .. "/.vim/undodir"
 
-o.incsearch = true
-o.ignorecase = true
-o.smartcase = true
+vim.o.incsearch = true
+vim.o.smartcase = true
+vim.o.ignorecase = true
 
-o.wrap = false
-o.hidden = true
+vim.o.wrap = false
+vim.o.hidden = true
 
-o.laststatus = 2
-o.showcmd = true
-o.showmatch = true
+vim.o.laststatus = 2
+vim.o.showcmd = true
+vim.o.showmatch = true
 
-o.pumheight = 10
-o.cursorline = true
+vim.o.pumheight = 10
+vim.o.cursorline = true
