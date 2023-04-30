@@ -35,6 +35,11 @@ require("nvim-tree").setup({
   filters = {
     dotfiles = false,
   },
+  diagnostics = {
+    enable = true,
+    show_on_dirs = true,
+    show_on_open_dirs = true,
+  },
 })
 
 local function open_nvim_tree()
