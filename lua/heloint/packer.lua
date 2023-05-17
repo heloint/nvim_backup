@@ -31,7 +31,6 @@ return require('packer').startup(function()
     use 'windwp/nvim-ts-autotag'
 
     -- THEME AND STUFF
-    use 'petertriho/nvim-scrollbar'
     use "rebelot/kanagawa.nvim"
     use "lukas-reineke/indent-blankline.nvim"
     use {
@@ -66,6 +65,4 @@ return require('packer').startup(function()
         {'L3MON4D3/LuaSnip'},
       }
     }
-
-
 end)
