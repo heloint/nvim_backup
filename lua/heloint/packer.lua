@@ -31,12 +31,17 @@ return require('packer').startup(function()
     use 'windwp/nvim-ts-autotag'
 
     -- THEME AND STUFF
-    use "rebelot/kanagawa.nvim"
     use "lukas-reineke/indent-blankline.nvim"
     use {
       'nvim-lualine/lualine.nvim',
       requires = { 'kyazdani42/nvim-web-devicons', opt = true }
     }
+    use 'rebelot/kanagawa.nvim'
+
+    -- FOR JAVA (WHICH SUCKS BTW)
+    use "mfussenegger/nvim-jdtls"
+    use 'mfussenegger/nvim-dap'
+    use 'rcarriga/nvim-dap-ui'
 
     -- MANAGE LSP AND STUFF
     use {

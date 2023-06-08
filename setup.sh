@@ -40,6 +40,7 @@ git clone --depth 1 https://github.com/wbthomason/packer.nvim\
 git clone https://github.com/heloint/nvim_backup
 cp ./nvim_backup/init.lua .
 cp -r ./nvim_backup/lua .
+cp -r ./nvim_backup/ftplugin .
 
 # Install Fura Nerdfont
 mkdir -p ~/.local/share/fonts/
