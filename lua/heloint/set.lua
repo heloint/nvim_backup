@@ -31,3 +31,4 @@ vim.o.showmatch = true
 
 vim.o.pumheight = 10
 vim.o.cursorline = true
+vim.o.autochdir = true
