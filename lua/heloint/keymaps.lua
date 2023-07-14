@@ -31,12 +31,18 @@ vim.keymap.set('i', '<S-Tab>', '<Esc><<i', { silent = true})
 vim.keymap.set('x', '<Tab>', '>gv', { silent = true})
 vim.keymap.set('x', '<S-Tab>', '<gv', { silent = true})
 
+-- COPY PASTA TO SYS. CLIPBOARD
+vim.keymap.set('n', '<space>y', '"+y', { silent = true})
+vim.keymap.set('x', '<space>y', '"+y', { silent = true})
+vim.keymap.set('n', '<space>p', '"+p', { silent = true})
+vim.keymap.set('x', '<space>p', '"+p', { silent = true})
+
 -- CLOSE SELECTED TEXT BETWEEN SYMBOLS
 -- ===================================
-vim.keymap.set('x', '"', 'c""<Esc>P', { silent = true})
+--[[ vim.keymap.set('x', '"', 'c""<Esc>P', { silent = true})
 vim.keymap.set('x', "'", "c''<Esc>P", { silent = true})
 vim.keymap.set('x', '(', 'c()<Esc>P', { silent = true})
-vim.keymap.set('x', '[', 'c[]<Esc>P', { silent = true})
+vim.keymap.set('x', '[', 'c[]<Esc>P', { silent = true}) ]]
 
 vim.keymap.set('i', '<C-b>', '<Esc>:NvimTreeToggle<CR>', { silent = true})
 vim.keymap.set('n', '<C-b>', '<Esc>:NvimTreeToggle<CR>', { silent = true})
