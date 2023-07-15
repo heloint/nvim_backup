@@ -33,7 +33,7 @@ vim.keymap.set('x', '<S-Tab>', '<gv', { silent = true})
 
 -- COPY PASTA DON'T OVERWRITE
 -- ==========================
-vim.vim.set('x', 'p', 'pgvy', { silent = true})
+vim.keymap.set('x', 'p', 'pgvy', { silent = true})
 
 -- CLOSE SELECTED TEXT BETWEEN SYMBOLS (UNUSED)
 -- ===================================
