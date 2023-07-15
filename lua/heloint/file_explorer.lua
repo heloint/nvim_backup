@@ -1,14 +1,14 @@
 -- NETRW CONFIG
 -- ====================================================================
--- vim.g.netrw_banner = 0
--- vim.g.netrw_liststyle = 3
--- vim.g.netrw_winsize = 30
--- vim.g.netrw_altv = 1
+vim.g.netrw_banner = 0
+vim.g.netrw_liststyle = 3
+vim.g.netrw_winsize = 30
+vim.g.netrw_altv = 1
 
 -- NVIM TREE
 -- ====================================================================
 -- disable netrw at the very start of your init.lua (strongly advised)
-vim.g.loaded_netrw = 1
+--[[ vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
 require("nvim-tree").setup({
@@ -51,4 +51,4 @@ local function open_nvim_tree()
 end
 -- open_nvim_tree()
 
-vim.api.nvim_create_autocmd({"VimEnter"}, {callback = open_nvim_tree })
+vim.api.nvim_create_autocmd({"VimEnter"}, {callback = open_nvim_tree }) ]]

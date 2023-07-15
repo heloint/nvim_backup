@@ -15,7 +15,7 @@ return require('packer').startup(function()
         requires = { {'nvim-lua/plenary.nvim'} }
     }
 
-    -- FILE EXPLORER
+    -- FILE EXPLORER (MAYBE UNUSED?)
     use {
       'nvim-tree/nvim-tree.lua',
       requires = {

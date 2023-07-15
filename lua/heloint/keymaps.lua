@@ -39,17 +39,18 @@ vim.keymap.set('x', 'p', 'pgvy', { silent = true})
 -- ===================================
 --[[ vim.keymap.set('x', '"', 'c""<Esc>P', { silent = true})
 vim.keymap.set('x', "'", "c''<Esc>P", { silent = true})
-vim.keymap.set('x', '(', 'c()<Esc>P', { silent = true})
+vim.keymap.set('x', '(', 'c()<Esc>P', { silent = true})key
 vim.keymap.set('x', '[', 'c[]<Esc>P', { silent = true}) ]]
 
-vim.keymap.set('i', '<C-b>', '<Esc>:NvimTreeToggle<CR>', { silent = true})
-vim.keymap.set('n', '<C-b>', '<Esc>:NvimTreeToggle<CR>', { silent = true})
+-- (MAYBE UNUSED?)
+--[[ vim.keymap.set('i', '<C-b>', '<Esc>:NvimTreeToggle<CR>', { silent = true})
+vim.keymap.set('n', '<C-b>', '<Esc>:NvimTreeToggle<CR>', { silent = true}) ]]
 
 -- vim.keymap.set('n', '<C-q>', '<Esc>:copen<CR>', { silent = true})
 
--- RETURN TO NORMAL MODE IN THE INTEGRATED TERMINAL
--- ================================================
-vim.keymap.set('t', '<Esc>', '<C-\\><C-N>', { silent = true})
+-- RETURN TO NORMAL MODE IN THE INTEGRATED TERMINAL (UNUSED)
+-- =========================================================
+-- vim.keymap.set('t', '<Esc>', '<C-\\><C-N>', { silent = true})
 
 -- TELESCOPE MAPPING
 -- =================
