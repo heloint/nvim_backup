@@ -3,7 +3,7 @@
 vim.cmd("set encoding=UTF-8")
 vim.opt.relativenumber = true
 
--- vim.o.clipboard = 'unnamedplus'
+vim.o.clipboard = 'unnamedplus'
 vim.o.number = true
 vim.o.mouse= "a"
 vim.o.scrolloff = 10
