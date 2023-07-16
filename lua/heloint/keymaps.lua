@@ -55,8 +55,11 @@ vim.keymap.set('n', '<C-b>', '<Esc>:NvimTreeToggle<CR>', { silent = true}) ]]
 -- TELESCOPE MAPPING
 -- =================
 local builtin = require('telescope.builtin')
+local utils = require('telescope.utils')
 
-vim.keymap.set('n', '<C-f>f', '<Esc>:Telescope find_files hidden=true<CR>', {})
+vim.keymap.set('n', '<C-f>f', function()
+    builtin.find_files({hidden=true, cwd=utils.buffer_dir()})
+end)
 vim.keymap.set('n', '<C-f>g', builtin.live_grep, {})
 vim.keymap.set('n', '<C-f>b', builtin.buffers, {})
 vim.keymap.set('n', '<C-f>h', builtin.help_tags, {})
