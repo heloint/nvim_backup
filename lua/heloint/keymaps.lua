@@ -35,36 +35,36 @@ vim.keymap.set('x', '<S-Tab>', '<gv', { silent = true})
 -- ==========================
 vim.keymap.set('x', 'p', 'pgvy', { silent = true})
 
--- CLOSE SELECTED TEXT BETWEEN SYMBOLS (UNUSED)
--- ===================================
---[[ vim.keymap.set('x', '"', 'c""<Esc>P', { silent = true})
-vim.keymap.set('x', "'", "c''<Esc>P", { silent = true})
-vim.keymap.set('x', '(', 'c()<Esc>P', { silent = true})key
-vim.keymap.set('x', '[', 'c[]<Esc>P', { silent = true}) ]]
+    -- CLOSE SELECTED TEXT BETWEEN SYMBOLS (UNUSED)
+    -- ===================================
+    --[[ vim.keymap.set('x', '"', 'c""<Esc>P', { silent = true})
+    vim.keymap.set('x', "'", "c''<Esc>P", { silent = true})
+    vim.keymap.set('x', '(', 'c()<Esc>P', { silent = true})key
+    vim.keymap.set('x', '[', 'c[]<Esc>P', { silent = true}) ]]
 
--- (MAYBE UNUSED?)
---[[ vim.keymap.set('i', '<C-b>', '<Esc>:NvimTreeToggle<CR>', { silent = true})
-vim.keymap.set('n', '<C-b>', '<Esc>:NvimTreeToggle<CR>', { silent = true}) ]]
+    -- (MAYBE UNUSED?)
+    --[[ vim.keymap.set('i', '<C-b>', '<Esc>:NvimTreeToggle<CR>', { silent = true})
+    vim.keymap.set('n', '<C-b>', '<Esc>:NvimTreeToggle<CR>', { silent = true}) ]]
 
--- vim.keymap.set('n', '<C-q>', '<Esc>:copen<CR>', { silent = true})
+    -- vim.keymap.set('n', '<C-q>', '<Esc>:copen<CR>', { silent = true})
 
--- RETURN TO NORMAL MODE IN THE INTEGRATED TERMINAL (UNUSED)
--- =========================================================
--- vim.keymap.set('t', '<Esc>', '<C-\\><C-N>', { silent = true})
+    -- RETURN TO NORMAL MODE IN THE INTEGRATED TERMINAL (UNUSED)
+    -- =========================================================
+    -- vim.keymap.set('t', '<Esc>', '<C-\\><C-N>', { silent = true})
 
--- TELESCOPE MAPPING
+    -- TELESCOPE MAPPING
 -- =================
 local builtin = require('telescope.builtin')
-local utils = require('telescope.utils')
 
 vim.keymap.set('n', '<C-f>f', function()
-    builtin.find_files({hidden=true, cwd=utils.buffer_dir()})
+    builtin.find_files({hidden=true})
 end)
 vim.keymap.set('n', '<C-f>g', builtin.live_grep, {})
 vim.keymap.set('n', '<C-f>b', builtin.buffers, {})
 vim.keymap.set('n', '<C-f>h', builtin.help_tags, {})
 vim.keymap.set('n', '<C-f>r', builtin.lsp_references, {})
 vim.keymap.set('n', '<C-f>q', builtin.resume, {})
+vim.keymap.set('n', '<C-f>m', builtin.marks, {})
 
 -- BLOCK COMMENTING
 -- ================

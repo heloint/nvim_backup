@@ -15,15 +15,6 @@ return require('packer').startup(function()
         requires = { {'nvim-lua/plenary.nvim'} }
     }
 
-    -- FILE EXPLORER (MAYBE UNUSED?)
-    use {
-      'nvim-tree/nvim-tree.lua',
-      requires = {
-        'nvim-tree/nvim-web-devicons',
-      },
-      tag = 'nightly'
-    }
-
     -- AUTOCOMPLETE
 
     -- OTHER USEFUL JUNKS
