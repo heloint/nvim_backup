@@ -28,6 +28,7 @@ return require('packer').startup(function()
       requires = { 'kyazdani42/nvim-web-devicons', opt = true }
     }
     use 'rebelot/kanagawa.nvim'
+    use 'nvim-tree/nvim-tree.lua'
 
     -- FOR JAVA (WHICH SUCKS BTW)
     use "mfussenegger/nvim-jdtls"

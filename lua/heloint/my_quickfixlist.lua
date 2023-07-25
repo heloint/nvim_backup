@@ -1,4 +1,4 @@
- function toggle_qf()
+function toggle_qf()
   local qf_exists = false
   for _, win in pairs(vim.fn.getwininfo()) do
     print(win["quickfix"])
