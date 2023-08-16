@@ -109,3 +109,6 @@ vim.keymap.set('n', '<space>t', my_terminal.toggle_terminal,{})
 
 local my_quickfixlist = require('heloint.my_quickfixlist')
 vim.keymap.set('n', '<C-q>', my_quickfixlist.toggle_qf,{})
+
+vim.keymap.set("n", "<C-j>", "<cmd>cnext<CR>zz")
+vim.keymap.set("n", "<C-k>", "<cmd>cprev<CR>zz")

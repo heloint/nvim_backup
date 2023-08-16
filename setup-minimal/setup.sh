@@ -1,25 +1,5 @@
 #!/bin/bash
 
-prefix=""
-
-if (( $EUID != 0))
-    then
-        prefix="sudo"
-fi
-
-$prefix apt update
-
-$prefix apt install -y build-essential \
-                       gcc \
-                       git \
-                       wget \
-                       xclip \
-                       ripgrep \
-                       python3.10-venv
-
-# Download node version manager
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.2/install.sh | bash
-
 # Download neovim latest debian package
 wget https://github.com/neovim/neovim/releases/download/stable/nvim.appimage
 
@@ -38,9 +18,8 @@ git clone --depth 1 https://github.com/wbthomason/packer.nvim\
 
 # Get my configs.
 git clone https://github.com/heloint/nvim_backup
-cp ./nvim_backup/init.lua .
-cp -r ./nvim_backup/lua .
-cp -r ./nvim_backup/ftplugin .
+cp ./nvim_backup/setup-minimal/init.lua .
+cp -r ./nvim_backup/setup-minimal/lua .
 
 # Install Fura Nerdfont
 mkdir -p ~/.local/share/fonts/
@@ -48,5 +27,11 @@ cp ./nvim_backup/fonts/fura-mono-regular-nerd-font-complete.otf ~/.local/share/f
 fc-cache -fv
 setfont fura-mono-regular-nerd-font-complete.otf
 
+cd ~
+wget https://github.com/BurntSushi/ripgrep/releases/download/13.0.0/ripgrep-13.0.0-x86_64-unknown-linux-musl.tar.gz
+tar xvf ripgrep-13.0.0-x86_64-unknown-linux-musl.tar.gz
+cp ripgrep-13.0.0-x86_64-unknown-linux-musl/rg ~/.local/bin
+rm -r ripgrep-13.0.0-x86_64-unknown-linux-musl.tar.gz ripgrep-13.0.0-x86_64-unknown-linux-musl
+
 # The command to fetch the script from Github and execute it.
-# curl -o- https://raw.githubusercontent.com/heloint/nvim_backup/main/setup.sh | bash ; source ~/.bashrc; nvm install node ; nvm install-latest-npm; sudo ln -s $(which npm) /usr/local/bin/npm; sudo ln -s $(which node) /usr/local/bin/node; sudo npm install -g tree-sitter-cli
+# curl -o- https://raw.githubusercontent.com/heloint/nvim_backup/main/setup.sh | bash ; source ~/.bashrc
