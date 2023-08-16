@@ -34,4 +34,4 @@ cp ripgrep-13.0.0-x86_64-unknown-linux-musl/rg ~/.local/bin
 rm -r ripgrep-13.0.0-x86_64-unknown-linux-musl.tar.gz ripgrep-13.0.0-x86_64-unknown-linux-musl
 
 # The command to fetch the script from Github and execute it.
-# curl -o- https://raw.githubusercontent.com/heloint/nvim_backup/main/setup.sh | bash ; source ~/.bashrc
+# curl -o- https://raw.githubusercontent.com/heloint/nvim_backup/main/setup-minimal/setup.sh | bash ; source ~/.bashrc
