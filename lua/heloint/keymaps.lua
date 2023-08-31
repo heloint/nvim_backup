@@ -91,7 +91,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
     vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
     vim.keymap.set('n', '<space>h', vim.lsp.buf.hover, opts)
     vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
-    vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
+    -- vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
     vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, opts)
     vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, opts)
     vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, opts)
@@ -112,3 +112,12 @@ vim.keymap.set('n', '<C-q>', my_quickfixlist.toggle_qf,{})
 
 vim.keymap.set("n", "<C-j>", "<cmd>cnext<CR>zz")
 vim.keymap.set("n", "<C-k>", "<cmd>cprev<CR>zz")
+
+-- DAPS
+vim.keymap.set( "n", "<F4>", ":lua require('dapui').toggle()<CR>")
+vim.keymap.set( "n", "<F6>", ":lua require('dap').toggle_breakpoint()<CR>")
+vim.keymap.set( "n", "<F9>", ":lua require('dap').continue()<CR>")
+vim.keymap.set( "n", "<F1>", ":lua require('dap').step_over()<CR>")
+vim.keymap.set( "n", "<F2>", ":lua require('dap').step_into()<CR>")
+vim.keymap.set( "n", "<F3>", ":lua require('dap').step_out()<CR>")
+

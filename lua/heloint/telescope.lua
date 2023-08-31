@@ -5,7 +5,7 @@ local actions = require('telescope.actions')
 
 require('telescope').setup{
   defaults = {
-    file_ignore_patterns = {".git/", ".cache", "%.o", "%.a", "%.out", "%.class",
+    file_ignore_patterns = {".git/", "%.o", "%.a", "%.out", "%.class",
             "%.pdf", "%.mkv", "%.mp4", "%.zip", "^node_modules/"},
     layout_strategy = 'vertical',
     layout_config = { height = 0.99 },

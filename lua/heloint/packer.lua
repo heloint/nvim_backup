@@ -30,10 +30,13 @@ return require('packer').startup(function()
     use 'rebelot/kanagawa.nvim'
     use 'nvim-tree/nvim-tree.lua'
 
-    -- FOR JAVA (WHICH SUCKS BTW)
-    use "mfussenegger/nvim-jdtls"
+    -- DEBUGGERS
     use 'mfussenegger/nvim-dap'
     use 'rcarriga/nvim-dap-ui'
+    use 'leoluz/nvim-dap-go'
+
+    -- FOR JAVA (WHICH SUCKS BTW)
+    use "mfussenegger/nvim-jdtls"
 
     -- MANAGE LSP AND STUFF
     use {
