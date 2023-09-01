@@ -32,10 +32,6 @@ echo "export PATH=\"$HOME/.local/bin:$PATH\"" >> ~/.bashrc
 # Create config dir for neovim
 mkdir -p ~/.config/nvim ; cd ~/.config/nvim
 
-# Download and install Packer plugin manager.
-git clone --depth 1 https://github.com/wbthomason/packer.nvim\
- ~/.local/share/nvim/site/pack/packer/start/packer.nvim
-
 # Get my configs.
 git clone https://github.com/heloint/nvim_backup
 cp ./nvim_backup/init.lua .

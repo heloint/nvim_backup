@@ -17,8 +17,8 @@ require("mason").setup({
 require("mason-lspconfig").setup({ 
     ensure_installed = { 
         "html",
-        "pyright",
         "cssls",
+        "pyright",
         "intelephense",
         "eslint",
         "tsserver",
@@ -36,4 +36,17 @@ require('lspconfig')['emmet_ls'].setup {
 
 require('lspconfig')['html'].setup { 
     filetypes = {'jsp', 'html'}
+}
+
+require'lspconfig'.pylsp.setup{
+  settings = {
+    pylsp = {
+      plugins = {
+        pycodestyle = {
+          ignore = {'W391'},
+          maxLineLength = 100
+        }
+      }
+    }
+  }
 }
