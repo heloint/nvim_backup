@@ -11,6 +11,7 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+
 require("lazy").setup({
     {
         "nvim-treesitter/nvim-treesitter",
@@ -61,7 +62,13 @@ require("lazy").setup({
             {'L3MON4D3/LuaSnip'},
         }
     }
-})
+},
+{
+    ui = {
+        border = "rounded"
+    }
+}
+)
 
 require("heloint.set")
 require("heloint.keymaps")
