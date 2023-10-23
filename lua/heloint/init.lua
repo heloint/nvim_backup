@@ -4,7 +4,7 @@ if not vim.loop.fs_stat(lazypath) then
         "git",
         "clone",
         "--filter=blob:none",
-        "https://github.com/folke/lazy.nvim.git",
+	"https://github.com/folke/lazy.nvim.git",
         "--branch=stable", -- latest stable release
         lazypath,
     })
@@ -29,10 +29,10 @@ require("lazy").setup({
         end
     },
     {"rebelot/kanagawa.nvim", lazy=true},
-    { "lukas-reineke/indent-blankline.nvim", lazy=true},
+    { "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = {} },
     { "nvim-lualine/lualine.nvim", lazy=true},
     {
-        'nvim-telescope/telescope.nvim', tag = '0.1.2',
+        'nvim-telescope/telescope.nvim', tag = '0.1.4',
         dependencies = { 'nvim-lua/plenary.nvim' }
     },
     { 'b3nj5m1n/kommentary', lazy=true},

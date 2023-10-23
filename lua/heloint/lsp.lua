@@ -18,19 +18,17 @@ require("mason-lspconfig").setup({
     ensure_installed = { 
         "html",
         "cssls",
-        "pyright",
         "intelephense",
-        "eslint",
-        "tsserver",
-        "angularls",
-        "rust_analyzer",
+        "pylsp",
+        "pyright",
         "jdtls",
+        "tsserver",
     } 
 })
 
 require('lspconfig')['emmet_ls'].setup { 
     filetypes = { 
-        "html", "typescriptreact", "javascriptreact", "css", "sass", "scss", "less", "eruby", "jsp"
+        "html", "css", "sass", "scss", "less", "eruby", "jsp"
     }
 }
 
@@ -43,7 +41,7 @@ require'lspconfig'.pylsp.setup{
     pylsp = {
       plugins = {
         pycodestyle = {
-          ignore = {'W391'},
+          ignore = {'W391', 'W503'},
           maxLineLength = 100
         }
       }

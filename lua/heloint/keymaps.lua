@@ -49,7 +49,7 @@ vim.keymap.set('n', '<C-b>', '<Esc>:NvimTreeToggle<CR>', { silent = true})
 
 -- RETURN TO NORMAL MODE IN THE INTEGRATED TERMINAL (UNUSED)
 -- =========================================================
--- vim.keymap.set('t', '<Esc>', '<C-\\><C-N>', { silent = true})
+vim.keymap.set('t', '<Esc>', '<C-\\><C-N>', { silent = true})
 
 -- TELESCOPE MAPPING
 -- =================

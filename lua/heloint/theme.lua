@@ -1,8 +1,8 @@
 -- COLORS
 -- ====================================================================
-require('kanagawa').setup({
+--[[ require('kanagawa').setup({
     dimInactive = true,
-})
+}) ]]
 
 vim.cmd("colorscheme kanagawa-wave")
 --[[ vim.cmd(":hi MatchParen cterm=bold ctermfg=yellow ctermbg=darkgrey")
@@ -18,11 +18,7 @@ vim.cmd('highlight TabLine gui=NONE guifg=#000 guibg=#444654') ]]
 vim.opt.list = true
 vim.opt.listchars:append "space:⋅"
 
-require("indent_blankline").setup {
-    space_char_blankline = " ",
-    show_current_context = true,
-    show_current_context_start = true,
-}
+require("ibl").setup()
 
 -- LUALINE
 -- ====================================================================
