@@ -35,17 +35,10 @@ vim.keymap.set('x', '<S-Tab>', '<gv', { silent = true})
 -- ==========================
 vim.keymap.set('x', 'p', 'pgvy', { silent = true})
 
--- CLOSE SELECTED TEXT BETWEEN SYMBOLS (UNUSED)
--- ===================================
---[[ vim.keymap.set('x', '"', 'c""<Esc>P', { silent = true})
-vim.keymap.set('x', "'", "c''<Esc>P", { silent = true})
-vim.keymap.set('x', '(', 'c()<Esc>P', { silent = true})key
-vim.keymap.set('x', '[', 'c[]<Esc>P', { silent = true}) ]]
-
+-- TOGGLE NVIM-TREE
+-- ================
 vim.keymap.set('i', '<C-b>', '<Esc>:NvimTreeToggle<CR>', { silent = true})
 vim.keymap.set('n', '<C-b>', '<Esc>:NvimTreeToggle<CR>', { silent = true})
-
-    -- vim.keymap.set('n', '<C-q>', '<Esc>:copen<CR>', { silent = true})
 
 -- RETURN TO NORMAL MODE IN THE INTEGRATED TERMINAL (UNUSED)
 -- =========================================================

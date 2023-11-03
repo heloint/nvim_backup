@@ -11,7 +11,6 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-
 require("lazy").setup({
     {
         "nvim-treesitter/nvim-treesitter",
@@ -28,20 +27,6 @@ require("lazy").setup({
             })
         end
     },
-    {"rebelot/kanagawa.nvim", lazy=true},
-    { "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = {} },
-    { "nvim-lualine/lualine.nvim", lazy=true},
-    {
-        'nvim-telescope/telescope.nvim', tag = '0.1.4',
-        dependencies = { 'nvim-lua/plenary.nvim' }
-    },
-    { 'b3nj5m1n/kommentary', lazy=true},
-    { 'windwp/nvim-ts-autotag', lazy=true},
-    {'nvim-tree/nvim-tree.lua', lazy=true},
-    {"mfussenegger/nvim-jdtls", lazy=true},
-    {'mfussenegger/nvim-dap', lazy=true},
-    {'rcarriga/nvim-dap-ui', lazy=true},
-    { 'leoluz/nvim-dap-go', lazy=true }, 
     {
         'VonHeikemen/lsp-zero.nvim',
         branch = 'v2.x',
@@ -61,7 +46,30 @@ require("lazy").setup({
             {'hrsh7th/vim-vsnip-integ'},
             {'L3MON4D3/LuaSnip'},
         }
-    }
+    },
+    {"rebelot/kanagawa.nvim", lazy=true},
+    { "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = {} },
+    { "nvim-lualine/lualine.nvim", lazy=true},
+    {
+        'nvim-telescope/telescope.nvim', tag = '0.1.4',
+        dependencies = { 'nvim-lua/plenary.nvim' }
+    },
+    { 'b3nj5m1n/kommentary', lazy=true},
+    { 'windwp/nvim-ts-autotag', lazy=true},
+    {'nvim-tree/nvim-tree.lua', lazy=true},
+    {'mfussenegger/nvim-dap', lazy=true},
+    {'rcarriga/nvim-dap-ui', lazy=true},
+    { 'leoluz/nvim-dap-go', lazy=true },
+    {
+        "ThePrimeagen/refactoring.nvim",
+        dependencies = {
+          "nvim-lua/plenary.nvim",
+          "nvim-treesitter/nvim-treesitter",
+        },
+        config = function()
+          require("refactoring").setup()
+        end,
+    },
 },
 {
     ui = {
