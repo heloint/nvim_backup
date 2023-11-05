@@ -11,6 +11,7 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+
 require("lazy").setup({
     {
         "nvim-treesitter/nvim-treesitter",
@@ -29,7 +30,7 @@ require("lazy").setup({
     },
     {
         'VonHeikemen/lsp-zero.nvim',
-        branch = 'v2.x',
+        branch = 'v3.x',
         dependencies = {
             -- LSP Support
             {'neovim/nvim-lspconfig'},             -- Required
