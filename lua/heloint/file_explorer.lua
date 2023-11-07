@@ -23,7 +23,7 @@ require("nvim-tree").setup({
         enable = true,
     },
     view = {
-        width = 30,
+        width = 50,
     },
     renderer = {
         group_empty = true,
@@ -33,4 +33,17 @@ require("nvim-tree").setup({
         show_on_dirs = true,
         show_on_open_dirs = true,
     },
+    renderer = {
+        indent_markers = {
+          enable = true,
+          inline_arrows = true,
+          icons = {
+            corner = "└",
+            edge = "│",
+            item = "│",
+            bottom = "─",
+            none = " ",
+          },
+        },
+    }
 })
