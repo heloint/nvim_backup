@@ -34,6 +34,7 @@ chmod +x nvim.appimage && \
 ./nvim.appimage --appimage-extract && \
 ln -s $PWD/squashfs-root/AppRun $PWD/nvim && \
 echo "export PATH=\"$HOME/.local/bin:$PATH\"" >> ~/.bashrc
+. ~/.bashrc
 
 # Create config dir for neovim and get my configs.
 mkdir -p ~/.config/nvim && \
@@ -50,9 +51,9 @@ cp -r ./nvim_backup/lua .
 
 # Install pylsp 3th parties (Mypy, Black, etc..)
 python3 -m venv $HOME/venv && \
+echo "export [ -f ~/venv/bin/activate ] && source ~/venv/bin/activate" >> ~/.bashrc
 find $HOME/venv -type d -name site-packages -exec echo "export PYTHONPATH=$PYTHONPATH:{}" >> ~/.bashrc \;
-. $HOME/venv/bin/activate
-pip install "python-lsp-server[all]"
+. ~/.bashrc
 pip install pylsp-mypy
 
 # Install ripgrep
