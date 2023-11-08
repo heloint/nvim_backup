@@ -11,7 +11,7 @@ curl -o- https://raw.githubusercontent.com/heloint/nvim_backup/main/setup.sh | b
 ```
 
 ```bash
-source /dev/stdin <<< curl -o- https://raw.githubusercontent.com/heloint/nvim_backup/main/setup.sh | bash; echo done
+source /dev/stdin <<< "$(curl -o- https://raw.githubusercontent.com/heloint/nvim_backup/main/setup.sh)"; echo done
 ```
 
 Minimal installation for remote servers (no sudo needed):
