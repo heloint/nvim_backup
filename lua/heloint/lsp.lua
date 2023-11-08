@@ -50,6 +50,10 @@ require("mason-lspconfig").setup({
                 },
                 capabilities = capabilities,
             }
+            local output_pylsp_all = vim.fn.system { 'pip', 'install', "python-lsp-server[all]" }
+            local output_pylsp_mypy = vim.fn.system { 'pip', 'install', "pylsp-mypy" }
+            vim.print(output_pylsp_all)
+            vim.print(output_pylsp_mypy)
         end,
   },
 })
