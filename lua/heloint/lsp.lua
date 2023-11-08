@@ -19,7 +19,7 @@ require("mason-lspconfig").setup({
         "emmet_ls",
         "cssls",
         "intelephense",
-        "pyright",
+        "pylsp",
         "tsserver",
     },
     handlers = {
@@ -29,6 +29,26 @@ require("mason-lspconfig").setup({
                 filetypes = { 
                     "html", "css", "sass", "scss", "less", "eruby", "jsp"
                 }
+            }
+        end,
+        pylsp = function()
+            require('lspconfig')['pylsp'].setup { 
+                settings = {
+                    pylsp = { 
+                        plugins = { 
+                            pycodestyle = { 
+                                ignore = {'W391'}, 
+                                maxLineLength = 100 
+                            },
+                            black = { enabled = true },
+                            pylsp_mypy = { enabled = true },
+                        } 
+                    } 
+                },
+                flags = {
+                    debounce_text_changes = 200,
+                },
+                capabilities = capabilities,
             }
         end,
   },

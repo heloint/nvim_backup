@@ -4,25 +4,27 @@
 wget https://github.com/neovim/neovim/releases/download/stable/nvim.appimage
 
 # Install neovim
-mkdir -p ~/.local/bin/
-chmod +x nvim.appimage
-mv nvim.appimage ~/.local/bin/; cd ~/.local/bin/
+mkdir -p ~/.local/bin/ && \
+chmod +x nvim.appimage && \
+mv nvim.appimage ~/.local/bin/; cd ~/.local/bin/ && \
+./nvim.appimage --appimage-extract && \
+ln -s $PWD/squashfs-root/AppRun $PWD/nvim && \
 echo "export PATH=\"$HOME/.local/bin:$PATH\"" >> ~/.bashrc
 
-# Create config dir for neovim
-mkdir -p ~/.config/nvim ; cd ~/.config/nvim
-
-# Get my configs.
-git clone https://github.com/heloint/nvim_backup
-cp ./nvim_backup/setup-minimal/init.lua .
+# Create config dir for neovim and get my minimal configs.
+mkdir -p ~/.config/nvim && \
+cd ~/.config/nvim && \
+git clone https://github.com/heloint/nvim_backup && \
+cp ./nvim_backup/setup-minimal/init.lua . && \
 cp -r ./nvim_backup/setup-minimal/lua .
 
-# Install Fura Nerdfont
-mkdir -p ~/.local/share/fonts/
-cp ./nvim_backup/fonts/fura-mono-regular-nerd-font-complete.otf ~/.local/share/fonts/
-fc-cache -fv
-setfont fura-mono-regular-nerd-font-complete.otf
+# Install Fura Nerdfont (optional, not all environment will have support for icons)
+# mkdir -p ~/.local/share/fonts/
+# cp ./nvim_backup/fonts/fura-mono-regular-nerd-font-complete.otf ~/.local/share/fonts/
+# fc-cache -fv
+# setfont fura-mono-regular-nerd-font-complete.otf
 
+# Install ripgrep
 cd ~
 wget https://github.com/BurntSushi/ripgrep/releases/download/13.0.0/ripgrep-13.0.0-x86_64-unknown-linux-musl.tar.gz
 tar xvf ripgrep-13.0.0-x86_64-unknown-linux-musl.tar.gz
