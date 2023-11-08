@@ -5,9 +5,13 @@ curl -o- https://raw.githubusercontent.com/heloint/nvim_backup/main/setup.sh | b
 && source ~/.bashrc \
 && nvm install node \
 && nvm install-latest-npm \
-&& sudo ln -s $(which npm) /usr/local/bin/npm \
-&& sudo ln -s $(which node) /usr/local/bin/node \
+&& ln -s $(which npm) ~/.local/bin/npm \
+&& ln -s $(which node) ~/.local/bin/node \
 && sudo npm install -g tree-sitter-cli
+```
+
+```bash
+source /dev/stdin <<< curl -o- https://raw.githubusercontent.com/heloint/nvim_backup/main/setup.sh | bash; echo done
 ```
 
 Minimal installation for remote servers (no sudo needed):

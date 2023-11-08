@@ -10,6 +10,7 @@ fi
 $prefix apt update
 
 $prefix apt install -y build-essential \
+                       git \
                        gcc \
                        git \
                        wget \
@@ -46,6 +47,9 @@ cp -r ./nvim_backup/lua .
 # Install pylsp 3th parties (Mypy, Black, etc..)
 python3 -m venv $HOME/venv && \
 find $HOME/venv -type d -name site-packages -exec echo "export PYTHONPATH=$PYTHONPATH:{}" >> ~/.bashrc \;
+. $HOME/venv/bin/activate
+pip install "python-lsp-server[all]"
+pip install pylsp-mypy
 
 # Install ripgrep
 cd ~ && \
@@ -53,3 +57,12 @@ wget https://github.com/BurntSushi/ripgrep/releases/download/13.0.0/ripgrep-13.0
 tar xvf ripgrep-13.0.0-x86_64-unknown-linux-musl.tar.gz && \
 cp ripgrep-13.0.0-x86_64-unknown-linux-musl/rg ~/.local/bin && \
 rm -r ripgrep-13.0.0-x86_64-unknown-linux-musl.tar.gz ripgrep-13.0.0-x86_64-unknown-linux-musl
+
+# Install node and npm
+. ~/.bashrc \
+&& nvm install node \
+&& nvm install-latest-npm \
+&& ln -s $(which npm) ~/.local/bin/npm \
+&& ln -s $(which node) ~/.local/bin/node \
+&& $prefix npm install -g tree-sitter-cli
+
