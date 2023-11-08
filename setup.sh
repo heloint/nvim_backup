@@ -12,21 +12,26 @@ $prefix apt update
 $prefix apt install -y build-essential \
                        git \
                        gcc \
+                       g++ \
                        git \
                        wget \
                        xclip \
+                       libstdc++6 \
                        python3.10-venv
 
 # Download node version manager
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.2/install.sh | bash
 
-# Download neovim latest debian package
-wget https://github.com/neovim/neovim/releases/download/stable/nvim.appimage
-
-# Install neovim
+# Install neovim and tree-sitter-cli
 mkdir -p ~/.local/bin/ && \
 chmod +x nvim.appimage && \
-mv nvim.appimage ~/.local/bin/; cd ~/.local/bin/ && \
+mv nvim.appimage ~/.local/bin/ && \
+cd ~/.local/bin/ && \
+wget https://github.com/neovim/neovim/releases/download/stable/nvim.appimage && \
+wget https://github.com/tree-sitter/tree-sitter/releases/download/v0.20.8/tree-sitter-linux-x64.gz && \
+gunzip tree-sitter-linux-x64.gz && \
+mv tree-sitter-linux-x64 tree-sitter && \
+chmod +x tree-sitter && \
 ./nvim.appimage --appimage-extract && \
 ln -s $PWD/squashfs-root/AppRun $PWD/nvim && \
 echo "export PATH=\"$HOME/.local/bin:$PATH\"" >> ~/.bashrc
