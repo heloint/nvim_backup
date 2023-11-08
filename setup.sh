@@ -64,5 +64,6 @@ rm -r ripgrep-13.0.0-x86_64-unknown-linux-musl.tar.gz ripgrep-13.0.0-x86_64-unkn
 && nvm install-latest-npm \
 && ln -s $(which npm) ~/.local/bin/npm \
 && ln -s $(which node) ~/.local/bin/node \
+&& . ~/.bashrc \
 && $prefix npm install -g tree-sitter-cli
 
