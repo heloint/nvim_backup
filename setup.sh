@@ -24,14 +24,13 @@ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.2/install.sh | bash
 
 # Install neovim and tree-sitter-cli
 mkdir -p ~/.local/bin/ && \
-chmod +x nvim.appimage && \
-mv nvim.appimage ~/.local/bin/ && \
 cd ~/.local/bin/ && \
 wget https://github.com/neovim/neovim/releases/download/stable/nvim.appimage && \
 wget https://github.com/tree-sitter/tree-sitter/releases/download/v0.20.8/tree-sitter-linux-x64.gz && \
 gunzip tree-sitter-linux-x64.gz && \
 mv tree-sitter-linux-x64 tree-sitter && \
 chmod +x tree-sitter && \
+chmod +x nvim.appimage && \
 ./nvim.appimage --appimage-extract && \
 ln -s $PWD/squashfs-root/AppRun $PWD/nvim && \
 echo "export PATH=\"$HOME/.local/bin:$PATH\"" >> ~/.bashrc
