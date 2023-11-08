@@ -54,7 +54,7 @@ python3 -m venv $HOME/venv && \
 echo "[ -f ~/venv/bin/activate ] && source ~/venv/bin/activate" >> ~/.bashrc
 find $HOME/venv -type d -name site-packages -exec echo "export PYTHONPATH=$PYTHONPATH:{}" >> ~/.bashrc \;
 . ~/.bashrc
-pip install pylsp-mypy
+# pip install pylsp-mypy
 
 # Install ripgrep
 cd ~ && \
