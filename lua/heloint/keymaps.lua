@@ -46,12 +46,29 @@ vim.keymap.set('t', '<Esc>', '<C-\\><C-N>', { silent = true})
 
 -- TELESCOPE MAPPING
 -- =================
-local builtin = require('telescope.builtin')
 
+function vim.getVisualSelection()
+	vim.cmd('noau normal! "vy"')
+	local text = vim.fn.getreg('v')
+	vim.fn.setreg('v', {})
+
+	text = string.gsub(text, "\n", "")
+	if #text > 0 then
+		return text
+	else
+		return ''
+	end
+end
+
+local builtin = require('telescope.builtin')
 vim.keymap.set('n', '<C-f>f', function()
     builtin.find_files({hidden=true})
 end)
 vim.keymap.set('n', '<C-f>g', builtin.live_grep, {})
+vim.keymap.set('v', '<C-f>g', function ()
+    local text = vim.getVisualSelection()
+    builtin.live_grep({default_text=text})
+end, {})
 vim.keymap.set('n', '<C-f>b', builtin.buffers, {})
 vim.keymap.set('n', '<C-f>h', builtin.help_tags, {})
 vim.keymap.set('n', '<C-f>r', builtin.lsp_references, {})
