@@ -1,9 +1,10 @@
 -- TELESCOPE SETUP AND KEYBINDS
 -- ====================================================================
 
+local telescope = require('telescope')
 local actions = require('telescope.actions')
 
-require('telescope').setup{
+telescope.setup{
   defaults = {
     file_ignore_patterns = {".git/", "%.o", "%.a", "%.out", "%.class",
             "%.pdf", "%.mkv", "%.mp4", "%.zip", "^node_modules/"},
