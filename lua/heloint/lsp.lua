@@ -19,19 +19,44 @@ require("mason-lspconfig").setup({
         "emmet_ls",
         "cssls",
         "intelephense",
-        "pyright",
         "tsserver",
         "jdtls",
+        "pylsp",
     },
     handlers = {
         lsp_zero.default_setup,
         emmet_ls = function()
             require('lspconfig')['emmet_ls'].setup {
                 filetypes = {
-                    "html", "css", "sass", "scss", "less", "eruby", "jsp"
+                    "css",
+                    "eruby",
+                    "html",
+                    "javascript",
+                    "javascriptreact",
+                    "less",
+                    "sass",
+                    "scss",
+                    "svelte",
+                    "pug",
+                    "typescriptreact",
+                    "vue",
                 }
             }
         end,
         jdtls = lsp_zero.noop,
+        pylsp = function()
+            require'lspconfig'.pylsp.setup{
+              settings = {
+                pylsp = {
+                  plugins = {
+                    pycodestyle = {
+                      ignore = {'W391'},
+                      maxLineLength = 100
+                    },
+                  }
+                }
+              }
+            }
+        end,
     },
 })
