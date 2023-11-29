@@ -45,17 +45,29 @@ require("mason-lspconfig").setup({
         end,
         jdtls = lsp_zero.noop,
         pylsp = function()
-            require'lspconfig'.pylsp.setup{
-              settings = {
-                pylsp = {
-                  plugins = {
-                    pycodestyle = {
-                      ignore = {'W391'},
-                      maxLineLength = 100
-                    },
-                  }
+            require 'lspconfig'.pylsp.setup {
+                settings = {
+                    pylsp = {
+                        plugins = {
+                            -- linter options
+                            pycodestyle = {
+                                ignore = { 'W391' },
+                                maxLineLength = 100
+                            },
+                            -- type checker
+                            pylsp_mypy = {
+                                enabled = true,
+                                live_mode = true,
+                            },
+                            -- formatter options
+                            black = { enabled = true },
+                            -- auto-completion options
+                            jedi_completion = { fuzzy = true },
+                            -- import sorting
+                            pyls_isort = { enabled = true },
+                        }
+                    }
                 }
-              }
             }
         end,
     },

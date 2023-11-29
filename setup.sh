@@ -52,8 +52,13 @@ cp -r ./nvim_backup/lua .
 # Install pylsp 3th parties (Mypy, Black, etc..)
 python3 -m venv $HOME/venv && \
 echo "[ -f ~/venv/bin/activate ] && source ~/venv/bin/activate" >> ~/.bashrc
-find $HOME/venv -type d -name site-packages -exec echo "export PYTHONPATH=$PYTHONPATH:{}" >> ~/.bashrc \;
 . ~/.bashrc
+
+pip install --upgrade pip
+pip install "python-lsp-server[all]"
+pip install python-lsp-isort
+pip install pylsp-mypy
+pip install python-lsp-black
 
 # Install ripgrep
 cd ~ && \
