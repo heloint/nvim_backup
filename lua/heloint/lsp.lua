@@ -52,6 +52,7 @@ require("mason-lspconfig").setup({
                             rope_autoimport = {
                                 enabled = true,
                             },
+                            pylint = { enabled = true, executable = "pylint" },
                             -- linter options
                             pycodestyle = {
                                 ignore = { 'W391' },
