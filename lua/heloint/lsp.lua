@@ -49,6 +49,9 @@ require("mason-lspconfig").setup({
                 settings = {
                     pylsp = {
                         plugins = {
+                            rope_autoimport = {
+                                enabled = true,
+                            },
                             -- linter options
                             pycodestyle = {
                                 ignore = { 'W391' },
