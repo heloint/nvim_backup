@@ -72,6 +72,7 @@ require("lazy").setup({
             end,
         },
         { 'mfussenegger/nvim-jdtls', lazy = true },
+        {'nvim-treesitter/nvim-treesitter-context'},
     },
     {
         ui = {
