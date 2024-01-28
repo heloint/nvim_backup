@@ -40,7 +40,23 @@ require("mason-lspconfig").setup({
                     "pug",
                     "typescriptreact",
                     "vue",
+                    "php",
+                    "blade.php",
                 }
+            }
+        end,
+        intelephense = function()
+            require('lspconfig')['intelephense'].setup {
+                filetypes = { "php", "blade" },
+                settings = {
+                    intelephense = {
+                        filetypes = { "php", "blade" },
+                        files = {
+                            associations = { "*.php", "*.blade.php" }, -- Associating .blade.php files as well
+                            maxSize = 5000000,
+                        },
+                    },
+                },
             }
         end,
         jdtls = lsp_zero.noop,

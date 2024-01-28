@@ -20,7 +20,7 @@ require("lazy").setup({
                 local configs = require("nvim-treesitter.configs")
 
                 configs.setup({
-                    ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "elixir", "heex", "javascript", "html" },
+                    ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "elixir", "heex", "javascript", "html", },
                     sync_install = false,
                     highlight = { enable = true },
                     indent = { enable = true },
@@ -64,15 +64,26 @@ require("lazy").setup({
         {
             "ThePrimeagen/refactoring.nvim",
             dependencies = {
-                "nvim-lua/plenary.nvim",
+
                 "nvim-treesitter/nvim-treesitter",
             },
             config = function()
                 require("refactoring").setup()
             end,
         },
-        { 'mfussenegger/nvim-jdtls', lazy = true },
-        {'nvim-treesitter/nvim-treesitter-context'},
+        { 'mfussenegger/nvim-jdtls',                 lazy = true },
+        { 'nvim-treesitter/nvim-treesitter-context', lazy = true },
+        {
+            "JoosepAlviste/nvim-ts-context-commentstring",
+            opts = {
+                custom_calculation = function(_, language_tree)
+                    if vim.bo.filetype == "blade" and language_tree._lang ~= "javascript" and language_tree._lang ~= "php" then
+                        return "{{-- %s --}}"
+                    end
+                end,
+            },
+        },
+        { "jwalton512/vim-blade", },
     },
     {
         ui = {
