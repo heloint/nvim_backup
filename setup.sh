@@ -43,6 +43,7 @@ git clone https://github.com/heloint/nvim_backup && \
 cp ./nvim_backup/init.lua . && \
 cp -r ./nvim_backup/lua .
 cp -r ./nvim_backup/queries .
+cp -r ./nvim_backup/after .
 
 # Install Fura Nerdfont (optional, not all environment will have support for icons)
 # mkdir -p ~/.local/share/fonts/
