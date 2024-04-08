@@ -83,7 +83,10 @@ require("lazy").setup({
                 end,
             },
         },
-        { "jwalton512/vim-blade", },
+        {
+          'stevearc/conform.nvim',
+          opts = {},
+        },
     },
     {
         ui = {
@@ -100,5 +103,6 @@ require("heloint.cmp")
 require("heloint.lsp")
 require("heloint.treesitter")
 require("heloint.telescope")
+require("heloint.formatter")
 require("heloint.autocmds")
 require("heloint.daps")
