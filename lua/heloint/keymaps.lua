@@ -75,10 +75,6 @@ vim.keymap.set('n', '<C-f>r', builtin.lsp_references, {})
 vim.keymap.set('n', '<C-f>q', builtin.resume, {})
 vim.keymap.set('n', '<C-f>m', builtin.marks, {})
 
--- BLOCK COMMENTING
--- ================
-require('kommentary.config').use_extended_mappings()
-
 -- Global mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
 vim.keymap.set('n', '<space>e', vim.diagnostic.open_float)

@@ -22,9 +22,11 @@ require("mason-lspconfig").setup({
         "tsserver",
         "jdtls",
         "pyright",
+        "lua_ls",
     },
     handlers = {
         lsp_zero.default_setup,
+        jdtls = lsp_zero.noop,
         emmet_ls = function()
             require('lspconfig')['emmet_ls'].setup {
                 filetypes = {
@@ -45,41 +47,33 @@ require("mason-lspconfig").setup({
                 }
             }
         end,
-        intelephense = function()
-            require('lspconfig')['intelephense'].setup {
-                filetypes = { "php", "blade" },
+        lua_ls = function()
+            require('lspconfig').lua_ls.setup {
                 settings = {
-                    intelephense = {
-                        filetypes = { "php", "blade" },
-                        files = {
-                            associations = { "*.php", "*.blade.php" }, -- Associating .blade.php files as well
-                            maxSize = 5000000,
+                    Lua = {
+                        runtime = {
+                            -- Tell the language server which version of Lua you're using
+                            -- (most likely LuaJIT in the case of Neovim)
+                            version = 'LuaJIT',
+                        },
+                        diagnostics = {
+                            -- Get the language server to recognize the `vim` global
+                            globals = {
+                                'vim',
+                                'require'
+                            },
+                        },
+                        workspace = {
+                            -- Make the server aware of Neovim runtime files
+                            library = vim.api.nvim_get_runtime_file("", true),
+                        },
+                        -- Do not send telemetry data containing a randomized but unique identifier
+                        telemetry = {
+                            enable = false,
                         },
                     },
                 },
             }
-        end,
-        jdtls = lsp_zero.noop,
+        end
     },
 })
-
-local lspconfig = require 'lspconfig'
-local configs = require 'lspconfig.configs'
-
--- Configure it
-configs.blade = {
-    default_config = {
-        -- Path to the executable: laravel-dev-generators
-        cmd = { "laravel-dev-tools", "lsp" },
-        filetypes = { 'blade' },
-        root_dir = function(fname)
-            return lspconfig.util.find_git_ancestor(fname)
-        end,
-        settings = {},
-    },
-}
--- Set it up
-lspconfig.blade.setup {
-    -- Capabilities is specific to my setup.
-    capabilities = capabilities
-}

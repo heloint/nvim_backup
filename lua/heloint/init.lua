@@ -11,7 +11,6 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-
 require("lazy").setup({
         {
             "nvim-treesitter/nvim-treesitter",
@@ -55,37 +54,14 @@ require("lazy").setup({
             tag = '0.1.4',
             dependencies = { 'nvim-lua/plenary.nvim' }
         },
-        { 'b3nj5m1n/kommentary',     lazy = true },
-        { 'windwp/nvim-ts-autotag',  lazy = true },
-        { 'nvim-tree/nvim-tree.lua', lazy = true },
-        { 'mfussenegger/nvim-dap',   lazy = true },
-        { 'rcarriga/nvim-dap-ui',    lazy = true },
-        { 'leoluz/nvim-dap-go',      lazy = true },
-        {
-            "ThePrimeagen/refactoring.nvim",
-            dependencies = {
-
-                "nvim-treesitter/nvim-treesitter",
-            },
-            config = function()
-                require("refactoring").setup()
-            end,
-        },
+        { 'numToStr/Comment.nvim',                   lazy = false },
+        { 'windwp/nvim-ts-autotag',                  lazy = true },
+        { 'nvim-tree/nvim-tree.lua',                 lazy = true },
         { 'mfussenegger/nvim-jdtls',                 lazy = true },
         { 'nvim-treesitter/nvim-treesitter-context', lazy = true },
         {
-            "JoosepAlviste/nvim-ts-context-commentstring",
-            opts = {
-                custom_calculation = function(_, language_tree)
-                    if vim.bo.filetype == "blade" and language_tree._lang ~= "javascript" and language_tree._lang ~= "php" then
-                        return "{{-- %s --}}"
-                    end
-                end,
-            },
-        },
-        {
-          'stevearc/conform.nvim',
-          opts = {},
+            'stevearc/conform.nvim',
+            opts = {},
         },
     },
     {
@@ -105,4 +81,3 @@ require("heloint.treesitter")
 require("heloint.telescope")
 require("heloint.formatter")
 require("heloint.autocmds")
-require("heloint.daps")
