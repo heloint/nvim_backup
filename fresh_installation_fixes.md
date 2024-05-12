@@ -36,3 +36,15 @@ curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
 python get-pip.py --force-reinstall
 
 ---
+
+# Fix if the wifi is connected correctly, but cannot resolve the DNS.
+
+* Fix for Ubuntu 24.04 *
+
+sudo cp /etc/resolv.conf /etc/resolv.conf.backup
+sudo vi /etc/resolv.conf
+
+and paste the content:
+  nameserver 8.8.8.8
+  nameserver 8.8.4.4
+
