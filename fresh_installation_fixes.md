@@ -41,10 +41,4 @@ python get-pip.py --force-reinstall
 
 * Fix for Ubuntu 24.04 *
 
-sudo cp /etc/resolv.conf /etc/resolv.conf.backup
-sudo vi /etc/resolv.conf
-
-and paste the content:
-  nameserver 8.8.8.8
-  nameserver 8.8.4.4
-
+sudo ln -s /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf
