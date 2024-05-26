@@ -15,17 +15,6 @@ require("lazy").setup({
         {
             "nvim-treesitter/nvim-treesitter",
             build = ":TSUpdate",
-            config = function()
-                local configs = require("nvim-treesitter.configs")
-
-                configs.setup({
-                    ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "elixir", "heex", "javascript", "html", },
-                    sync_install = false,
-                    highlight = { enable = true },
-                    indent = { enable = true },
-                    auto_install = true,
-                })
-            end
         },
         {
             'VonHeikemen/lsp-zero.nvim',
@@ -57,7 +46,6 @@ require("lazy").setup({
         { 'numToStr/Comment.nvim',                   lazy = false },
         { 'windwp/nvim-ts-autotag',                  lazy = true },
         { 'nvim-tree/nvim-tree.lua',                 lazy = true },
-        { 'mfussenegger/nvim-jdtls',                 lazy = true },
         { 'nvim-treesitter/nvim-treesitter-context', lazy = true },
         {
             'stevearc/conform.nvim',

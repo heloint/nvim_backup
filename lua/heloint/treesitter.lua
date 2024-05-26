@@ -32,12 +32,15 @@ require 'nvim-treesitter.configs'.setup {
     autotag = {
         enable = true
     },
+    modules = {},
+    ignore_install = {},
 }
 
 require('nvim-ts-autotag').setup({
-    filetypes = {
-        'html', 'javascript', 'typescript', 'javascriptreact', 'typescriptreact',
-        'svelte', 'vue', 'tsx', 'jsx', 'rescript', 'xml', 'php', 'markdown',
-        'markdown_inline', 'glimmer', 'handlebars', 'hbs', 'jsp', "blade",
-    },
+  opts = {
+    -- Defaults
+    enable_close = true, -- Auto close tags
+    enable_rename = true, -- Auto rename pairs of tags
+    enable_close_on_slash = false -- Auto close on trailing </
+  },
 })
