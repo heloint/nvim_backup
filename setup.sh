@@ -17,7 +17,7 @@ $prefix apt install -y build-essential \
                        wget \
                        xclip \
                        libstdc++6 \
-                       python3.10-venv
+                       python3.12-venv
 
 # Download node version manager
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.2/install.sh | bash
