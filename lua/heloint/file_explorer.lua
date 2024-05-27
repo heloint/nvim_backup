@@ -18,15 +18,16 @@ require("nvim-tree").setup()
 
 -- OR setup with some options
 require("nvim-tree").setup({
-    sort_by = "case_sensitive",
+    filesystem_watchers = {
+        enable = true,
+        debounce_delay = 3,
+        ignore_dirs = {},
+    },
     update_focused_file = {
         enable = true,
     },
     view = {
         width = 50,
-    },
-    renderer = {
-        group_empty = true,
     },
     diagnostics = {
         enable = true,

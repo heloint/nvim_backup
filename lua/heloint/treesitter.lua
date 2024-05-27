@@ -1,7 +1,8 @@
 -- TREE SITTER
 -- ====================================================================
 require 'nvim-treesitter.configs'.setup {
-    -- A list of parser names, or "all"
+    ignore_install = {},
+    modules = {},
     ensure_installed = {
         "vim",
         "typescript",
@@ -11,10 +12,8 @@ require 'nvim-treesitter.configs'.setup {
         "bash",
         "c",
         "lua",
-        "rust",
         "html",
         "css",
-        "query",
     },
     -- Install parsers synchronously (only applied to `ensure_installed`)
     sync_install = true,
@@ -29,18 +28,22 @@ require 'nvim-treesitter.configs'.setup {
         -- Instead of true it can also be a list of languages
         additional_vim_regex_highlighting = false,
     },
-    autotag = {
-        enable = true
-    },
-    modules = {},
-    ignore_install = {},
+    auto_tag = true,
 }
 
 require('nvim-ts-autotag').setup({
-  opts = {
-    -- Defaults
-    enable_close = true, -- Auto close tags
-    enable_rename = true, -- Auto rename pairs of tags
-    enable_close_on_slash = false -- Auto close on trailing </
-  },
+    opts = {
+        -- Defaults
+        enable_close = true,      -- Auto close tags
+        enable_rename = true,     -- Auto rename pairs of tags
+        enable_close_on_slash = false -- Auto close on trailing </
+    },
+    -- Also override individual filetype configs, these take priority.
+    -- Empty by default, useful if one of the "opts" global settings
+    -- doesn't work well in a specific filetype
+    -- per_filetype = {
+    --     ["html"] = {
+    --         enable_close = false
+    --     }
+    -- }
 })

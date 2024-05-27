@@ -3,10 +3,8 @@ local actions = require('telescope.actions')
 
 telescope.setup {
     defaults = {
-        file_ignore_patterns = { ".git/", "%.o", "%.a", "%.out", "%.class",
+        file_ignore_patterns = { ".git/", "%.o", "%.out", "%.class",
             "%.pdf", "%.mkv", "%.mp4", "%.zip", "^node_modules/" },
-        layout_strategy = 'vertical',
-        layout_config = { height = 0.99 },
         mappings = {
             i = {
                 ['<C-q>'] = actions.smart_send_to_qflist + actions.open_qflist,
@@ -15,6 +13,7 @@ telescope.setup {
     },
     pickers = {
         find_files = {
+            previewer = false,
         },
         live_grep = {
         },
@@ -23,6 +22,4 @@ telescope.setup {
         help_tags = {
         }
     },
-    extensions = {
-    }
 }

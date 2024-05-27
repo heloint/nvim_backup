@@ -47,33 +47,42 @@ vim.keymap.set('t', '<Esc>', '<C-\\><C-N>', { silent = true })
 -- TELESCOPE MAPPING
 -- =================
 
-function vim.getVisualSelection()
+local builtin = require('telescope.builtin')
+vim.keymap.set('n', '<C-f>f', function()
+    builtin.find_files({ hidden = true })
+end)
+vim.keymap.set('v', '<C-f>f', function()
     vim.cmd('noau normal! "vy"')
     local text = vim.fn.getreg('v')
     vim.fn.setreg('v', {})
 
     text = string.gsub(text, "\n", "")
-    if #text > 0 then
-        return text
-    else
-        return ''
+    if #text < 1 then
+        text = ""
     end
-end
 
-local builtin = require('telescope.builtin')
-vim.keymap.set('n', '<C-f>f', function()
-    builtin.find_files({ hidden = true })
+    builtin.find_files({ hidden = true, default_text=text })
 end)
 vim.keymap.set('n', '<C-f>g', builtin.live_grep, {})
 vim.keymap.set('v', '<C-f>g', function()
-    local text = vim.getVisualSelection()
-    builtin.live_grep({ default_text = text })
+    local conf = require('telescope.config').values
+    vim.cmd('noau normal! "vy"')
+    local text = vim.fn.getreg('v')
+    vim.fn.setreg('v', {})
+
+    text = string.gsub(text, "\n", "")
+    if #text < 1 then
+        text = ""
+    end
+
+    builtin.live_grep({ default_text = text, vimgrep_arguments = table.insert(conf.vimgrep_arguments, '--fixed-strings'), })
 end, {})
 vim.keymap.set('n', '<C-f>b', builtin.buffers, {})
 vim.keymap.set('n', '<C-f>h', builtin.help_tags, {})
 vim.keymap.set('n', '<C-f>r', builtin.lsp_references, {})
 vim.keymap.set('n', '<C-f>q', builtin.resume, {})
 vim.keymap.set('n', '<C-f>m', builtin.marks, {})
+vim.keymap.set('n', '<C-f>l', builtin.quickfix, {})
 
 -- Global mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
@@ -109,20 +118,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
     end,
 })
 
--- TOGGLE MY TERMINAL
-local my_terminal = require('heloint.my_terminal')
-vim.keymap.set('n', '<space>t', my_terminal.toggle_terminal, {})
-
-local my_quickfixlist = require('heloint.my_quickfixlist')
-vim.keymap.set('n', '<C-q>', my_quickfixlist.toggle_qf, {})
-
 vim.keymap.set("n", "<C-j>", "<cmd>cnext<CR>zz")
 vim.keymap.set("n", "<C-k>", "<cmd>cprev<CR>zz")
 
--- DAPS
-vim.keymap.set("n", "<F4>", ":lua require('dapui').toggle()<CR>")
-vim.keymap.set("n", "<F6>", ":lua require('dap').toggle_breakpoint()<CR>")
-vim.keymap.set("n", "<F9>", ":lua require('dap').continue()<CR>")
-vim.keymap.set("n", "<F1>", ":lua require('dap').step_over()<CR>")
-vim.keymap.set("n", "<F2>", ":lua require('dap').step_into()<CR>")
-vim.keymap.set("n", "<F3>", ":lua require('dap').step_out()<CR>")
