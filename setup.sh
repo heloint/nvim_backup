@@ -46,10 +46,10 @@ cp -r ./nvim_backup/queries .
 cp -r ./nvim_backup/after .
 
 # Install Fura Nerdfont (optional, not all environment will have support for icons)
-# mkdir -p ~/.local/share/fonts/
-# cp ./nvim_backup/fonts/fura-mono-regular-nerd-font-complete.otf ~/.local/share/fonts/
-# fc-cache -fv
-# setfont fura-mono-regular-nerd-font-complete.otf
+mkdir -p ~/.local/share/fonts/
+cp ./nvim_backup/fonts/fura-mono-regular-nerd-font-complete.otf ~/.local/share/fonts/
+fc-cache -fv
+setfont fura-mono-regular-nerd-font-complete.otf
 
 # Install pylsp 3th parties (Mypy, Black, etc..)
 python3 -m venv $HOME/venv && \
