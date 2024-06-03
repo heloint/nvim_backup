@@ -42,3 +42,9 @@ python get-pip.py --force-reinstall
 * Fix for Ubuntu 24.04 *
 
 sudo ln -s /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf
+
+# Fix (remove) on Pop_OS! the emoji hotkey (ctrl-shift-e)
+
+```bash
+gsettings reset org.freedesktop.ibus.panel.emoji hotkey
+```
