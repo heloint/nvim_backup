@@ -3,9 +3,8 @@
 vim.cmd("set encoding=UTF-8")
 vim.opt.relativenumber = true
 
-vim.o.clipboard = 'unnamedplus'
 vim.o.number = true
-vim.o.mouse= "a"
+vim.o.mouse= ""
 vim.o.scrolloff = 10
 vim.o.sidescrolloff = 30
 
@@ -32,3 +31,5 @@ vim.o.showcmd = true
 vim.o.showmatch = true
 vim.o.pumheight = 10
 vim.o.cursorline = true
+vim.cmd("colorscheme habamax")
+
