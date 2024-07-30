@@ -1,7 +1,7 @@
 function Open_terminal_horizontal()
     vim.cmd('botright split')
     vim.cmd('terminal')
-    vim.cmd('resize 15')
+    vim.cmd('resize 20')
 end
 
 -- Define a function to jump to the first terminal window in the current tab

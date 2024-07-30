@@ -1,20 +1,8 @@
--- NETRW CONFIG
--- ============
---[[ vim.g.netrw_banner = 1
-vim.g.netrw_liststyle = 0
-vim.g.netrw_winsize = 30 ]]
-
 -- NVIM-TREE CONFIG
 -- ============
 -- disable netrw at the very start of your init.lua
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
-
--- set termguicolors to enable highlight groups
-vim.opt.termguicolors = true
-
--- empty setup using defaults
-require("nvim-tree").setup()
 
 -- OR setup with some options
 require("nvim-tree").setup({

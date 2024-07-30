@@ -1,13 +1,10 @@
 -- COLORS
 -- ====================================================================
-vim.cmd("colorscheme kanagawa-wave")
-
-require('kanagawa').setup({
-    dimInactive = true,
-})
+vim.cmd("colorscheme habamax")
 
 -- INDENT INDENT-BLANKLINE
 -- ===============================================================
 vim.opt.list = true
-vim.opt.listchars:append "space:⋅"
 require("ibl").setup()
+vim.cmd(":highlight LineNr ctermfg=white")
+vim.cmd(":hi Visual cterm=none ctermbg=darkgrey ctermfg=cyan")
