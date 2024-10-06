@@ -15,13 +15,13 @@ require("mason").setup({
 
 require("mason-lspconfig").setup({
     ensure_installed = {
+        "pyright",
         "html",
         "emmet_ls",
         "cssls",
         "intelephense",
         "tsserver",
         "jdtls",
-        "pyright",
         "lua_ls",
     },
     handlers = {

@@ -46,12 +46,13 @@ vim.keymap.set('t', '<Esc>', '<C-\\><C-N>', { silent = true })
 
 -- TELESCOPE MAPPING
 -- =================
-
 local builtin = require('telescope.builtin')
 vim.keymap.set('n', '<C-f>f', function()
     builtin.find_files({ hidden = true })
 end)
 vim.keymap.set('v', '<C-f>f', function()
+    -- When opens up first tries to look for selected text to search for.
+    -- If not found, then uses emtpy string as search target.
     vim.cmd('noau normal! "vy"')
     local text = vim.fn.getreg('v')
     vim.fn.setreg('v', {})
@@ -63,8 +64,11 @@ vim.keymap.set('v', '<C-f>f', function()
 
     builtin.find_files({ hidden = true, default_text=text })
 end)
+
 vim.keymap.set('n', '<C-f>g', builtin.live_grep, {})
 vim.keymap.set('v', '<C-f>g', function()
+    -- When opens up first tries to look for selected text to search for.
+    -- If not found, then uses emtpy string as search target.
     local conf = require('telescope.config').values
     vim.cmd('noau normal! "vy"')
     local text = vim.fn.getreg('v')
@@ -77,6 +81,7 @@ vim.keymap.set('v', '<C-f>g', function()
 
     builtin.live_grep({ default_text = text, vimgrep_arguments = table.insert(conf.vimgrep_arguments, '--fixed-strings'), })
 end, {})
+
 vim.keymap.set('n', '<C-f>b', builtin.buffers, {})
 vim.keymap.set('n', '<C-f>h', builtin.help_tags, {})
 vim.keymap.set('n', '<C-f>r', builtin.lsp_references, {})
