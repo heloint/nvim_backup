@@ -20,7 +20,7 @@ require("mason-lspconfig").setup({
         "emmet_ls",
         "cssls",
         "intelephense",
-        "tsserver",
+        "ts_ls",
         "jdtls",
         "lua_ls",
     },
