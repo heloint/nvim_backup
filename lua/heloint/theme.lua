@@ -16,6 +16,8 @@ local telescopeColors = {
 
     LineNr = { bg = "#212424" },
     SignColumn = { bg = "#212424" },
+    WinSeparator = { fg = "#f8fafc", bg = "#334155", },
+    StatusLine = {bg = "#475569", fg = "#f9fafb"},
 }
 
 for hl, col in pairs(telescopeColors) do
