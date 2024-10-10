@@ -40,15 +40,25 @@ require("lazy").setup({
                 { 'L3MON4D3/LuaSnip' },
             }
         },
-        { "lukas-reineke/indent-blankline.nvim",     main = "ibl", opts = {} },
+        { "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = {} },
         {
             'nvim-telescope/telescope.nvim',
             tag = '0.1.4',
             dependencies = { 'nvim-lua/plenary.nvim' }
         },
-        { 'numToStr/Comment.nvim',                   lazy = false },
-        { 'windwp/nvim-ts-autotag',                  lazy = true },
-        { 'nvim-tree/nvim-tree.lua',                 lazy = true },
+        { 'numToStr/Comment.nvim',               lazy = false },
+        { 'windwp/nvim-ts-autotag',              lazy = true },
+        { 'nvim-tree/nvim-tree.lua',             lazy = true },
+        {
+            "antosha417/nvim-lsp-file-operations",
+            dependencies = {
+                "nvim-lua/plenary.nvim",
+                "nvim-tree/nvim-tree.lua",
+            },
+            config = function()
+                require("lsp-file-operations").setup()
+            end,
+        },
         { 'nvim-treesitter/nvim-treesitter-context', lazy = true },
         {
             'stevearc/conform.nvim',
