@@ -70,7 +70,8 @@ whitespace.setup({
 
     -- `ignored_filetypes` configures which filetypes to ignore when
     -- displaying trailing whitespace
-    ignored_filetypes = { 'TelescopePrompt', 'Trouble', 'help', 'dashboard', "mason" },
+    --
+    ignored_filetypes = { 'TelescopePrompt', 'Trouble', 'help', 'dashboard', "mason", "lazy_backdrop", "lazy" },
 
     -- `ignore_terminal` configures whether to ignore terminal buffers
     ignore_terminal = true,
