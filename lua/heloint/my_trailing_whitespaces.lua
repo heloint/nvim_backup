@@ -22,9 +22,7 @@ end
 
 whitespace.trim = function()
     local save_cursor = vim.fn.getpos(".")
-
     vim.cmd [[keeppatterns %substitute/\v\s+$//eg]]
-
     if config.return_cursor then
         vim.fn.setpos(".", save_cursor)
     end
@@ -72,7 +70,7 @@ whitespace.setup({
 
     -- `ignored_filetypes` configures which filetypes to ignore when
     -- displaying trailing whitespace
-    ignored_filetypes = { 'TelescopePrompt', 'Trouble', 'help', 'dashboard' },
+    ignored_filetypes = { 'TelescopePrompt', 'Trouble', 'help', 'dashboard', "mason" },
 
     -- `ignore_terminal` configures whether to ignore terminal buffers
     ignore_terminal = true,
