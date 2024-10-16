@@ -21,12 +21,10 @@ require("mason-lspconfig").setup({
         "cssls",
         "intelephense",
         "ts_ls",
-        "jdtls",
         "lua_ls",
     },
     handlers = {
         lsp_zero.default_setup,
-        jdtls = lsp_zero.noop,
         emmet_ls = function()
             require('lspconfig')['emmet_ls'].setup {
                 filetypes = {
@@ -72,6 +70,41 @@ require("mason-lspconfig").setup({
                             enable = false,
                         },
                     },
+                },
+            }
+        end,
+        pyright = function()
+            require("lspconfig").pyright.setup {
+                single_file_support = true,
+                settings = {
+                    pyright = {
+                        disableLanguageServices = false,
+                        disableOrganizeImports = false,
+                        analysis = {
+                            diagnosticSeverityOverrides = {
+                                reportUnusedExpression = "error",
+                                reportUnusedImport = "error",
+                                reportUnusedClass = "error",
+                                reportUnusedFunction = "error",
+                                reportUnusedVariable = "error",
+                                reportDuplicateImport = "error",
+                            }
+                        }
+                    },
+
+                    python = {
+                        analysis = {
+                            diagnosticSeverityOverrides = {
+                                reportUnusedExpression = "error",
+                                reportUnusedImport = "error",
+                                reportUnusedClass = "error",
+                                reportUnusedFunction = "error",
+                                reportUnusedVariable = "error",
+                                reportDuplicateImport = "error",
+
+                            }
+                        }
+                    }
                 },
             }
         end
