@@ -126,3 +126,4 @@ vim.api.nvim_create_autocmd('LspAttach', {
 vim.keymap.set("n", "<C-j>", "<cmd>cnext<CR>zz")
 vim.keymap.set("n", "<C-k>", "<cmd>cprev<CR>zz")
 
+vim.keymap.set("v", "<space>r", "y:%s/<C-r>0//gc<left><left><left>", { desc = "Search/replace visual" })
