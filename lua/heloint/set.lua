@@ -33,4 +33,4 @@ vim.o.showmatch = true
 vim.o.pumheight = 10
 vim.o.cursorline = true
 vim.bo.modifiable = true
-
+vim.o.termguicolors = true
