@@ -23,3 +23,7 @@ local telescopeColors = {
 for hl, col in pairs(telescopeColors) do
     vim.api.nvim_set_hl(0, hl, col)
 end
+
+for i = 0, 15 do
+    vim.g["terminal_color_" .. i] = nil
+end
