@@ -16,7 +16,7 @@ local function Toggle_qf()
 end
 
 vim.api.nvim_create_autocmd('BufWinEnter', {
-  group = vim.api.nvim_create_augroup('YOUR_GROUP_HERE', { clear = true }),
+  group = vim.api.nvim_create_augroup('quickfix_list_base_group', { clear = true }),
   desc = 'allow updating quickfix window',
   pattern = 'quickfix',
   callback = function(_)
@@ -32,4 +32,9 @@ vim.api.nvim_create_autocmd('BufWinEnter', {
   end,
 })
 
+-- Toggle quickfix list on the bottom of the screen.
 vim.keymap.set('n', '<C-q>', Toggle_qf, {})
+
+-- Loop through easier the quickfix list, without jumping back n' forth the main screen and the QF list.
+vim.keymap.set("n", "<C-j>", "<cmd>cnext<CR>zz")
+vim.keymap.set("n", "<C-k>", "<cmd>cprev<CR>zz")

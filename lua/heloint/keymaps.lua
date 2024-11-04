@@ -25,6 +25,10 @@ vim.keymap.set('n', '<F5>', '<Esc>:!python %<CR>', { silent = true })
 -- ===========================
 vim.keymap.set('i', '{<CR>', '{<CR>}<Esc><S-O>', { silent = true })
 
+-- AUTOCLOSE PARENTHESIS SCOPE BLOCK
+-- ===========================
+vim.keymap.set('i', '{<CR>', '(<CR>)<Esc><S-O>', { silent = true })
+
 -- INDENT WITH TAB
 -- ===============
 vim.keymap.set('i', '<S-Tab>', '<Esc><<i', { silent = true })
@@ -35,95 +39,5 @@ vim.keymap.set('x', '<S-Tab>', '<gv', { silent = true })
 -- ==========================
 vim.keymap.set('x', 'p', 'pgvy', { silent = true })
 
--- TOGGLE NVIM-TREE
--- ================
-vim.keymap.set('i', '<C-b>', '<Esc>:NvimTreeToggle<CR>', { silent = true })
-vim.keymap.set('n', '<C-b>', '<Esc>:NvimTreeToggle<CR>', { silent = true })
-
--- RETURN TO NORMAL MODE IN THE INTEGRATED TERMINAL (UNUSED)
--- =========================================================
-vim.keymap.set('t', '<Esc>', '<C-\\><C-N>', { silent = true })
-
--- TELESCOPE MAPPING
--- =================
-local builtin = require('telescope.builtin')
-vim.keymap.set('n', '<C-f>f', function()
-    builtin.find_files({ hidden = true })
-end)
-vim.keymap.set('v', '<C-f>f', function()
-    -- When opens up first tries to look for selected text to search for.
-    -- If not found, then uses emtpy string as search target.
-    vim.cmd('noau normal! "vy"')
-    local text = vim.fn.getreg('v')
-    vim.fn.setreg('v', {})
-
-    text = string.gsub(text, "\n", "")
-    if #text < 1 then
-        text = ""
-    end
-
-    builtin.find_files({ hidden = true, default_text=text })
-end)
-
-vim.keymap.set('n', '<C-f>g', builtin.live_grep, {})
-vim.keymap.set('v', '<C-f>g', function()
-    -- When opens up first tries to look for selected text to search for.
-    -- If not found, then uses emtpy string as search target.
-    local conf = require('telescope.config').values
-    vim.cmd('noau normal! "vy"')
-    local text = vim.fn.getreg('v')
-    vim.fn.setreg('v', {})
-
-    text = string.gsub(text, "\n", "")
-    if #text < 1 then
-        text = ""
-    end
-
-    builtin.live_grep({ default_text = text, vimgrep_arguments = table.insert(conf.vimgrep_arguments, '--fixed-strings'), })
-end, {})
-
-vim.keymap.set('n', '<C-f>b', builtin.buffers, {})
-vim.keymap.set('n', '<C-f>h', builtin.help_tags, {})
-vim.keymap.set('n', '<C-f>r', builtin.lsp_references, {})
-vim.keymap.set('n', '<C-f>q', builtin.resume, {})
-vim.keymap.set('n', '<C-f>m', builtin.marks, {})
-vim.keymap.set('n', '<C-f>l', builtin.quickfix, {})
-
--- Global mappings.
--- See `:help vim.diagnostic.*` for documentation on any of the below functions
-vim.keymap.set('n', '<space>e', vim.diagnostic.open_float)
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
-vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist)
-
--- Use LspAttach autocommand to only map the following keys
--- after the language server attaches to the current buffer
-vim.api.nvim_create_autocmd('LspAttach', {
-    group = vim.api.nvim_create_augroup('UserLspConfig', {}),
-    callback = function(ev)
-        -- Enable completion triggered by <c-x><c-o>
-        vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
-
-        -- Buffer local mappings.
-        -- See `:help vim.lsp.*` for documentation on any of the below functions
-        local opts = { buffer = ev.buf }
-        vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
-        vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
-        vim.keymap.set('n', '<space>h', vim.lsp.buf.hover, opts)
-        vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
-        vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, opts)
-        vim.keymap.set('n', '<space>d', vim.diagnostic.setqflist, opts)
-        vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, opts)
-        vim.keymap.set({ 'v', 'n' }, '<space>ca', vim.lsp.buf.code_action)
-        vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
-        vim.keymap.set('n', '<space>f', function()
-            require("conform").format({ lsp_fallback=true })
-        end, opts)
-        vim.keymap.set("v", "<space>f", vim.lsp.buf.format, { remap = false })
-    end,
-})
-
-vim.keymap.set("n", "<C-j>", "<cmd>cnext<CR>zz")
-vim.keymap.set("n", "<C-k>", "<cmd>cprev<CR>zz")
-
+-- Select visually the text, then replace it globally in the current buffer.
 vim.keymap.set("v", "<space>r", "y:%s/<C-r>0//gc<left><left><left>", { desc = "Search/replace visual" })
