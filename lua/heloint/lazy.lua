@@ -30,9 +30,10 @@ require("lazy").setup({
                 { 'williamboman/mason-lspconfig.nvim' }, -- Optional
 
                 -- Autocompletion
-                {'neovim/nvim-lspconfig'},
-                {'hrsh7th/cmp-nvim-lsp'},
-                {'hrsh7th/nvim-cmp'},
+                { 'neovim/nvim-lspconfig' },
+                { 'hrsh7th/cmp-nvim-lsp' },
+                { 'hrsh7th/nvim-cmp' },
+                { 'hrsh7th/cmp-buffer' },
             }
         },
         { "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = {} },
