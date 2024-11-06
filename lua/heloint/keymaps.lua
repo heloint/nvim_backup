@@ -27,7 +27,7 @@ vim.keymap.set('i', '{<CR>', '{<CR>}<Esc><S-O>', { silent = true })
 
 -- AUTOCLOSE PARENTHESIS SCOPE BLOCK
 -- ===========================
-vim.keymap.set('i', '{<CR>', '(<CR>)<Esc><S-O>', { silent = true })
+vim.keymap.set('i', '(<CR>', '(<CR>)<Esc><S-O>', { silent = true })
 
 -- INDENT WITH TAB
 -- ===============
