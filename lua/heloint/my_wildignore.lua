@@ -35,7 +35,6 @@ local function add_gitignore_to_wildignore()
             line = line:gsub("^!", "")
             line = line:gsub("\\**", "*")
             -- Add entry to wildignore
-            print(line)
             vim.opt.wildignore:append(line)
         end
     end
