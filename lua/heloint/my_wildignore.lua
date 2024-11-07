@@ -85,7 +85,6 @@ end
 local ignored_paths = get_all_git_ignored_paths()
 if ignored_paths then
     for _, path in ipairs(ignored_paths) do
-        print(path)
         vim.opt.wildignore:append(path)
     end
 end
