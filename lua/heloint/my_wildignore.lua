@@ -1,3 +1,31 @@
+local to_always_ignore = {
+    "*/node_modules/*",
+    "_site",
+    "*/__pycache__/",
+    "*/venv/*",
+    "*/target/*",
+    "*/.vim$",
+    "\\~$",
+    "*/.log",
+    "*/.aux",
+    "*/.cls",
+    "*/.aux",
+    "*/.bbl",
+    "*/.blg",
+    "*/.fls",
+    "*/.fdb*/",
+    "*/.toc",
+    "*/.out",
+    "*/.glo",
+    "*/.log",
+    "*/.ist",
+    "*/.fdb_latexmk"
+}
+
+for idx, val in ipairs(to_always_ignore) do
+    vim.opt.wildignore:append(val)
+end
+
 -- Function to get the parent directory of a given path
 local function get_parent_directory(path)
     -- Remove the last part of the path (e.g., /file or /directory)
@@ -6,6 +34,11 @@ local function get_parent_directory(path)
         result = "."
     end
     return result
+end
+
+-- Function to check if string contains ","
+local function contains_comma(str)
+    return string.find(str, ",") ~= nil
 end
 
 -- Function to read .gitignore and add entries to wildignore
@@ -30,14 +63,15 @@ local function add_gitignore_to_wildignore()
     -- Filter and add entries to wildignore
     for _, line in ipairs(lines) do
         -- Ignore comments and blank lines
-        if not line:match("^#") and line:match("%S") then
+        if not line:match("^#") and line:match("%S") and not contains_comma(line) then
             -- Replace any leading "!" (negations in .gitignore) for compatibility with wildignore
             line = line:gsub("^!", "")
-            line = line:gsub("\\**", "*")
+            line = line:gsub("^%**", "*")
             -- Add entry to wildignore
             vim.opt.wildignore:append(line)
         end
     end
+    vim.opt.wildignore:remove('')
 end
 
 -- Run the function to add .gitignore entries to wildignore
