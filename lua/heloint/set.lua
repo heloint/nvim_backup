@@ -23,6 +23,7 @@ vim.o.undodir = os.getenv("HOME") .. "/.vim/undodir"
 vim.o.incsearch = true
 vim.o.smartcase = true
 vim.o.ignorecase = true
+vim.o.wildignorecase = true
 
 vim.o.wrap = false
 vim.o.hidden = true
@@ -34,4 +35,4 @@ vim.o.showmatch = true
 vim.o.cursorline = true
 vim.bo.modifiable = true
 vim.o.termguicolors = true
-
+vim.g.netrw_altv = false

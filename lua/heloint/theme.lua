@@ -1,6 +1,7 @@
 -- COLORS
 -- ====================================================================
-vim.cmd("colorscheme kanagawa")
+-- vim.cmd("colorscheme kanagawa")
+vim.cmd("colorscheme retrobox")
 
 local telescopeColors = {
     Normal = { bg = "#27272a" },
