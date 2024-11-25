@@ -36,7 +36,6 @@ require("lazy").setup({
                 { 'hrsh7th/cmp-buffer' },
             }
         },
-        { "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = {} },
         {
             'nvim-telescope/telescope.nvim',
             tag = '0.1.4',

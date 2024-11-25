@@ -1,7 +1,7 @@
 require("heloint.lazy")
 require("heloint.set")
 require("heloint.theme")
-require("heloint.ibl")
+-- require("heloint.ibl")
 require("heloint.keymaps")
 require("heloint.lsp")
 require("heloint.cmp")

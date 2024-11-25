@@ -25,7 +25,6 @@ end
 -- Toggle terminal on the bottom of the screen.
 vim.keymap.set('n', '<space>t', Toggle_terminal, {})
 
-
 -- Return to normal mode in the integrated terminal
 -- =========================================================
 vim.keymap.set('t', '<Esc>', '<C-\\><C-N>', { silent = true })
