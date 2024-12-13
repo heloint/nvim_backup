@@ -15,3 +15,5 @@ require("heloint.my_quickfixlist")
 require("heloint.my_terminal")
 require("heloint.my_trailing_whitespaces")
 require("heloint.my_wildignore")
+require("heloint.my_formatter")
+
