@@ -111,6 +111,9 @@ require("mason-lspconfig").setup({
     },
 })
 
+require('java').setup()
+require('lspconfig').jdtls.setup({})
+
 --LSP MAPPINGS
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
 vim.keymap.set('n', '<space>e', vim.diagnostic.open_float)

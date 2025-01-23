@@ -55,6 +55,7 @@ require("lazy").setup({
             end,
         },
         { 'nvim-treesitter/nvim-treesitter-context', lazy = true },
+        {'nvim-java/nvim-java', lazy = true},
         {
             'stevearc/conform.nvim',
             opts = {},
