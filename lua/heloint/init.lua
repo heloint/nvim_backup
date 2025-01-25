@@ -16,4 +16,5 @@ require("heloint.my_terminal")
 require("heloint.my_trailing_whitespaces")
 require("heloint.my_wildignore")
 require("heloint.my_formatter")
+require("heloint.my_file_ops")
 
