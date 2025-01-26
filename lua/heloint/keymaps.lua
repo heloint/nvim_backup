@@ -42,3 +42,4 @@ vim.keymap.set('x', 'p', 'pgvy', { silent = true })
 -- Select visually the text, then replace it globally in the current buffer.
 vim.keymap.set("v", "<space>r", "y:%s/<C-r>0//gc<left><left><left>", { desc = "Search/replace visual" })
 
+vim.keymap.set("n", "E", ":e **/<left><right>", {})

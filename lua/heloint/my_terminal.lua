@@ -1,28 +1,30 @@
-function Open_terminal_horizontal()
-    vim.cmd('botright split')
-    vim.cmd('terminal')
-    vim.cmd('resize 20')
-end
+local current_term_bufname = nil
 
--- Define a function to jump to the first terminal window in the current tab
 function Toggle_terminal()
-    local window_had_terminal = false
-    for _, win in ipairs(vim.api.nvim_list_wins()) do
-        local bufnr = vim.api.nvim_win_get_buf(win)
-        local bufname = vim.fn.bufname(bufnr)
-        if string.sub(bufname, 1, 7) == 'term://' then
+    -- If we don't have a toggleable terminal initialized, then we init one and return.
+    if current_term_bufname == nil or vim.fn.bufexists(current_term_bufname) == 0 then
+        vim.cmd.vnew()
+        vim.cmd.term()
+        local current_buffer = vim.api.nvim_get_current_buf()
+        current_term_bufname = vim.fn.bufname(current_buffer)
+        return
+    end
+
+    -- If we already have a initialized toggleable terminal and it's opened, then we close it.
+    local windows = vim.api.nvim_list_wins()
+    for _, win in ipairs(windows) do
+        local buf = vim.api.nvim_win_get_buf(win)
+        local bufname = vim.fn.bufname(buf)
+        if bufname == current_term_bufname then
             vim.api.nvim_set_current_win(win)
-            vim.api.nvim_buf_delete(bufnr, { force = true })
-            window_had_terminal = true
-            break
+            vim.cmd("q")
+            return
         end
     end
-    if not window_had_terminal then
-        Open_terminal_horizontal()
-    end
-end
 
--- Toggle terminal on the bottom of the screen.
+    -- If we don't have an opened, but initialized toggleable terminal, then we open the buffer.
+    vim.cmd('vs | b ' .. current_term_bufname)
+end
 vim.keymap.set('n', '<space>t', Toggle_terminal, {})
 
 -- Return to normal mode in the integrated terminal
