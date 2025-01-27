@@ -31,7 +31,6 @@ vim.o.hidden = true
 vim.o.laststatus = 2
 vim.o.showcmd = true
 vim.o.showmatch = true
--- vim.o.pumheight = 70
 vim.o.cursorline = true
 vim.bo.modifiable = true
 vim.o.termguicolors = true
