@@ -36,11 +36,6 @@ require("lazy").setup({
                 { 'hrsh7th/cmp-buffer' },
             }
         },
-        {
-            'nvim-telescope/telescope.nvim',
-            tag = '0.1.4',
-            dependencies = { 'nvim-lua/plenary.nvim' }
-        },
         { 'numToStr/Comment.nvim',               lazy = false },
         { 'windwp/nvim-ts-autotag',              lazy = true },
         { 'nvim-tree/nvim-tree.lua',             lazy = true },

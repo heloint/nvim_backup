@@ -20,20 +20,20 @@ vim.api.nvim_create_autocmd("QuickFixCmdPost", {
     pattern = "grep", -- Trigger only for grep commands
     callback = function(_)
         -- Open the quickfix list
-        vim.cmd("copen")
         -- If there are matches, open the first result in a horizontal split
         if not vim.tbl_isempty(vim.fn.getqflist()) then
-            vim.cmd("split") -- Open the result in a horizontal split
+            vim.cmd("tabe")
+            vim.cmd("copen")
+            vim.cmd("set modifiable")
+            -- :vimgrep's quickfix window display format now includes start and end column (in vim and nvim) so adding 2nd format to match that, also for 'grep -rin'
+            vim.bo.errorformat = '%f|%l col %c| %m,%f|%l col %c-%k| %m,%f|%l| %m'
+            vim.keymap.set(
+                'n',
+                '<C-s>',
+                '<Cmd>cgetbuffer|set nomodified|echo "quickfix/location list updated"<CR>',
+                { buffer = true, desc = 'Update quickfix/location list with changes made in quickfix window' }
+            )
         end
-        vim.bo.modifiable = true
-        -- :vimgrep's quickfix window display format now includes start and end column (in vim and nvim) so adding 2nd format to match that, also for 'grep -rin'
-        vim.bo.errorformat = '%f|%l col %c| %m,%f|%l col %c-%k| %m,%f|%l| %m'
-        vim.keymap.set(
-            'n',
-            '<C-s>',
-            '<Cmd>cgetbuffer|set nomodified|echo "quickfix/location list updated"<CR>',
-            { buffer = true, desc = 'Update quickfix/location list with changes made in quickfix window' }
-        )
     end,
 })
 
