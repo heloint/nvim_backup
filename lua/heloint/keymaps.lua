@@ -45,4 +45,3 @@ vim.keymap.set("v", "<space>r", "y:%s/<C-r>0//gc<left><left><left>", { desc = "S
 -- Wild file search
 vim.keymap.set("n", "E", ":e **/*<left><right>", {})
 vim.keymap.set("n", "T", ":tabe **/*<left><right>", {})
-vim.keymap.set("n", "V", ":vs **/*<left><right>", {})
