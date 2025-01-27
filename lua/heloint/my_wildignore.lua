@@ -2,7 +2,7 @@ local to_always_ignore = {
     "*/remote-source/*",
     "*/node_modules/*",
     "_site",
-    "*/__pycache__/",
+    "*/__pycache__/*",
     "*/venv/*",
     "*/target/*",
     "*/.vim$",
