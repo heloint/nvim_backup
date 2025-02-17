@@ -10,7 +10,7 @@ cmp.setup({
     mapping = cmp.mapping.preset.insert({
         ['<C-k>'] = cmp.mapping.scroll_docs(-4),
         ['<C-j>'] = cmp.mapping.scroll_docs(4),
-        -- ['<CR>'] = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Insert, select = true, }),
+        ['<CR>'] = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Insert, select = true, }),
 
     }),
     sources = cmp.config.sources({
