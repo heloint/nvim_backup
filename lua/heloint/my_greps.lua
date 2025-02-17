@@ -1,7 +1,7 @@
 -- Set the grep command based on the availability of ripgrep
 if vim.fn.executable("rg") == 1 then
     -- Use ripgrep
-    vim.opt.grepprg = "rg --vimgrep --smart-case --no-require-git 2> /dev/null"
+    vim.opt.grepprg = "rg --fixed-strings --vimgrep --smart-case --no-require-git 2> /dev/null"
     vim.opt.grepformat = "%f:%l:%c:%m"
 
     -- If we used the grep in visual mode, then we want the exact match for the selected string.

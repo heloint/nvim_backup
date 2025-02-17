@@ -43,5 +43,5 @@ vim.keymap.set('x', 'p', 'pgvy', { silent = true })
 vim.keymap.set("v", "<space>r", "y:%s/<C-r>0/<C-r>0/gc<left><left><left>", { desc = "Search/replace visual" })
 
 -- Wild file search
-vim.keymap.set("n", "<space>e", ":e **/*<left><right>", {})
-vim.keymap.set("n", "T", ":tabe **/*<left><right>", {})
+vim.keymap.set("n", "<space>fe", ":e **/*<left><right>", {})
+vim.keymap.set("n", "<space>ft", ":tabe **/*<left><right>", {})
