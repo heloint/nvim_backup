@@ -25,6 +25,15 @@ require("mason-lspconfig").setup({
     },
     handlers = {
         lsp_zero.default_setup,
+        ts_ls = function()
+            require("lspconfig").ts_ls.setup {
+                settings = {
+                    implicitProjectConfiguration = {
+                        checkJs = true
+                    },
+                }
+            }
+        end,
         emmet_ls = function()
             require('lspconfig')['emmet_ls'].setup {
                 filetypes = {
@@ -74,6 +83,8 @@ require("mason-lspconfig").setup({
             }
         end,
         pyright = function()
+            local project_root = vim.fn.getcwd()
+            vim.env.PYTHONPATH = project_root .. ":" .. (vim.env.PYTHONPATH or "")
             require("lspconfig").pyright.setup {
                 single_file_support = true,
                 settings = {
@@ -89,7 +100,8 @@ require("mason-lspconfig").setup({
                                 reportUnusedVariable = "error",
                                 reportDuplicateImport = "error",
                             }
-                        }
+                        },
+
                     },
 
                     python = {
@@ -142,7 +154,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
         vim.keymap.set({ 'v', 'n' }, '<space>ca', vim.lsp.buf.code_action)
         vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
         vim.keymap.set('n', '<space>f', function()
-            require("conform").format({ lsp_fallback=true })
+            require("conform").format({ lsp_fallback = true })
         end, opts)
         vim.keymap.set("v", "<space>f", vim.lsp.buf.format, { remap = false })
     end,

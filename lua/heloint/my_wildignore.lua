@@ -22,6 +22,7 @@ local to_always_ignore = {
     "*/.ist",
     "*/.fdb_latexmk",
     "*/.next/*",
+    "*/dist/*",
 }
 
 for idx, val in ipairs(to_always_ignore) do

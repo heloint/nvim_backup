@@ -1,6 +1,7 @@
 local formatprgs = {
     python = "black --stdin-filename %",
-    typescript = "prettier --tab-width 4 --stdin-filepath %"
+    typescript = "prettier --tab-width 4 --stdin-filepath %",
+    javascript = "prettier --tab-width 4 --stdin-filepath %"
 }
 
 
