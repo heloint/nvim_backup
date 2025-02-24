@@ -38,17 +38,17 @@ require("lazy").setup({
         },
         { 'numToStr/Comment.nvim',               lazy = false },
         { 'windwp/nvim-ts-autotag',              lazy = true },
-        { 'nvim-tree/nvim-tree.lua',             lazy = true },
-        {
-            "antosha417/nvim-lsp-file-operations",
-            dependencies = {
-                "nvim-lua/plenary.nvim",
-                "nvim-tree/nvim-tree.lua",
-            },
-            config = function()
-                require("lsp-file-operations").setup()
-            end,
-        },
+        -- { 'nvim-tree/nvim-tree.lua',             lazy = true },
+        -- {
+        --     "antosha417/nvim-lsp-file-operations",
+        --     dependencies = {
+        --         "nvim-lua/plenary.nvim",
+        --         "nvim-tree/nvim-tree.lua",
+        --     },
+        --     config = function()
+        --         require("lsp-file-operations").setup()
+        --     end,
+        -- },
         { 'nvim-treesitter/nvim-treesitter-context', lazy = true },
         {'nvim-java/nvim-java', lazy = true},
         {

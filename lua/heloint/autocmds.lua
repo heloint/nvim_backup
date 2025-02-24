@@ -6,11 +6,11 @@ vim.api.nvim_create_autocmd({ "BufReadPost" }, {
     end,
 })
 
--- Remove trailing whitespaces on save.
-vim.api.nvim_create_autocmd({ "BufWritePre" }, {
-    pattern = { "*" },
-    command = [[%s/\s\+$//e]],
-})
+-- -- Remove trailing whitespaces on save.
+-- vim.api.nvim_create_autocmd({ "BufWritePre" }, {
+--     pattern = { "*" },
+--     command = [[%s/\s\+$//e]],
+-- })
 
 -- Create parent directories if not exists on save.
 vim.api.nvim_create_autocmd({ "BufWritePre" }, {

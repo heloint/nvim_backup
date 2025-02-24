@@ -6,19 +6,60 @@ local colors = {
   modified_fg = "%#WarningMsg#",
 }
 
+-- function _G.custom_tabline()
+--   local s = ""
+--   for i = 1, vim.fn.tabpagenr('$') do
+--     local hl = (i == vim.fn.tabpagenr()) and colors.active_fg or colors.inactive_fg
+--     local bufname = vim.fn.bufname(vim.fn.tabpagebuflist(i)[1]) or '[No Name]'
+--     local mod = vim.fn.getbufvar(vim.fn.tabpagebuflist(i)[1], '&modified') == 1 and " ●" or ""
+--
+--     -- Make tabs clickable: %X (closes tab), %T (switches tab)
+--     s = s .. "%" .. i .. "T" .. hl .. " " .. i .. ": " .. bufname .. mod .. " "
+--     s = s .. "%#TabLineFill#│"
+--   end
+--   s = s .. "%#TabLineFill#%T"  -- Reset tab selection
+--   return s
+-- end
+
 function _G.custom_tabline()
   local s = ""
   for i = 1, vim.fn.tabpagenr('$') do
     local hl = (i == vim.fn.tabpagenr()) and colors.active_fg or colors.inactive_fg
-    local bufname = vim.fn.bufname(vim.fn.tabpagebuflist(i)[1]) or '[No Name]'
-    local mod = vim.fn.getbufvar(vim.fn.tabpagebuflist(i)[1], '&modified') == 1 and " ●" or ""
-    s = s .. hl .. " " .. i .. ": " .. bufname .. mod .. " "
+    local bufnr = vim.fn.tabpagebuflist(i)[1]
+    local bufname = vim.fn.bufname(bufnr) or '[No Name]'
+    local mod = vim.fn.getbufvar(bufnr, '&modified') == 1 and " ●" or ""
+
+    -- Get LSP diagnostics count
+    local errors = #vim.diagnostic.get(bufnr, { severity = vim.diagnostic.severity.ERROR })
+    local warnings = #vim.diagnostic.get(bufnr, { severity = vim.diagnostic.severity.WARN })
+
+    -- Format errors and warnings if they exist
+    local diag_str = ""
+    if errors > 0 then
+      diag_str = diag_str .. " %#DiagnosticError# " .. errors .. " "
+    end
+    if warnings > 0 then
+      diag_str = diag_str .. " %#DiagnosticWarn# " .. warnings .. " "
+    end
+
+    -- Make tabs clickable
+    s = s .. "%" .. i .. "T" .. hl .. " " .. i .. ": " .. bufname .. mod .. diag_str .. " "
     s = s .. "%#TabLineFill#│"
   end
+  s = s .. "%#TabLineFill#%T"  -- Reset tab selection
   return s
 end
 
 vim.o.tabline = "%!v:lua.custom_tabline()"
+
+
+local function refresh_tabline()
+  vim.cmd("redrawtabline")
+end
+
+vim.api.nvim_create_autocmd({ "DiagnosticChanged", "BufEnter", "TabEnter" }, {
+  callback = refresh_tabline,
+})
 
 -- Set some highlight groups for better contrast
 vim.cmd [[
