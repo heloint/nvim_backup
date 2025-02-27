@@ -25,8 +25,17 @@ function Toggle_terminal()
     -- If we don't have an opened, but initialized toggleable terminal, then we open the buffer.
     vim.cmd('vs | b ' .. current_term_bufname)
 end
+
+vim.api.nvim_create_autocmd({'TermOpen'}, {
+    callback = function()
+        vim.opt.number = false
+        vim.opt.relativenumber = false
+    end
+})
+
 vim.keymap.set('n', '<space>t', Toggle_terminal, {})
 
 -- Return to normal mode in the integrated terminal
 -- =========================================================
 vim.keymap.set('t', '<Esc>', '<C-\\><C-N>', { silent = true })
+
