@@ -6,7 +6,7 @@ vim.opt.relativenumber = true
 vim.o.clipboard = 'unnamedplus'
 vim.o.number = true
 vim.o.mouse= "a"
-vim.o.scrolloff = 10
+vim.o.scrolloff = 4
 vim.o.sidescrolloff = 30
 
 vim.o.tabstop = 4

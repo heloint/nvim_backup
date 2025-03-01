@@ -6,27 +6,40 @@ local colors = {
   modified_fg = "%#WarningMsg#",
 }
 
--- function _G.custom_tabline()
---   local s = ""
---   for i = 1, vim.fn.tabpagenr('$') do
---     local hl = (i == vim.fn.tabpagenr()) and colors.active_fg or colors.inactive_fg
---     local bufname = vim.fn.bufname(vim.fn.tabpagebuflist(i)[1]) or '[No Name]'
---     local mod = vim.fn.getbufvar(vim.fn.tabpagebuflist(i)[1], '&modified') == 1 and " ●" or ""
---
---     -- Make tabs clickable: %X (closes tab), %T (switches tab)
---     s = s .. "%" .. i .. "T" .. hl .. " " .. i .. ": " .. bufname .. mod .. " "
---     s = s .. "%#TabLineFill#│"
---   end
---   s = s .. "%#TabLineFill#%T"  -- Reset tab selection
---   return s
--- end
+-- Global variable to track the first visible tab
+_G.tabline_offset = 1
 
 function _G.custom_tabline()
   local s = ""
-  for i = 1, vim.fn.tabpagenr('$') do
+  local total_tabs = vim.fn.tabpagenr('$')
+  local max_tabs = 7 -- Number of tabs to display at once
+  local current_tab = vim.fn.tabpagenr()
+
+  -- Adjust tabline offset to keep the current tab in view
+  if current_tab < _G.tabline_offset then
+    _G.tabline_offset = current_tab
+  elseif current_tab > _G.tabline_offset + max_tabs - 1 then
+    _G.tabline_offset = current_tab - max_tabs + 1
+  end
+
+  local start_tab = _G.tabline_offset
+  local end_tab = math.min(start_tab + max_tabs - 1, total_tabs)
+
+  -- Show left scroll indicator if there are hidden tabs on the left
+  if start_tab > 1 then
+    s = s .. "%#TabLineFill#%999XX " -- Left Scroll Indicator
+  end
+
+  for i = start_tab, end_tab do
     local hl = (i == vim.fn.tabpagenr()) and colors.active_fg or colors.inactive_fg
     local bufnr = vim.fn.tabpagebuflist(i)[1]
     local bufname = vim.fn.bufname(bufnr) or '[No Name]'
+
+    -- Truncate long buffer names
+    if #bufname > 20 then
+      bufname = bufname:sub(1, 20) .. "..."
+    end
+
     local mod = vim.fn.getbufvar(bufnr, '&modified') == 1 and " ●" or ""
 
     -- Get LSP diagnostics count
@@ -46,18 +59,23 @@ function _G.custom_tabline()
     s = s .. "%" .. i .. "T" .. hl .. " " .. i .. ": " .. bufname .. mod .. diag_str .. " "
     s = s .. "%#TabLineFill#│"
   end
+
+  -- Show right scroll indicator if there are hidden tabs on the right
+  if end_tab < total_tabs then
+    s = s .. "%#TabLineFill#%998XX " -- Right Scroll Indicator
+  end
+
   s = s .. "%#TabLineFill#%T"  -- Reset tab selection
   return s
 end
 
 vim.o.tabline = "%!v:lua.custom_tabline()"
 
-
 local function refresh_tabline()
   vim.cmd("redrawtabline")
 end
 
-vim.api.nvim_create_autocmd({ "DiagnosticChanged", "BufEnter", "TabEnter" }, {
+vim.api.nvim_create_autocmd({ "TabEnter" }, {
   callback = refresh_tabline,
 })
 
