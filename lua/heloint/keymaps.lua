@@ -46,3 +46,4 @@ vim.keymap.set("v", "<space>r", "y:%s/<C-r>0/<C-r>0/gc<left><left><left>", { des
 vim.keymap.set("n", "<space>fe", ":e **/*<left><right>", {})
 vim.keymap.set("n", "<space>ft", ":tabe **/*<left><right>", {})
 
+vim.keymap.set("n", "<C-b>", ":NvimTreeToggle<CR>", {})

@@ -34,5 +34,4 @@ vim.o.showmatch = true
 vim.o.cursorline = true
 vim.bo.modifiable = true
 vim.o.termguicolors = true
-vim.g.netrw_altv = false
 
