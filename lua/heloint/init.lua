@@ -16,4 +16,6 @@ require("heloint.my_formatter")
 require("heloint.my_file_ops")
 require("heloint.my_greps")
 require("heloint.my_tabline")
+require("heloint.nvim_tree")
+require("heloint.telescope")
 

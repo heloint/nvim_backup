@@ -45,24 +45,11 @@ require("lazy").setup({
             dependencies = {
                 "nvim-tree/nvim-web-devicons",
             },
-            config = function()
-                -- disable netrw at the very start of your init.lua
-                vim.g.loaded_netrw = 1
-                vim.g.loaded_netrwPlugin = 1
-                require("nvim-tree").setup {
-                    view = {
-                        width = 45,
-                    },
-                    update_focused_file = {
-                        enable = true,
-                        update_root = {
-                            enable = true,
-                            ignore_list = {},
-                        },
-                        exclude = false,
-                    },
-                }
-            end,
+        },
+        {
+            'nvim-telescope/telescope.nvim',
+            tag = '0.1.8',
+            dependencies = { 'nvim-lua/plenary.nvim' }
         },
         { 'nvim-treesitter/nvim-treesitter-context', lazy = true },
         { 'nvim-java/nvim-java',                     lazy = true },
