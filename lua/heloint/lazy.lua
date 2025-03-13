@@ -51,9 +51,6 @@ require("lazy").setup({
             dependencies = {
                 "nvim-lua/plenary.nvim",
             },
-            config = function()
-                require("lsp-file-operations").setup()
-            end,
         },
         {
             'nvim-telescope/telescope.nvim',

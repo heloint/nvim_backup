@@ -1,3 +1,5 @@
+require("lsp-file-operations").setup()
+
 vim.api.nvim_create_user_command("Rename", function(args)
     local current_file_path = vim.fn.expand("%:p")
     local new_file_path = vim.fn.input("Renaming to: ", current_file_path);
@@ -14,3 +16,4 @@ vim.api.nvim_create_user_command("Rename", function(args)
     print('Renamed to: ' .. new_file_path)
 end
 , {desc = "Rename current file"})
+
