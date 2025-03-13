@@ -31,7 +31,7 @@ require("mason-lspconfig").setup({
                     implicitProjectConfiguration = {
                         checkJs = true
                     },
-                }
+                },
             }
         end,
         emmet_ls = function()
@@ -153,9 +153,13 @@ vim.api.nvim_create_autocmd('LspAttach', {
         vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, opts)
         vim.keymap.set({ 'v', 'n' }, '<space>ca', vim.lsp.buf.code_action)
         vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
+        -- vim.keymap.set('n', '<space>f', vim.lsp.buf.format, opts)
         vim.keymap.set('n', '<space>f', function()
             require("conform").format({ lsp_fallback = true })
         end, opts)
-        vim.keymap.set("v", "<space>f", vim.lsp.buf.format, { remap = false })
+        vim.keymap.set("v", "<space>f", function()
+                require("conform").format({ lsp_fallback = true })
+            end,
+            { remap = false })
     end,
 })

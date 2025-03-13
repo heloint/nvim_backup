@@ -47,6 +47,15 @@ require("lazy").setup({
             },
         },
         {
+            "antosha417/nvim-lsp-file-operations",
+            dependencies = {
+                "nvim-lua/plenary.nvim",
+            },
+            config = function()
+                require("lsp-file-operations").setup()
+            end,
+        },
+        {
             'nvim-telescope/telescope.nvim',
             tag = '0.1.8',
             dependencies = { 'nvim-lua/plenary.nvim' }
