@@ -32,7 +32,7 @@ function _G.custom_tabline()
 
   for i = start_tab, end_tab do
     local hl = (i == vim.fn.tabpagenr()) and colors.active_fg or colors.inactive_fg
-    local bufnr = vim.fn.tabpagebuflist(i)[1]
+    local bufnr = vim.api.nvim_get_current_buf()
     local bufname = vim.fn.bufname(bufnr) or '[No Name]'
 
     -- Append "+" if buffer is modified (default Neovim behavior)
@@ -71,7 +71,7 @@ local function refresh_tabline()
   vim.cmd("redrawtabline")
 end
 
-vim.api.nvim_create_autocmd({ "TabEnter", "DiagnosticChanged" }, {
+vim.api.nvim_create_autocmd({ "BufEnter", "TabEnter", "DiagnosticChanged" }, {
   callback = refresh_tabline,
 })
 
