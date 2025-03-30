@@ -36,7 +36,7 @@ require("lazy").setup({
                 { 'hrsh7th/cmp-buffer' },
             }
         },
-        { 'numToStr/Comment.nvim',  lazy = false },
+        { 'numToStr/Comment.nvim'},
         { 'windwp/nvim-ts-autotag', lazy = true },
         {
             "nvim-tree/nvim-tree.lua",
@@ -45,12 +45,34 @@ require("lazy").setup({
             dependencies = {
                 "nvim-tree/nvim-web-devicons",
             },
+            config = function()
+                -- disable netrw at the very start of your init.lua
+                vim.g.loaded_netrw = 1
+                vim.g.loaded_netrwPlugin = 1
+                require("nvim-tree").setup({
+                    view = {
+                        width = 45,
+                    },
+                    update_focused_file = {
+                        enable = true,
+                        update_root = {
+                            enable = true,
+                            ignore_list = {},
+                        },
+                        exclude = false,
+                    },
+                }
+                )
+            end,
         },
         {
             "antosha417/nvim-lsp-file-operations",
             dependencies = {
                 "nvim-lua/plenary.nvim",
             },
+            config = function()
+                require("lsp-file-operations").setup()
+            end
         },
         {
             'nvim-telescope/telescope.nvim',
@@ -61,7 +83,24 @@ require("lazy").setup({
         { 'nvim-java/nvim-java',                     lazy = true },
         {
             'stevearc/conform.nvim',
-            opts = {},
+            opts = {
+                formatters_by_ft = {
+                    lua = { "stylua" },
+                    -- Conform will run multiple formatters sequentially
+                    python = { "isort", "black" },
+                    -- Conform will run the first available formatter
+                    javascript = { "prettier", stop_after_first = true },
+                    typescript = { "prettier", stop_after_first = true },
+                    typescriptreact = { "prettier", stop_after_first = true },
+                },
+            },
+        },
+        {
+            'nvim-lualine/lualine.nvim',
+            dependencies = { 'nvim-tree/nvim-web-devicons' },
+            opts = {
+                options = { theme = 'codedark' },
+            }
         },
     },
     {
