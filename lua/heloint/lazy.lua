@@ -80,7 +80,6 @@ require("lazy").setup({
             dependencies = { 'nvim-lua/plenary.nvim' }
         },
         { 'nvim-treesitter/nvim-treesitter-context', lazy = true },
-        { 'nvim-java/nvim-java',                     lazy = true },
         {
             'stevearc/conform.nvim',
             opts = {
@@ -99,7 +98,7 @@ require("lazy").setup({
             'nvim-lualine/lualine.nvim',
             dependencies = { 'nvim-tree/nvim-web-devicons' },
             opts = {
-                options = { theme = 'codedark' },
+                options = { theme = 'material' },
             }
         },
     },
