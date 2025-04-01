@@ -129,7 +129,8 @@ require("lazy").setup({
             opts = {
                 options = { theme = 'material' },
                 sections = {
-                    lualine_c = {{'filename', path=2}}
+                    lualine_c = {{'filename', path=2}},
+                    lualine_x = {'filetype'},
                 }
             }
         },
