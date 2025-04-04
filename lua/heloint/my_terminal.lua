@@ -7,8 +7,7 @@ function Toggle_terminal()
     local current_term_bufname = terminals_by_tabpages[current_tabpage]
 
     if current_term_bufname == nil or vim.fn.bufexists(current_term_bufname) == 0 then
-        vim.cmd.vnew()
-        vim.cmd.term()
+        vim.cmd('botright sp | term')
 
         local current_buffer = vim.api.nvim_get_current_buf()
         current_term_bufname = vim.fn.bufname(current_buffer)
@@ -29,7 +28,7 @@ function Toggle_terminal()
     end
 
     -- If we don't have an opened, but initialized toggleable terminal, then we open the buffer.
-    vim.cmd('vs | b ' .. current_term_bufname)
+    vim.cmd('botright sp | b ' .. current_term_bufname)
 end
 
 vim.keymap.set('n', '<space>t', Toggle_terminal, {})
