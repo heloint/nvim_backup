@@ -16,10 +16,13 @@ telescope.setup {
             previewer = false,
         },
         live_grep = {
+            layout_strategy = 'vertical',
         },
         buffers = {
+            layout_strategy = 'vertical',
         },
         help_tags = {
+            layout_strategy = 'vertical',
         }
     },
 }

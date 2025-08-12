@@ -51,6 +51,7 @@ require("mason-lspconfig").setup({
                     "vue",
                     "php",
                     "blade.php",
+                    "json",
                 }
             }
         end,

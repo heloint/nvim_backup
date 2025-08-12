@@ -123,17 +123,17 @@ require("lazy").setup({
                 },
             },
         },
-        {
-            'nvim-lualine/lualine.nvim',
-            dependencies = { 'nvim-tree/nvim-web-devicons' },
-            opts = {
-                options = { theme = 'material' },
-                sections = {
-                    lualine_c = {{'filename', path=2}},
-                    lualine_x = {'filetype'},
-                }
-            }
-        },
+        -- {
+        --     'nvim-lualine/lualine.nvim',
+        --     dependencies = { 'nvim-tree/nvim-web-devicons' },
+        --     opts = {
+        --         options = { theme = 'material' },
+        --         sections = {
+        --             lualine_c = {{'filename', path=2}},
+        --             lualine_x = {'filetype'},
+        --         }
+        --     }
+        -- },
     },
     {
         ui = {
