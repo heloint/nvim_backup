@@ -65,9 +65,16 @@ vim.keymap.set('v', '<C-f>g', function()
     builtin.live_grep({ default_text = text, vimgrep_arguments = table.insert(conf.vimgrep_arguments, '--fixed-strings'), })
 end, {})
 
+
+vim.keymap.set('n', '<C-f>r', function()
+    print("==> hello")
+    require('telescope.builtin').lsp_references({
+        layout_strategy = 'vertical',
+    })
+end, {})
+
 vim.keymap.set('n', '<C-f>b', builtin.buffers, {})
 vim.keymap.set('n', '<C-f>h', builtin.help_tags, {})
-vim.keymap.set('n', '<C-f>r', builtin.lsp_references, {})
 vim.keymap.set('n', '<C-f>q', builtin.resume, {})
 vim.keymap.set('n', '<C-f>m', builtin.marks, {})
 vim.keymap.set('n', '<C-f>l', builtin.quickfix, {})
