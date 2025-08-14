@@ -8,7 +8,6 @@ function Toggle_terminal()
 
     if current_term_bufname == nil or vim.fn.bufexists(current_term_bufname) == 0 then
         vim.cmd('botright sp | term')
-
         local current_buffer = vim.api.nvim_get_current_buf()
         current_term_bufname = vim.fn.bufname(current_buffer)
         terminals_by_tabpages[current_tabpage] = vim.fn.bufname(current_buffer)
@@ -36,3 +35,21 @@ vim.keymap.set('n', '<space>t', Toggle_terminal, {})
 -- Return to normal mode in the integrated terminal
 -- =========================================================
 vim.keymap.set('t', '<Esc>', '<C-\\><C-N>', { silent = true })
+
+-- Autocommand to inherit the parent shell's venv for new terminals.
+-- =================================================================
+vim.api.nvim_create_autocmd("TermOpen", {
+    callback = function(args)
+        local current_buffer = vim.api.nvim_get_current_buf()
+        local chan_id = vim.b.terminal_job_id
+        if chan_id then
+            local current_venv = vim.env.VIRTUAL_ENV
+            if current_venv and current_venv ~= "" then
+                local current_venv_activate_file = current_venv .. "/bin/activate"
+                vim.api.nvim_chan_send(chan_id, "deactivate 2> /dev/null; source " .. current_venv_activate_file .. "\n")
+            end
+        else
+            print("Not in a terminal buffer")
+        end
+    end
+})
