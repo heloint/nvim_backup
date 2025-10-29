@@ -2,7 +2,8 @@ vim.api.nvim_create_autocmd('BufWinEnter', {
     group = vim.api.nvim_create_augroup('quickfix_list_base_group', { clear = true }),
     desc = 'allow updating quickfix window',
     pattern = 'quickfix',
-    callback = function(_)
+    callback = function(args)
+        print("==> ", args)
         vim.bo.modifiable = true
         -- :vimgrep's quickfix window display format now includes start and end column (in vim and nvim) so adding 2nd format to match that, also for 'grep -rin'
         vim.bo.errorformat = '%f|%l col %c| %m,%f|%l col %c-%k| %m,%f|%l| %m'
@@ -15,6 +16,10 @@ vim.api.nvim_create_autocmd('BufWinEnter', {
     end,
 })
 
+vim.api.nvim_create_user_command("G", function(opts)
+  vim.cmd("silent! grep " .. opts.args)
+end, { nargs = "+", complete = "file" })
+
 -- Autocommand to trigger on grep completion
 vim.api.nvim_create_autocmd("QuickFixCmdPost", {
     pattern = "grep", -- Trigger only for grep commands
@@ -22,7 +27,7 @@ vim.api.nvim_create_autocmd("QuickFixCmdPost", {
         -- Open the quickfix list
         -- If there are matches, open the first result in a horizontal split
         if not vim.tbl_isempty(vim.fn.getqflist()) then
-            vim.cmd("tabe")
+            -- vim.cmd("tabe")
             vim.cmd("copen")
             vim.cmd("set modifiable")
             -- :vimgrep's quickfix window display format now includes start and end column (in vim and nvim) so adding 2nd format to match that, also for 'grep -rin'

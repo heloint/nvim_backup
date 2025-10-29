@@ -10,4 +10,3 @@ require("heloint.my_terminal")
 require("heloint.my_trailing_whitespaces")
 require("heloint.my_wildignore")
 require("heloint.telescope")
-

@@ -41,7 +41,7 @@ require("lazy").setup({
             "rebelot/kanagawa.nvim",
             config = function()
                 require('kanagawa').setup({
-                    dimInactive = true,         -- dim inactive window `:h hl-NormalNC`
+                    dimInactive = true, -- dim inactive window `:h hl-NormalNC`
                 })
                 vim.cmd("colorscheme kanagawa")
                 local customColors = {
@@ -123,17 +123,6 @@ require("lazy").setup({
                 },
             },
         },
-        -- {
-        --     'nvim-lualine/lualine.nvim',
-        --     dependencies = { 'nvim-tree/nvim-web-devicons' },
-        --     opts = {
-        --         options = { theme = 'material' },
-        --         sections = {
-        --             lualine_c = {{'filename', path=2}},
-        --             lualine_x = {'filetype'},
-        --         }
-        --     }
-        -- },
     },
     {
         ui = {

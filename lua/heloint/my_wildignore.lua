@@ -23,6 +23,8 @@ local to_always_ignore = {
     "*/.fdb_latexmk",
     "*/.next/*",
     "*/dist/*",
+    "*/.pytest_cache/*",
+    "*/.mypy_cache/*",
 }
 
 for idx, val in ipairs(to_always_ignore) do
