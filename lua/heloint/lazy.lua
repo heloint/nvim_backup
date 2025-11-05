@@ -20,22 +20,16 @@ require("lazy").setup({
             "nvim-treesitter/nvim-treesitter",
             build = ":TSUpdate",
         },
+        { 'neovim/nvim-lspconfig',  lazy = true }, -- Required
         {
-            'VonHeikemen/lsp-zero.nvim',
-            branch = 'v3.x',
+            "mason-org/mason-lspconfig.nvim",
+            opts = {},
             dependencies = {
-                -- LSP Support
-                { 'neovim/nvim-lspconfig' },             -- Required
-                { 'williamboman/mason.nvim' },           -- Optional
-                { 'williamboman/mason-lspconfig.nvim' }, -- Optional
-
-                -- Autocompletion
-                { 'neovim/nvim-lspconfig' },
-                { 'hrsh7th/cmp-nvim-lsp' },
-                { 'hrsh7th/nvim-cmp' },
-                { 'hrsh7th/cmp-buffer' },
-            }
+                { "mason-org/mason.nvim", opts = {} },
+                "neovim/nvim-lspconfig",
+            },
         },
+
         { 'numToStr/Comment.nvim' },
         { 'windwp/nvim-ts-autotag', lazy = true },
         {
@@ -64,20 +58,6 @@ require("lazy").setup({
                 }
                 )
             end,
-        },
-        {
-            "antosha417/nvim-lsp-file-operations",
-            dependencies = {
-                "nvim-lua/plenary.nvim",
-            },
-            config = function()
-                require("lsp-file-operations").setup()
-            end
-        },
-        {
-            'nvim-telescope/telescope.nvim',
-            tag = '0.1.8',
-            dependencies = { 'nvim-lua/plenary.nvim' }
         },
         { 'nvim-treesitter/nvim-treesitter-context', lazy = true },
         {

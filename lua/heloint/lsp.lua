@@ -1,11 +1,3 @@
-local lsp_zero = require('lsp-zero')
-
-lsp_zero.on_attach(function(client, bufnr)
-    -- see :help lsp-zero-keybindings
-    -- to learn the available actions
-    lsp_zero.default_keymaps({ buffer = bufnr })
-end)
-
 -- LSP ====================================================================
 require("mason").setup({
     ui = {
@@ -24,7 +16,6 @@ require("mason-lspconfig").setup({
         "lua_ls",
     },
     handlers = {
-        lsp_zero.default_setup,
         ts_ls = function()
             require("lspconfig").ts_ls.setup {
                 settings = {
@@ -161,3 +152,4 @@ vim.api.nvim_create_autocmd('LspAttach', {
             { remap = false })
     end,
 })
+
