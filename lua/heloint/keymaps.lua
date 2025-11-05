@@ -48,7 +48,3 @@ vim.keymap.set("n", "<space>ft", ":tabe **/*<left><right>", {})
 
 vim.keymap.set("n", "<C-b>", ":NvimTreeToggle<CR>", {})
 
-vim.keymap.set("v", "<space>gt", "y:tabe | silent grep \"<C-r>0\"<left>", { desc = "Grep selected text in new tab." })
-vim.keymap.set("v", "<space>gv", "y:vs | silent grep \"<C-r>0\"<left>", { desc = "Grep selected text in new vertical split." })
-vim.keymap.set("v", "<space>gs", "y:sp | silent grep \"<C-r>0\"<left>", { desc = "Grep selected text in new horizontal split." })
-vim.keymap.set("v", "<space>gg", "y:silent grep \"<C-r>0\"<left>", { desc = "Grep selected text in current window." })
