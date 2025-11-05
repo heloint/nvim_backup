@@ -27,6 +27,10 @@ require("lazy").setup({
             dependencies = {
                 { "mason-org/mason.nvim", opts = {} },
                 "neovim/nvim-lspconfig",
+                { 'neovim/nvim-lspconfig' },
+                { 'hrsh7th/cmp-nvim-lsp' },
+                { 'hrsh7th/nvim-cmp' },
+                { 'hrsh7th/cmp-buffer' },
             },
         },
 
