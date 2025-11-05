@@ -92,5 +92,3 @@ if ignored_paths then
         vim.opt.wildignore:append(path)
     end
 end
-
-

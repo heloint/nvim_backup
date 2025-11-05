@@ -36,4 +36,3 @@ end, {})
 -- Loop through easier the quickfix list, without jumping back n' forth the main screen and the QF list.
 vim.keymap.set("n", "<C-j>", "<cmd>cnext<CR>zz")
 vim.keymap.set("n", "<C-k>", "<cmd>cprev<CR>zz")
-
