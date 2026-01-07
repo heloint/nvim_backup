@@ -33,9 +33,8 @@ vim.keymap.set('n', '<C-q>', function()
     end
 end, {})
 
-
-
 -- Quickfix float window with the quickfix value in it
+
 local float_win = nil
 local float_buf = nil
 local qf_float_autogroup = vim.api.nvim_create_augroup("QuickfixFloat", { clear = true })
@@ -47,6 +46,7 @@ end
 
 local function get_qf_match_at_cursor()
     local qf = vim.fn.getqflist()
+
     if vim.tbl_isempty(qf) then
         return nil
     end
@@ -54,13 +54,23 @@ local function get_qf_match_at_cursor()
     local cur_buf = vim.api.nvim_get_current_buf()
     local cur_line = vim.api.nvim_win_get_cursor(0)[1]
 
+    local is_loc_in_qf = false;
     for _, item in ipairs(qf) do
         if item.bufnr == cur_buf and item.lnum == cur_line then
-            return lstrip(item.text)
+            is_loc_in_qf = true
+            -- return lstrip(item.text)
         end
     end
 
-    return nil
+    if is_loc_in_qf == false then
+        return nil
+    end
+
+
+    local info = vim.fn.getqflist({ idx = 0 })
+    local current_idx = info.idx
+    local current_item = qf[current_idx]
+    return lstrip(current_item.text)
 end
 
 local function close_qf_float_window()
@@ -168,8 +178,8 @@ vim.api.nvim_create_user_command("ToggleQuickfixFloat", function()
 end, { desc = "Toggle automatic Quickfix float window" })
 
 -- Keymaps to move through quickfix
-vim.keymap.set("n", "<C-j>", "<cmd>cnext<CR>zz:lua update_qf_float()<CR>")
-vim.keymap.set("n", "<C-k>", "<cmd>cprev<CR>zz:lua update_qf_float()<CR>")
+vim.keymap.set("n", "<C-j>", "<cmd>cnext<CR>zz:lua update_qf_float()<CR>", { silent = true })
+vim.keymap.set("n", "<C-k>", "<cmd>cprev<CR>zz:lua update_qf_float()<CR>", { silent = true })
 
 -- Close float on <Esc>
 vim.keymap.set({ "n", "i", "v" }, "<Esc>", function()
