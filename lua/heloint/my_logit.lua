@@ -39,7 +39,7 @@ local function log_it()
 
     local indent = string.rep(" ", vim.fn.indent(linenum))
 
-    local location = string.format("%s:%d:\t%s=", filepath, linenum, token)
+    local location = string.format("%s:%d:%s=", filepath, linenum, token)
     local log_statement = indent .. string.format(log_function_template, location, token)
 
     -- Create a blank line below and move cursor to the new line
@@ -51,3 +51,4 @@ end
 
 vim.keymap.set("v", "<space>l", log_it, { desc = "Insert log statement below from selected text." })
 vim.keymap.set("n", "<space>l", log_it, { desc = "Insert log statement below from token under the cursor." })
+

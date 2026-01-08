@@ -101,22 +101,25 @@ end
 -- Get text and calculate appropriate window size
 local function get_qf_float_text_and_size()
     local text = get_qf_match_at_cursor()
-    if text == nil then
-        return nil, 0
-    end
+    if text == nil then return nil, 0, 0 end
 
-    local width = vim.fn.strdisplaywidth(text)
-    width = math.max(width, 4)
-    width = math.min(width, vim.o.columns - 4)
+    -- Set a maximum width for wrapping
+    local max_width = math.min(80, vim.o.columns - 4)
 
-    return text, width
+    -- Calculate how many lines we need after wrapping
+    local text_len = vim.fn.strdisplaywidth(text)
+    local height = math.ceil(text_len / max_width)
+    height = math.max(height, 1)
+    height = math.min(height, 10) -- Cap at 10 lines
+
+    return text, max_width, height
 end
 
 -- Update or create the floating quickfix window
 function update_qf_float()
-    if not qf_enabled then
-        return
-    end
+    if not qf_enabled then return end -- <--- add this
+    local text, width, height = get_qf_float_text_and_size()
+    if text == nil then return end
 
     local text, width = get_qf_float_text_and_size()
     if text == nil then
@@ -127,6 +130,8 @@ function update_qf_float()
     if float_win and vim.api.nvim_win_is_valid(float_win) then
         vim.api.nvim_buf_set_lines(float_buf, 0, -1, false, { text })
         vim.api.nvim_win_set_width(float_win, width)
+        vim.api.nvim_win_set_height(float_win, height)
+        vim.api.nvim_set_option_value('wrap', true, { win = float_win })
         return
     end
 
@@ -139,12 +144,16 @@ function update_qf_float()
         row = 1,
         col = 1,
         width = width,
-        height = 1,
+        height = height,
         style = "minimal",
         border = "rounded",
     })
 
-    -- Auto-close on cursor move
+    -- Enable text wrapping in the floating window
+    vim.api.nvim_set_option_value('wrap', true, { win = float_win })
+    vim.api.nvim_set_option_value('linebreak', true, { win = float_win })
+
+    -- Close on cursor move
     vim.api.nvim_create_autocmd("CursorMoved", {
         group = qf_float_autogroup,
         once = true,
