@@ -1,6 +1,8 @@
 -- DEFAULTS
 -- ====================================================================
 vim.cmd("set encoding=UTF-8")
+vim.g.netrw_keepdir    = 1
+vim.opt.autochdir = false
 vim.opt.relativenumber = true
 
 vim.o.clipboard        = 'unnamedplus'

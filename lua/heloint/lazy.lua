@@ -20,7 +20,7 @@ require("lazy").setup({
             "nvim-treesitter/nvim-treesitter",
             build = ":TSUpdate",
         },
-        { 'neovim/nvim-lspconfig',  lazy = true }, -- Required
+        { 'neovim/nvim-lspconfig',                   lazy = true }, -- Required
         {
             "mason-org/mason-lspconfig.nvim",
             opts = {},
@@ -35,7 +35,7 @@ require("lazy").setup({
         },
 
         { 'numToStr/Comment.nvim' },
-        { 'windwp/nvim-ts-autotag', lazy = true },
+        { 'windwp/nvim-ts-autotag',                  lazy = true },
         { 'nvim-treesitter/nvim-treesitter-context', lazy = true },
         {
             'stevearc/conform.nvim',

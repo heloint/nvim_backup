@@ -12,4 +12,5 @@ require("heloint.my_trailing_whitespaces")
 require("heloint.my_wildignore")
 require("heloint.my_blueprints")
 require("heloint.theme")
-require("heloint.my_logit")
+require("heloint.my_file_ops")
+
