@@ -2,6 +2,10 @@
 -- ====================================================================
 vim.cmd("set encoding=UTF-8")
 vim.g.netrw_keepdir    = 1
+vim.g.netrw_liststyle  = 1
+vim.g.netrw_timefmt = "%Y-%m-%d %H:%M"
+
+
 vim.opt.autochdir = false
 vim.opt.relativenumber = true
 

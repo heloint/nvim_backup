@@ -37,10 +37,69 @@ local function set_window_highlight()
     end
 end
 
+-- Current search match (while typing)
+vim.api.nvim_set_hl(0, "IncSearch", { bg = "#f7b24a", fg = "#000000", bold = true })
+
+-- All other search matches
+vim.api.nvim_set_hl(0, "Search", { bg = "#f5f590", fg = "#000000" })
+
+-- Neovim 0.8+ also has CurSearch for the current match when navigating with n/N
+vim.api.nvim_set_hl(0, "CurSearch", { bg = "#f76565", fg = "#ffffff", bold = true })
+
+-- Line number color for lines with search matches isn't built-in,
+-- but you can change the gutter colors globally like this:
+-- vim.api.nvim_set_hl(0, "LineNr", { fg = "#555555" })         -- all line numbers
+vim.api.nvim_set_hl(0, "CursorLineNr", { fg = "#ffff00", bold = true }) -- current line number
+vim.api.nvim_set_hl(0, "CursorLine", { bg = "#333333" })                -- current line number
+
 -- Autocommands to update highlights when switching windows or buffers
 vim.api.nvim_create_autocmd({ "WinEnter", "BufEnter" }, {
     callback = set_window_highlight,
 })
 vim.api.nvim_create_autocmd("WinLeave", {
     callback = set_window_highlight,
+})
+
+vim.api.nvim_set_hl(0, "SearchMatchIcon", { fg = "#f5f590" })
+-- 1. Define the sign (character + highlight)
+vim.fn.sign_define("SearchMatch", {
+    text = "󰍉", -- any 1-2 char: ">>", "●", "󰍉 ", etc.
+    texthl = "SearchMatchIcon", -- reuse Search highlight, or define your own
+})
+
+-- 2. Helper to place signs on all current search matches
+local function place_search_signs()
+    -- Clear previous search signs
+    vim.fn.sign_unplace("search_matches")
+
+    local pattern = vim.fn.getreg("/")
+    if pattern == "" then return end
+
+    local bufnr = vim.api.nvim_get_current_buf()
+    local lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
+
+    for i, line in ipairs(lines) do
+        if vim.fn.match(line, pattern) ~= -1 then
+            vim.fn.sign_place(0, "search_matches", "SearchMatch", bufnr, { lnum = i, priority = 10 })
+        end
+    end
+end
+
+-- 3. Trigger it when a search is confirmed
+vim.api.nvim_create_autocmd("CmdlineLeave", {
+    pattern = { "/", "?" },
+    callback = function()
+        vim.schedule(place_search_signs) -- schedule so the register is updated first
+    end,
+})
+
+-- 4. Clear signs when search is cleared (e.g. :noh)
+vim.api.nvim_create_autocmd("CmdlineLeave", {
+    pattern = ":",
+    callback = function()
+        local cmd = vim.fn.getcmdline()
+        if cmd == "noh" or cmd == "nohlsearch" then
+            vim.fn.sign_unplace("search_matches")
+        end
+    end,
 })
