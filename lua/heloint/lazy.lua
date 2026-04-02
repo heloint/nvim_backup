@@ -33,8 +33,6 @@ require("lazy").setup({
                 { 'hrsh7th/cmp-buffer' },
             },
         },
-
-        { 'numToStr/Comment.nvim' },
         { 'windwp/nvim-ts-autotag',                  lazy = true },
         { 'nvim-treesitter/nvim-treesitter-context', lazy = true },
         {

@@ -1,6 +1,6 @@
 -- TREE SITTER
 -- ====================================================================
-require 'nvim-treesitter.configs'.setup {
+require 'nvim-treesitter.config'.setup {
     ignore_install = {},
     modules = {},
     ensure_installed = {
