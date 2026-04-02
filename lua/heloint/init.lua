@@ -1,4 +1,4 @@
-require("heloint.lazy")
+require("heloint.my_plugins")
 require("heloint.set")
 require("heloint.keymaps")
 require("heloint.lsp")
@@ -13,4 +13,4 @@ require("heloint.my_wildignore")
 require("heloint.my_blueprints")
 require("heloint.theme")
 require("heloint.my_file_ops")
-
+require("heloint.conform")
