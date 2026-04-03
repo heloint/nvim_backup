@@ -15,7 +15,24 @@ local customColors = {
     SignColumn = { bg = "#212424" },
     WinSeparator = { fg = "#f8fafc", bg = "#334155", },
     StatusLine = { bg = "#475569", fg = "#f9fafb" },
-    Visual = { bg = "#314158", ctermfg = nil }
+    Visual = { bg = "#314158", ctermfg = nil },
+
+
+
+    IncSearch = { bg = "#f7b24a", fg = "#000000", bold = true },
+    Search = { bg = "#f5f590", fg = "#000000" },
+    CurSearch = { bg = "#f76565", fg = "#ffffff", bold = true },
+    CursorLineNr = { fg = "#ffff00", bold = true },
+    CursorLine = { bg = "#333333" },
+
+    SearchMatchIcon = { fg = "#f5f590" },
+
+
+    Pmenu = { bg = "#1e1e2e", fg = "#cdd6f4" },
+    PmenuSel = { bg = "#585b70", fg = "#ffffff" },
+    PmenuSbar = { bg = "#313244" },
+    PmenuThumb = { bg = "#585b70" },
+
 }
 
 for hl, col in pairs(customColors) do
@@ -37,21 +54,9 @@ local function set_window_highlight()
     end
 end
 
--- Current search match (while typing)
-vim.api.nvim_set_hl(0, "IncSearch", { bg = "#f7b24a", fg = "#000000", bold = true })
-
--- All other search matches
-vim.api.nvim_set_hl(0, "Search", { bg = "#f5f590", fg = "#000000" })
-
--- Neovim 0.8+ also has CurSearch for the current match when navigating with n/N
-vim.api.nvim_set_hl(0, "CurSearch", { bg = "#f76565", fg = "#ffffff", bold = true })
-
--- Line number color for lines with search matches isn't built-in,
--- but you can change the gutter colors globally like this:
--- vim.api.nvim_set_hl(0, "LineNr", { fg = "#555555" })         -- all line numbers
-vim.api.nvim_set_hl(0, "CursorLineNr", { fg = "#ffff00", bold = true }) -- current line number
-vim.api.nvim_set_hl(0, "CursorLine", { bg = "#333333" })                -- current line number
-
+vim.opt.wildoptions = "pum"
+vim.opt.pumborder = "rounded"
+--
 -- Autocommands to update highlights when switching windows or buffers
 vim.api.nvim_create_autocmd({ "WinEnter", "BufEnter" }, {
     callback = set_window_highlight,
@@ -60,7 +65,6 @@ vim.api.nvim_create_autocmd("WinLeave", {
     callback = set_window_highlight,
 })
 
-vim.api.nvim_set_hl(0, "SearchMatchIcon", { fg = "#f5f590" })
 -- 1. Define the sign (character + highlight)
 vim.fn.sign_define("SearchMatch", {
     text = "󰍉", -- any 1-2 char: ">>", "●", "󰍉 ", etc.

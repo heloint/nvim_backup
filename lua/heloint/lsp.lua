@@ -115,18 +115,6 @@ require("mason-lspconfig").setup({
     },
 })
 
-vim.api.nvim_create_autocmd("LspAttach", {
-  callback = function()
-    vim.notify("LSP ready", vim.log.levels.INFO)
-  end,
-})
-
-vim.api.nvim_create_autocmd("BufReadPre", {
-  callback = function()
-    vim.notify("LSP loading...", vim.log.levels.INFO)
-  end,
-})
-
 --LSP MAPPINGS
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
 vim.keymap.set('n', '<space>e', vim.diagnostic.open_float)
