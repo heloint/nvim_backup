@@ -20,23 +20,19 @@ vim.api.nvim_create_user_command("Mv", function(opts)
 end, { nargs = "*", complete = "file" })
 
 
-vim.api.nvim_create_user_command("Test", function(opts)
-    -- Create session cache directory.
-    local cache_base_dir = vim.fn.stdpath('cache')
-    local session_base_dir = vim.fs.joinpath(cache_base_dir, "my_session_caches")
-    vim.fn.mkdir(session_base_dir, "p")
+vim.api.nvim_create_user_command("Rm", function()
+    local current_path = vim.api.nvim_buf_get_name(0)
 
-    -- Create the session cache hash
-    local cwd = vim.fn.getcwd()
-    local cwd_hash = vim.fn.sha256(cwd)
+    -- Close the current buffer to the new file path.
+    vim.api.nvim_buf_delete(0, { force = true }) -- discard unsaved changes
 
-    -- Create / retrieve session cache
-    local session_cache_path = vim.fs.joinpath(session_base_dir, cwd_hash)
-    local has_session = vim.uv.fs_stat(session_cache_path)
-    if has_session then
-        vim.cmd("source " .. session_cache_path)
-    else
-        vim.cmd("mksession! " .. session_cache_path)
+    os.remove(vim.fn.expand("%:p"))
+
+    print("Removed file: ", current_path)
+
+    local buflist = vim.fn.getbufinfo({ buflisted = 1 })
+
+    if #buflist <= 1 then
+        vim.cmd("Explore")
     end
-
 end, { nargs = "*", complete = "file" })
