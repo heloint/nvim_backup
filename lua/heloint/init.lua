@@ -13,6 +13,7 @@ require("heloint.my_trailing_whitespaces")
 require("heloint.my_wildignore")
 require("heloint.my_blueprints")
 require("heloint.my_file_ops")
+require("heloint.my_git")
 
 -- FORMATTING
 require("heloint.conform")
