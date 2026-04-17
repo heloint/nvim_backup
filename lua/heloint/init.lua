@@ -19,8 +19,7 @@ require("heloint.my_git")
 require("heloint.conform")
 
 -- LSP
-require("heloint.ts_ls")
-require("heloint.basedpyright")
+require("heloint.lsp")
 
 -- Extras
 require("heloint.my_pretty_csv")
