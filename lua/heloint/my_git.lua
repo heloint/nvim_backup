@@ -69,10 +69,19 @@ vim.api.nvim_create_user_command("Git", function(opts)
 		local short_name = vim.fn.fnamemodify(bufname, ":t")
 
 		vim.cmd("tabnew")
-		local preview_win = vim.api.nvim_get_current_win()
-		local preview_buf = make_scratch_buf("git show: " .. short_name, original_ft)
-		vim.bo[preview_buf].modifiable = false
-		vim.api.nvim_win_set_buf(preview_win, preview_buf)
+
+		-- Left pane: parent commit's version
+		local parent_win = vim.api.nvim_get_current_win()
+		local parent_buf = make_scratch_buf("git diff (parent): " .. short_name, original_ft)
+		vim.bo[parent_buf].modifiable = false
+		vim.api.nvim_win_set_buf(parent_win, parent_buf)
+
+		-- Right pane: selected commit's version
+		vim.cmd("vsplit")
+		local current_win = vim.api.nvim_get_current_win()
+		local current_buf = make_scratch_buf("git diff (selected): " .. short_name, original_ft)
+		vim.bo[current_buf].modifiable = false
+		vim.api.nvim_win_set_buf(current_win, current_buf)
 
 		vim.cmd("botright 15split")
 		local log_win = vim.api.nvim_get_current_win()
@@ -88,17 +97,35 @@ vim.api.nvim_create_user_command("Git", function(opts)
 			if not hash or hash == last_hash then return end
 			last_hash = hash
 
+			-- Get file content at selected commit
 			local show_result = vim.system({ "git", "show", hash .. ":" .. rel_path }, { text = true }):wait()
-			local content
+			local current_content
 			if show_result.code ~= 0 then
-				content = { "Error: " .. (show_result.stderr or "") }
+				current_content = { "(file did not exist at this commit)" }
 			else
-				content = vim.split(show_result.stdout, "\n", { trimempty = false })
+				current_content = vim.split(show_result.stdout, "\n", { trimempty = false })
 			end
 
-			vim.bo[preview_buf].modifiable = true
-			vim.api.nvim_buf_set_lines(preview_buf, 0, -1, false, content)
-			vim.bo[preview_buf].modifiable = false
+			-- Get file content at parent commit
+			local parent_result = vim.system({ "git", "show", hash .. "~1:" .. rel_path }, { text = true }):wait()
+			local parent_content
+			if parent_result.code ~= 0 then
+				parent_content = { "(file did not exist before this commit)" }
+			else
+				parent_content = vim.split(parent_result.stdout, "\n", { trimempty = false })
+			end
+
+			vim.bo[parent_buf].modifiable = true
+			vim.api.nvim_buf_set_lines(parent_buf, 0, -1, false, parent_content)
+			vim.bo[parent_buf].modifiable = false
+
+			vim.bo[current_buf].modifiable = true
+			vim.api.nvim_buf_set_lines(current_buf, 0, -1, false, current_content)
+			vim.bo[current_buf].modifiable = false
+
+			-- Enable diff mode on both panes
+			vim.api.nvim_win_call(parent_win, function() vim.cmd("diffthis") end)
+			vim.api.nvim_win_call(current_win, function() vim.cmd("diffthis") end)
 		end
 
 		update_preview()
