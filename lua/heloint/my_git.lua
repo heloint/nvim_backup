@@ -70,18 +70,19 @@ vim.api.nvim_create_user_command("Git", function(opts)
 
 		vim.cmd("tabnew")
 
-		-- Left pane: parent commit's version
+		-- Left pane: selected commit's version
+		local current_win = vim.api.nvim_get_current_win()
+		local current_buf = make_scratch_buf("git diff (selected): " .. short_name, original_ft)
+		vim.bo[current_buf].modifiable = false
+		vim.api.nvim_win_set_buf(current_win, current_buf)
+
+		-- Right pane: parent commit's version
+		vim.cmd("vsplit")
 		local parent_win = vim.api.nvim_get_current_win()
 		local parent_buf = make_scratch_buf("git diff (parent): " .. short_name, original_ft)
 		vim.bo[parent_buf].modifiable = false
 		vim.api.nvim_win_set_buf(parent_win, parent_buf)
 
-		-- Right pane: selected commit's version
-		vim.cmd("vsplit")
-		local current_win = vim.api.nvim_get_current_win()
-		local current_buf = make_scratch_buf("git diff (selected): " .. short_name, original_ft)
-		vim.bo[current_buf].modifiable = false
-		vim.api.nvim_win_set_buf(current_win, current_buf)
 
 		vim.cmd("botright 15split")
 		local log_win = vim.api.nvim_get_current_win()
