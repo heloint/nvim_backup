@@ -51,7 +51,7 @@ vim.api.nvim_create_user_command("Git", function(opts)
 			return
 		end
 
-		local result = vim.system({ "git", "log", "--oneline", "--", bufname }, { text = true }):wait()
+		local result = vim.system({ "git", "log", "--format=%h %s\t%an\t%ai", "--", bufname }, { text = true }):wait()
 		if result.code ~= 0 then
 			vim.notify(result.stderr, vim.log.levels.ERROR)
 			return
