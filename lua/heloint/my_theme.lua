@@ -15,13 +15,13 @@ local customColors = {
 	SignColumn = { bg = "#212424" },
 	WinSeparator = { fg = "#f8fafc", bg = "#334155" },
 	StatusLine = { bg = "#475569", fg = "#f9fafb" },
-	Visual = { bg = "#314158", ctermfg = nil },
+	Visual = { bg = "#475569", ctermfg = nil },
 
 	IncSearch = { bg = "#f7b24a", fg = "#000000", bold = true },
 	Search = { bg = "#f5f590", fg = "#000000" },
 	CurSearch = { bg = "#f76565", fg = "#ffffff", bold = true },
 	CursorLineNr = { fg = "#ffff00", bold = true },
-	CursorLine = { bg = "#333333" },
+	CursorLine = { bg = "#394454" },
 
 	SearchMatchIcon = { fg = "#f5f590" },
 
