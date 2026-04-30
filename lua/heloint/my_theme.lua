@@ -29,6 +29,10 @@ local customColors = {
 	PmenuSel = { bg = "#585b70", fg = "#ffffff" },
 	PmenuSbar = { bg = "#313244" },
 	PmenuThumb = { bg = "#585b70" },
+
+	TabLine = { bg = "#1e293b", fg = "#94a3b8" },
+	TabLineSel = { bg = "#475569", fg = "#f1f5f9", bold = true },
+	TabLineFill = { bg = "#0f172a" },
 }
 
 for hl, col in pairs(customColors) do
