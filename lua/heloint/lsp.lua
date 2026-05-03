@@ -9,7 +9,7 @@ local lsp_setups = {
         lsp_config_name = "basedpyright",
         lsp_cli_executable = "basedpyright",
         lsp_cli_install_cmd = "npm install -g basedpyright typescript",
-        file_type_patterns = { "python " },
+        file_type_patterns = { "python" },
     },
     {
         lsp_config_name = "angularls",
