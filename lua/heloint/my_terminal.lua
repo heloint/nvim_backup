@@ -91,37 +91,66 @@ if _nvim_remote_pipe and _nvim_remote_pipe ~= "" then
 
             local pipe = _nvim_remote_pipe
 
-            for _, file in ipairs(args) do
-                local abs_file = vim.fn.fnamemodify(tostring(file), ":p")
-                -- Git always edits files inside the .git directory; block so git waits for the edit.
-                local should_block = abs_file:find("/.git/", 1, true) ~= nil
+            -- git difftool -x "nvim -d" invokes nvim with -d plus two file args.
+            -- Detect this by checking vim.v.argv for the -d flag.
+            local is_diff_mode = false
+            for _, a in ipairs(vim.v.argv) do
+                if a == "-d" or a == "--diff" then is_diff_mode = true; break end
+            end
 
-                if should_block then
-                    -- Semaphore file: parent deletes it when the editing window closes.
-                    local sem = vim.fn.tempname()
-                    io.open(sem, "w"):close()
+            if is_diff_mode and #args >= 2 then
+                local file1 = vim.fn.fnamemodify(tostring(args[1]), ":p")
+                local file2 = vim.fn.fnamemodify(tostring(args[2]), ":p")
 
-                    -- Single :lua command sent to the parent so tabedit and win_getid()
-                    -- are atomic — no race between opening the tab and capturing its ID.
-                    -- WinClosed fires with the window-ID as its pattern, targeting exactly
-                    -- this window and not any other.
-                    local lua_code =
-                        'vim.cmd([[tabedit ' .. abs_file .. ']]) ' ..
-                        'local _w=tostring(vim.api.nvim_get_current_win()) ' ..
-                        'vim.api.nvim_create_autocmd("WinClosed",{pattern=_w,once=true,' ..
-                        'callback=function() vim.fn.delete([[' .. sem .. ']]) end})'
+                local sem = vim.fn.tempname()
+                io.open(sem, "w"):close()
 
-                    vim.fn.system({"nvim", "--server", pipe, "--remote-send",
-                        "<C-\\><C-n>:lua " .. lua_code .. "<CR>"})
+                -- Capture win1 (LOCAL) before the diffsplit moves the cursor to win2.
+                -- WinClosed on win1 means the user closed or tabclosed the diff view.
+                local lua_code =
+                    'vim.cmd([[tabedit ' .. file1 .. ']]) ' ..
+                    'local _w=tostring(vim.api.nvim_get_current_win()) ' ..
+                    'vim.cmd([[vertical diffsplit ' .. file2 .. ']]) ' ..
+                    'vim.api.nvim_create_autocmd("WinClosed",{pattern=_w,once=true,' ..
+                    'callback=function() vim.fn.delete([[' .. sem .. ']]) end})'
 
-                    -- Block until the user closes that window (git waits for this process,
-                    -- so each editor call — rebase-todo, commit message, etc. — blocks
-                    -- independently until the user is done).
-                    vim.fn.system("while [ -f " .. vim.fn.shellescape(sem) .. " ]; do sleep 0.1; done")
-                else
-                    local lua_code = 'vim.cmd([[tabedit ' .. abs_file .. ']])'
-                    vim.fn.system({"nvim", "--server", pipe, "--remote-send",
-                        "<C-\\><C-n>:lua " .. lua_code .. "<CR>"})
+                vim.fn.system({"nvim", "--server", pipe, "--remote-send",
+                    "<C-\\><C-n>:lua " .. lua_code .. "<CR>"})
+
+                vim.fn.system("while [ -f " .. vim.fn.shellescape(sem) .. " ]; do sleep 0.1; done")
+            else
+                for _, file in ipairs(args) do
+                    local abs_file = vim.fn.fnamemodify(tostring(file), ":p")
+                    -- Git always edits files inside the .git directory; block so git waits for the edit.
+                    local should_block = abs_file:find("/.git/", 1, true) ~= nil
+
+                    if should_block then
+                        -- Semaphore file: parent deletes it when the editing window closes.
+                        local sem = vim.fn.tempname()
+                        io.open(sem, "w"):close()
+
+                        -- Single :lua command sent to the parent so tabedit and win_getid()
+                        -- are atomic — no race between opening the tab and capturing its ID.
+                        -- WinClosed fires with the window-ID as its pattern, targeting exactly
+                        -- this window and not any other.
+                        local lua_code =
+                            'vim.cmd([[tabedit ' .. abs_file .. ']]) ' ..
+                            'local _w=tostring(vim.api.nvim_get_current_win()) ' ..
+                            'vim.api.nvim_create_autocmd("WinClosed",{pattern=_w,once=true,' ..
+                            'callback=function() vim.fn.delete([[' .. sem .. ']]) end})'
+
+                        vim.fn.system({"nvim", "--server", pipe, "--remote-send",
+                            "<C-\\><C-n>:lua " .. lua_code .. "<CR>"})
+
+                        -- Block until the user closes that window (git waits for this process,
+                        -- so each editor call — rebase-todo, commit message, etc. — blocks
+                        -- independently until the user is done).
+                        vim.fn.system("while [ -f " .. vim.fn.shellescape(sem) .. " ]; do sleep 0.1; done")
+                    else
+                        local lua_code = 'vim.cmd([[tabedit ' .. abs_file .. ']])'
+                        vim.fn.system({"nvim", "--server", pipe, "--remote-send",
+                            "<C-\\><C-n>:lua " .. lua_code .. "<CR>"})
+                    end
                 end
             end
 
