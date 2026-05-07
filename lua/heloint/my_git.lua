@@ -35,7 +35,56 @@ end
 vim.api.nvim_create_user_command("Git", function(opts)
 	local subcmd = opts.fargs[1]
 
-	if subcmd == "checkout" then
+	if subcmd == "blame" then
+		local start_line = opts.line1
+		local end_line = opts.line2
+
+		local bufname = vim.api.nvim_buf_get_name(0)
+		if bufname == "" then
+			vim.notify("No file in current buffer", vim.log.levels.WARN)
+			return
+		end
+
+		local result = vim.system({ "git", "blame", "-L" .. start_line .. "," .. end_line, bufname }, { text = true }):wait()
+		if result.code ~= 0 then
+			vim.notify(result.stderr, vim.log.levels.ERROR)
+			return
+		end
+
+		local lines = vim.split(result.stdout, "\n", { trimempty = true })
+		if #lines == 0 then
+			vim.notify("No blames found for " .. vim.fn.fnamemodify(bufname, ":t"), vim.log.levels.INFO)
+			return
+		end
+
+		local short_name = vim.fn.fnamemodify(bufname, ":t")
+		local source_win = vim.api.nvim_get_current_win()
+		vim.cmd("botright 10split")
+		local blame_win = vim.api.nvim_get_current_win()
+		local blame_buf = make_scratch_buf("git blame: " .. short_name)
+		vim.api.nvim_buf_set_lines(blame_buf, 0, -1, false, lines)
+		vim.bo[blame_buf].modifiable = false
+		vim.api.nvim_win_set_buf(blame_win, blame_buf)
+
+		local augroup = vim.api.nvim_create_augroup("GitBlamePreview_" .. blame_buf, { clear = true })
+		vim.api.nvim_create_autocmd("CursorMoved", {
+			group = augroup,
+			buffer = blame_buf,
+			callback = function()
+				local cursor_row = vim.api.nvim_win_get_cursor(blame_win)[1]
+				local target_line = start_line + cursor_row - 1
+				vim.api.nvim_win_set_cursor(source_win, { target_line, 0 })
+			end,
+		})
+		vim.api.nvim_create_autocmd("BufWipeout", {
+			group = augroup,
+			buffer = blame_buf,
+			callback = function()
+				vim.api.nvim_del_augroup_by_id(augroup)
+			end,
+		})
+
+	elseif subcmd == "checkout" then
 		local selected_branch = opts.fargs[2]
 		if not selected_branch then
 			vim.notify("No branch selected", vim.log.levels.WARN)
@@ -153,7 +202,7 @@ end, {
 		if #args == 2 then
 			return vim.tbl_filter(function(s)
 				return s:find("^" .. arglead)
-			end, { "checkout", "status", "log", "logs" })
+			end, { "checkout", "status", "log", "logs", "blame" })
 		end
 
 		if #args >= 3 and args[2] == "checkout" then
@@ -162,4 +211,5 @@ end, {
 			end, get_branch_list())
 		end
 	end,
+    range = true,
 })
