@@ -13,7 +13,7 @@ local function get_branch_list()
 	return branches
 end
 
-local function exec_shell_with_notification(cmd)
+local function _exec_shell_with_notification(cmd)
 	local result = vim.system(cmd, { text = true }):wait()
 	if result.code ~= 0 then
 		vim.notify(result.stderr, vim.log.levels.ERROR)
@@ -32,167 +32,178 @@ local function make_scratch_buf(name, filetype)
 	return buf
 end
 
+
+local function handle_git_blame(opts)
+    local start_line = opts.line1
+    local end_line = opts.line2
+
+    local bufname = vim.api.nvim_buf_get_name(0)
+    if bufname == "" then
+        vim.notify("No file in current buffer", vim.log.levels.WARN)
+        return
+    end
+
+    local result = vim.system({ "git", "blame", "-L" .. start_line .. "," .. end_line, bufname }, { text = true }):wait()
+    if result.code ~= 0 then
+        vim.notify(result.stderr, vim.log.levels.ERROR)
+        return
+    end
+
+    local lines = vim.split(result.stdout, "\n", { trimempty = true })
+    if #lines == 0 then
+        vim.notify("No blames found for " .. vim.fn.fnamemodify(bufname, ":t"), vim.log.levels.INFO)
+        return
+    end
+
+    local short_name = vim.fn.fnamemodify(bufname, ":t")
+    local source_win = vim.api.nvim_get_current_win()
+    vim.cmd("botright 10split")
+    local blame_win = vim.api.nvim_get_current_win()
+    local blame_buf = make_scratch_buf("git blame: " .. short_name)
+    vim.api.nvim_buf_set_lines(blame_buf, 0, -1, false, lines)
+    vim.bo[blame_buf].modifiable = false
+    vim.api.nvim_win_set_buf(blame_win, blame_buf)
+
+    local augroup = vim.api.nvim_create_augroup("GitBlamePreview_" .. blame_buf, { clear = true })
+    vim.api.nvim_create_autocmd("CursorMoved", {
+        group = augroup,
+        buffer = blame_buf,
+        callback = function()
+            local cursor_row = vim.api.nvim_win_get_cursor(blame_win)[1]
+            local target_line = start_line + cursor_row - 1
+            vim.api.nvim_win_set_cursor(source_win, { target_line, 0 })
+        end,
+    })
+    vim.api.nvim_create_autocmd("BufWipeout", {
+        group = augroup,
+        buffer = blame_buf,
+        callback = function()
+            vim.api.nvim_del_augroup_by_id(augroup)
+        end,
+    })
+end
+
+local function handle_git_checkout(opts)
+    local selected_branch = opts.fargs[2]
+    if not selected_branch then
+        vim.notify("No branch selected", vim.log.levels.WARN)
+        return
+    end
+    _exec_shell_with_notification({ "git", "checkout", selected_branch })
+    vim.cmd("checktime")
+end
+
+local function handle_git_logs(opts)
+    local bufname = vim.api.nvim_buf_get_name(0)
+    if bufname == "" then
+        vim.notify("No file in current buffer", vim.log.levels.WARN)
+        return
+    end
+
+    local result = vim.system({ "git", "log", "--format=%h %s\t%an\t%ai", "--", bufname }, { text = true }):wait()
+    if result.code ~= 0 then
+        vim.notify(result.stderr, vim.log.levels.ERROR)
+        return
+    end
+
+    local lines = vim.split(result.stdout, "\n", { trimempty = true })
+    if #lines == 0 then
+        vim.notify("No commits found for " .. vim.fn.fnamemodify(bufname, ":t"), vim.log.levels.INFO)
+        return
+    end
+
+    local original_ft = vim.bo[0].filetype
+    local git_root = vim.system({ "git", "rev-parse", "--show-toplevel" }, { text = true }):wait().stdout:gsub("\n$", "")
+    local rel_path = bufname:sub(#git_root + 2)
+    local short_name = vim.fn.fnamemodify(bufname, ":t")
+
+    vim.cmd("tabnew")
+
+    -- Left pane: selected commit's version
+    local current_win = vim.api.nvim_get_current_win()
+    local current_buf = make_scratch_buf("git diff (selected): " .. short_name, original_ft)
+    vim.bo[current_buf].modifiable = false
+    vim.api.nvim_win_set_buf(current_win, current_buf)
+
+    -- Right pane: parent commit's version
+    vim.cmd("vsplit")
+    local parent_win = vim.api.nvim_get_current_win()
+    local parent_buf = make_scratch_buf("git diff (parent): " .. short_name, original_ft)
+    vim.bo[parent_buf].modifiable = false
+    vim.api.nvim_win_set_buf(parent_win, parent_buf)
+
+
+    vim.cmd("botright 15split")
+    local log_win = vim.api.nvim_get_current_win()
+    local log_buf = make_scratch_buf("git log: " .. short_name)
+    vim.api.nvim_buf_set_lines(log_buf, 0, -1, false, lines)
+    vim.bo[log_buf].modifiable = false
+    vim.api.nvim_win_set_buf(log_win, log_buf)
+
+    local last_hash = nil
+    local function update_preview()
+        local line = vim.api.nvim_get_current_line()
+        local hash = line:match("^(%x+)")
+        if not hash or hash == last_hash then return end
+        last_hash = hash
+
+        -- Get file content at selected commit
+        local show_result = vim.system({ "git", "show", hash .. ":" .. rel_path }, { text = true }):wait()
+        local current_content
+        if show_result.code ~= 0 then
+            current_content = { "(file did not exist at this commit)" }
+        else
+            current_content = vim.split(show_result.stdout, "\n", { trimempty = false })
+        end
+
+        -- Get file content at parent commit
+        local parent_result = vim.system({ "git", "show", hash .. "~1:" .. rel_path }, { text = true }):wait()
+        local parent_content
+        if parent_result.code ~= 0 then
+            parent_content = { "(file did not exist before this commit)" }
+        else
+            parent_content = vim.split(parent_result.stdout, "\n", { trimempty = false })
+        end
+
+        vim.bo[parent_buf].modifiable = true
+        vim.api.nvim_buf_set_lines(parent_buf, 0, -1, false, parent_content)
+        vim.bo[parent_buf].modifiable = false
+
+        vim.bo[current_buf].modifiable = true
+        vim.api.nvim_buf_set_lines(current_buf, 0, -1, false, current_content)
+        vim.bo[current_buf].modifiable = false
+
+        -- Enable diff mode on both panes
+        vim.api.nvim_win_call(parent_win, function() vim.cmd("diffthis") end)
+        vim.api.nvim_win_call(current_win, function() vim.cmd("diffthis") end)
+    end
+
+    update_preview()
+
+    local augroup = vim.api.nvim_create_augroup("GitLogsPreview_" .. log_buf, { clear = true })
+    vim.api.nvim_create_autocmd("CursorMoved", {
+        group = augroup,
+        buffer = log_buf,
+        callback = update_preview,
+    })
+    vim.api.nvim_create_autocmd("BufWipeout", {
+        group = augroup,
+        buffer = log_buf,
+        callback = function()
+            vim.api.nvim_del_augroup_by_id(augroup)
+        end,
+    })
+end
+
 vim.api.nvim_create_user_command("Git", function(opts)
 	local subcmd = opts.fargs[1]
 
 	if subcmd == "blame" then
-		local start_line = opts.line1
-		local end_line = opts.line2
-
-		local bufname = vim.api.nvim_buf_get_name(0)
-		if bufname == "" then
-			vim.notify("No file in current buffer", vim.log.levels.WARN)
-			return
-		end
-
-		local result = vim.system({ "git", "blame", "-L" .. start_line .. "," .. end_line, bufname }, { text = true }):wait()
-		if result.code ~= 0 then
-			vim.notify(result.stderr, vim.log.levels.ERROR)
-			return
-		end
-
-		local lines = vim.split(result.stdout, "\n", { trimempty = true })
-		if #lines == 0 then
-			vim.notify("No blames found for " .. vim.fn.fnamemodify(bufname, ":t"), vim.log.levels.INFO)
-			return
-		end
-
-		local short_name = vim.fn.fnamemodify(bufname, ":t")
-		local source_win = vim.api.nvim_get_current_win()
-		vim.cmd("botright 10split")
-		local blame_win = vim.api.nvim_get_current_win()
-		local blame_buf = make_scratch_buf("git blame: " .. short_name)
-		vim.api.nvim_buf_set_lines(blame_buf, 0, -1, false, lines)
-		vim.bo[blame_buf].modifiable = false
-		vim.api.nvim_win_set_buf(blame_win, blame_buf)
-
-		local augroup = vim.api.nvim_create_augroup("GitBlamePreview_" .. blame_buf, { clear = true })
-		vim.api.nvim_create_autocmd("CursorMoved", {
-			group = augroup,
-			buffer = blame_buf,
-			callback = function()
-				local cursor_row = vim.api.nvim_win_get_cursor(blame_win)[1]
-				local target_line = start_line + cursor_row - 1
-				vim.api.nvim_win_set_cursor(source_win, { target_line, 0 })
-			end,
-		})
-		vim.api.nvim_create_autocmd("BufWipeout", {
-			group = augroup,
-			buffer = blame_buf,
-			callback = function()
-				vim.api.nvim_del_augroup_by_id(augroup)
-			end,
-		})
-
+        handle_git_blame(opts)
 	elseif subcmd == "checkout" then
-		local selected_branch = opts.fargs[2]
-		if not selected_branch then
-			vim.notify("No branch selected", vim.log.levels.WARN)
-			return
-		end
-		exec_shell_with_notification({ "git", "checkout", selected_branch })
-		vim.cmd("checktime")
-
+        handle_git_checkout(opts)
 	elseif subcmd == "logs" then
-		local bufname = vim.api.nvim_buf_get_name(0)
-		if bufname == "" then
-			vim.notify("No file in current buffer", vim.log.levels.WARN)
-			return
-		end
-
-		local result = vim.system({ "git", "log", "--format=%h %s\t%an\t%ai", "--", bufname }, { text = true }):wait()
-		if result.code ~= 0 then
-			vim.notify(result.stderr, vim.log.levels.ERROR)
-			return
-		end
-
-		local lines = vim.split(result.stdout, "\n", { trimempty = true })
-		if #lines == 0 then
-			vim.notify("No commits found for " .. vim.fn.fnamemodify(bufname, ":t"), vim.log.levels.INFO)
-			return
-		end
-
-		local original_ft = vim.bo[0].filetype
-		local git_root = vim.system({ "git", "rev-parse", "--show-toplevel" }, { text = true }):wait().stdout:gsub("\n$", "")
-		local rel_path = bufname:sub(#git_root + 2)
-		local short_name = vim.fn.fnamemodify(bufname, ":t")
-
-		vim.cmd("tabnew")
-
-		-- Left pane: selected commit's version
-		local current_win = vim.api.nvim_get_current_win()
-		local current_buf = make_scratch_buf("git diff (selected): " .. short_name, original_ft)
-		vim.bo[current_buf].modifiable = false
-		vim.api.nvim_win_set_buf(current_win, current_buf)
-
-		-- Right pane: parent commit's version
-		vim.cmd("vsplit")
-		local parent_win = vim.api.nvim_get_current_win()
-		local parent_buf = make_scratch_buf("git diff (parent): " .. short_name, original_ft)
-		vim.bo[parent_buf].modifiable = false
-		vim.api.nvim_win_set_buf(parent_win, parent_buf)
-
-
-		vim.cmd("botright 15split")
-		local log_win = vim.api.nvim_get_current_win()
-		local log_buf = make_scratch_buf("git log: " .. short_name)
-		vim.api.nvim_buf_set_lines(log_buf, 0, -1, false, lines)
-		vim.bo[log_buf].modifiable = false
-		vim.api.nvim_win_set_buf(log_win, log_buf)
-
-		local last_hash = nil
-		local function update_preview()
-			local line = vim.api.nvim_get_current_line()
-			local hash = line:match("^(%x+)")
-			if not hash or hash == last_hash then return end
-			last_hash = hash
-
-			-- Get file content at selected commit
-			local show_result = vim.system({ "git", "show", hash .. ":" .. rel_path }, { text = true }):wait()
-			local current_content
-			if show_result.code ~= 0 then
-				current_content = { "(file did not exist at this commit)" }
-			else
-				current_content = vim.split(show_result.stdout, "\n", { trimempty = false })
-			end
-
-			-- Get file content at parent commit
-			local parent_result = vim.system({ "git", "show", hash .. "~1:" .. rel_path }, { text = true }):wait()
-			local parent_content
-			if parent_result.code ~= 0 then
-				parent_content = { "(file did not exist before this commit)" }
-			else
-				parent_content = vim.split(parent_result.stdout, "\n", { trimempty = false })
-			end
-
-			vim.bo[parent_buf].modifiable = true
-			vim.api.nvim_buf_set_lines(parent_buf, 0, -1, false, parent_content)
-			vim.bo[parent_buf].modifiable = false
-
-			vim.bo[current_buf].modifiable = true
-			vim.api.nvim_buf_set_lines(current_buf, 0, -1, false, current_content)
-			vim.bo[current_buf].modifiable = false
-
-			-- Enable diff mode on both panes
-			vim.api.nvim_win_call(parent_win, function() vim.cmd("diffthis") end)
-			vim.api.nvim_win_call(current_win, function() vim.cmd("diffthis") end)
-		end
-
-		update_preview()
-
-		local augroup = vim.api.nvim_create_augroup("GitLogsPreview_" .. log_buf, { clear = true })
-		vim.api.nvim_create_autocmd("CursorMoved", {
-			group = augroup,
-			buffer = log_buf,
-			callback = update_preview,
-		})
-		vim.api.nvim_create_autocmd("BufWipeout", {
-			group = augroup,
-			buffer = log_buf,
-			callback = function()
-				vim.api.nvim_del_augroup_by_id(augroup)
-			end,
-		})
+        handle_git_logs(opts)
 	end
 end, {
 	nargs = "*",
