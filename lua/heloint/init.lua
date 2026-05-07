@@ -25,5 +25,3 @@ require("heloint.lsp")
 -- Extras
 require("heloint.my_pretty_csv")
 
--- Misc
-require("heloint.my_misc")
