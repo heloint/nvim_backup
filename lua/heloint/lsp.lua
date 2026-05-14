@@ -27,7 +27,13 @@ local lsp_setups = {
         lsp_config_name = "html",
         lsp_cli_executable = "vscode-html-language-server",
         lsp_cli_install_cmd = "npm install -g vscode-langservers-extracted",
-        file_type_patterns = { "htmlangular", "html", "css", "javascript", }
+        file_type_patterns = { "htmlangular", "html", "scss", "css", "javascript", }
+    },
+    {
+        lsp_config_name = "cssls",
+        lsp_cli_executable = "vscode-html-language-server",
+        lsp_cli_install_cmd = "npm install -g vscode-langservers-extracted",
+        file_type_patterns = { "css", "less", "scss" }
     },
 }
 
