@@ -45,6 +45,29 @@ local function detect_and_handle_line_change()
 end
 
 local function handle_closing_tag_insertion()
+
+    local current_line_content = vim.api.nvim_get_current_line()
+
+    local buffer = ""
+    for i = #current_line_content, 1, -1 do
+        local char = current_line_content:sub(i, i)
+
+        if char:match("%s") then
+            buffer = ""
+        elseif char == "<" then
+            break
+        else
+            buffer = buffer .. char
+        end
+    end
+
+    local flipped = ""
+    for i = #buffer, 1, -1 do
+        flipped = flipped .. buffer:sub(i, i)
+    end
+
+    autotag_state.tag_body = flipped
+
 	if self_closing[autotag_state.tag_body] then
 		return
 	end
@@ -89,9 +112,6 @@ vim.api.nvim_create_autocmd("FileType", {
                     autotag_state.is_whitespace_hit = true
                 end
 
-				if autotag_state.is_opened and not autotag_state.is_whitespace_hit then
-					autotag_state.tag_body = autotag_state.tag_body .. vim.v.char
-				end
 			end,
 		})
 
