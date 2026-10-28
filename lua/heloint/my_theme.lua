@@ -3,8 +3,8 @@
 vim.cmd("colorscheme default")
 
 local customColors = {
-	Normal = { bg = "#27272a" },
-	ActiveWindow = { bg = "#27272a" },
+	Normal = { bg = "#32323a" },
+	ActiveWindow = { bg = "#2d2d38" },
 	InactiveWindow = { bg = "#16161D" },
 	NormalFloat = { bg = "none" },
 	FloatBorder = { bg = "none" },
@@ -14,7 +14,8 @@ local customColors = {
 	LineNr = { bg = "#212424" },
 	SignColumn = { bg = "#212424" },
 	WinSeparator = { fg = "#f8fafc", bg = "#334155" },
-	StatusLine = { bg = "#475569", fg = "#f9fafb" },
+	StatusLine = { bg = "#618f57", fg = "#f9fafb" },
+	StatusLineNC = { bg = "#2c4726", fg = "#c4c7cc" },
 	Visual = { bg = "#475569", ctermfg = nil },
 
 	IncSearch = { bg = "#f7b24a", fg = "#000000", bold = true },
