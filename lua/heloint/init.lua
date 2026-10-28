@@ -25,3 +25,6 @@ require("heloint.lsp")
 -- Extras
 require("heloint.my_pretty_csv")
 
+-- Treesitter
+require("heloint.treesitter")
+require("heloint.treesitter_context")

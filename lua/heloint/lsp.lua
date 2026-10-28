@@ -6,9 +6,9 @@ local lsp_setups = {
         file_type_patterns = { "javascript", "typescript", "javascriptreact", "typescriptreact" },
     },
     {
-        lsp_config_name = "basedpyright",
-        lsp_cli_executable = "basedpyright",
-        lsp_cli_install_cmd = "npm install -g basedpyright typescript",
+        lsp_config_name = "pyright",
+        lsp_cli_executable = "pyright",
+        lsp_cli_install_cmd = "npm install -g pyright typescript",
         file_type_patterns = { "python" },
     },
     {
@@ -34,6 +34,12 @@ local lsp_setups = {
         lsp_cli_executable = "vscode-html-language-server",
         lsp_cli_install_cmd = "npm install -g vscode-langservers-extracted",
         file_type_patterns = { "css", "less", "scss" }
+    },
+    {
+        lsp_config_name = "pug",
+        lsp_cli_executable = "pug-lsp",
+        lsp_cli_install_cmd = "echo install_manually",
+        file_type_patterns = { "pug" }
     },
 }
 
@@ -65,21 +71,15 @@ for i, lsp_setup in ipairs(lsp_setups) do
 
 end
 
-
--- ADDITIONAL CONFIGS
--- ==================
-
-vim.lsp.config("basedpyright", {
-	settings = {
-		basedpyright = {
-			typeCheckingMode = "standard", -- "off" | "basic" | "standard" | "strict" | "all"
-			disableBytesTypePromotions = false,
-			analysis = {
-				autoSearchPaths = true,
-				useLibraryCodeForTypes = true,
-				diagnosticMode = "workspace", -- only check open files, not the whole project
-				-- ignore = { "*" },                 -- ignore all files (most aggressive)
-			},
-		},
-	},
+vim.lsp.config("pyright", {
+    settings = {
+        python = {
+          analysis = {
+            autoSearchPaths = true,
+            diagnosticMode = "openFilesOnly",
+            useLibraryCodeForTypes = true,
+            typeCheckingMode = "basic",
+          }
+        }
+    }
 })

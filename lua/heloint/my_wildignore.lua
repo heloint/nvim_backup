@@ -66,7 +66,6 @@ local function get_all_git_ignored_paths()
 	local directory_results = vim.fn.systemlist("git check-ignore **/*")
 	-- Check for errors by inspecting the exit code
 	if vim.v.shell_error ~= 0 then
-		print("Error running git ls-files command")
 		return nil
 	end
 	directory_results = add_stars_to_paths(directory_results)
@@ -75,7 +74,6 @@ local function get_all_git_ignored_paths()
 	local file_results = vim.fn.systemlist("git check-ignore **")
 	-- Check for errors by inspecting the exit code
 	if vim.v.shell_error ~= 0 then
-		print("Error running git ls-files command")
 		return nil
 	end
 
